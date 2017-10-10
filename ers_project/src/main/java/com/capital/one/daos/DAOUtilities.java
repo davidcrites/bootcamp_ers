@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 public class DAOUtilities {
 	
 	//private static AnimalDaoImpl animalDaoImpl;
-	//private static FeedingScheduleImpl FeedingScheduleDaoImpl;
+	private static EmployeeDAOImpl employeeDaoImpl;
 	private static Connection connection;
 	private static Logger log = Logger.getRootLogger();
 
@@ -33,12 +33,12 @@ public class DAOUtilities {
 //		return animalDaoImpl;
 //	}
 //	
-//	public static synchronized FeedingScheduleDAO getFeedingScheduleDao() {
-//		if (FeedingScheduleDaoImpl == null) {
-//			FeedingScheduleDaoImpl = new FeedingScheduleImpl();
-//		}
-//		return FeedingScheduleDaoImpl;
-//	}
+	public static synchronized EmployeeDAO getEmployeeDao() {
+		if (employeeDaoImpl == null) {
+			employeeDaoImpl = new EmployeeDAOImpl();
+		}
+		return employeeDaoImpl;
+	}
 
 	static synchronized Connection getConnection() throws SQLException {
 		log.debug("Attempting to get connection");

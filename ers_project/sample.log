@@ -1,0 +1,68 @@
+2017-10-10 18:23:06 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:23:06 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:23:06 TRACE root:59 - getting connection from data source
+2017-10-10 18:23:06 TRACE root:62 - retreived connection from data source
+2017-10-10 18:24:41 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:24:41 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:24:41 TRACE root:59 - getting connection from data source
+2017-10-10 18:24:41 TRACE root:62 - retreived connection from data source
+2017-10-10 18:26:44 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:26:44 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:26:44 TRACE root:59 - getting connection from data source
+2017-10-10 18:26:44 TRACE root:62 - retreived connection from data source
+2017-10-10 18:27:50 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:27:50 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:27:50 TRACE root:59 - getting connection from data source
+2017-10-10 18:27:50 TRACE root:62 - retreived connection from data source
+2017-10-10 18:28:59 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:28:59 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:28:59 TRACE root:59 - getting connection from data source
+2017-10-10 18:28:59 TRACE root:62 - retreived connection from data source
+2017-10-10 18:30:04 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:30:04 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:30:04 TRACE root:59 - getting connection from data source
+2017-10-10 18:30:04 TRACE root:62 - retreived connection from data source
+2017-10-10 18:34:01 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:34:01 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:34:01 TRACE root:59 - getting connection from data source
+2017-10-10 18:34:02 TRACE root:62 - retreived connection from data source
+2017-10-10 18:34:02 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:34:02 TRACE root:59 - getting connection from data source
+2017-10-10 18:34:02 TRACE root:62 - retreived connection from data source
+2017-10-10 18:35:33 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:35:33 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:35:33 TRACE root:59 - getting connection from data source
+2017-10-10 18:35:33 TRACE root:62 - retreived connection from data source
+2017-10-10 18:35:33 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:35:33 TRACE root:59 - getting connection from data source
+2017-10-10 18:35:33 TRACE root:62 - retreived connection from data source
+2017-10-10 18:37:59 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:37:59 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:37:59 TRACE root:59 - getting connection from data source
+2017-10-10 18:37:59 TRACE root:62 - retreived connection from data source
+2017-10-10 18:37:59 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:37:59 TRACE root:59 - getting connection from data source
+2017-10-10 18:37:59 TRACE root:62 - retreived connection from data source
+2017-10-10 18:38:52 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:38:52 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:38:52 TRACE root:59 - getting connection from data source
+2017-10-10 18:38:52 TRACE root:62 - retreived connection from data source
+2017-10-10 18:38:52 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:38:52 TRACE root:59 - getting connection from data source
+2017-10-10 18:38:52 TRACE root:62 - retreived connection from data source
+2017-10-10 18:39:23 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:39:23 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:39:23 TRACE root:59 - getting connection from data source
+2017-10-10 18:39:23 TRACE root:62 - retreived connection from data source
+2017-10-10 18:39:23 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:39:23 TRACE root:59 - getting connection from data source
+2017-10-10 18:39:23 TRACE root:62 - retreived connection from data source
+2017-10-10 18:41:03 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:41:03 TRACE root:48 - connection was null, registering driver
+2017-10-10 18:41:03 TRACE root:59 - getting connection from data source
+2017-10-10 18:41:03 TRACE root:62 - retreived connection from data source
+2017-10-10 18:41:03 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:41:03 TRACE root:59 - getting connection from data source
+2017-10-10 18:41:03 TRACE root:62 - retreived connection from data source
+2017-10-10 18:45:33 DEBUG root:44 - Attempting to get connection
+2017-10-10 18:45:33 DEBUG root:44 - Attempting to get connection
