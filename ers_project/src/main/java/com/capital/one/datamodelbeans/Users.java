@@ -1,5 +1,7 @@
 package com.capital.one.datamodelbeans;
 
+import com.capital.one.daos.DAOUtilities;
+
 /**
  * Class used to represent data model table for table ers_users
  * 
@@ -76,18 +78,16 @@ public class Users {
 	public int getUserRoleId() {
 		return userRoleId;
 	}
-	public void setUserRoleId(int userRoleId) {
-		this.userRoleId = userRoleId;
-		this.setRole(userRoleId);
-		
-	}
+
 	public UserRoles getRole() {
 		return role;
 	}
 	public void setRole(int userRoleId) {
 		//String newRole = [Call DAO method to return Role using userRoleId]
-		//this.role.setRoleId(userRoleId);
-		//this.role.setUserRole(newRole);
+		String newRole = DAOUtilities.getEmployeeRole(userRoleId);
+		this.userRoleId = userRoleId;
+		this.role.setErsUserRoleid(userRoleId);
+		this.role.setUserRole(newRole);
 	}
 	@Override
 	public int hashCode() {
