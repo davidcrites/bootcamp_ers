@@ -67,10 +67,10 @@ public class EmployeeMenuScreen {
 				scan.nextLine();
 				types = scan.nextLine();
 				if ("0".equals(types)) {
-					System.out.println("employee.getErsUsersId() returns " + employee.getErsUsersId());
+					//System.out.println("employee.getErsUsersId() returns " + employee.getErsUsersId());
 					reimbursementsResultList = dao.viewEmployeeTickets(employee.getErsUsersId(), false);
 				}else {
-					String[] parts = types.split(" ");
+					String[] parts = types.split(" "); //parsing the arguments to see what types they want to filter by
 					int[] Types = new int[parts.length];
 					for(int n = 0; n < parts.length; n++) {
 					   try {

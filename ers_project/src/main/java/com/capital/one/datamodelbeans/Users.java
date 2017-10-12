@@ -36,8 +36,9 @@ public class Users {
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
 		this.userEmail = userEmail;
-		this.userRoleId = userRoleId;
-		this.role.setErsUserRoleid(userRoleId); //this will set the RoleId and Role of the Role
+		this.setRole(userRoleId);
+		//we will call the below privately from the above set
+		//this.role.setErsUserRoleid(userRoleId); //this will set the RoleId and Role of the Role
 	}
 	public int getErsUsersId() {
 		return ersUsersId;
