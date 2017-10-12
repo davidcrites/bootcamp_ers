@@ -10,16 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.servlets.DefaultServlet;
+import org.apache.log4j.Logger;
+
+import com.capital.one.controllers.UserController;
 import com.capital.one.datamodelbeans.Users;
 
 
 
-public class FrontControllerServlet extends HttpServlet{
+public class FrontControllerServlet extends DefaultServlet{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	Logger log = Logger.getRootLogger();
+	UserController uc = new UserController();
 	
 	
 	@Override
@@ -37,7 +43,22 @@ public class FrontControllerServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		
 		System.out.println("Processing Front Controller Get Request.");
-		super.doGet(req, resp);
+		String requestURL = req.getRequestURI().substring(req.getContextPath().length());
+		log.debug("request made with url: " + requestURL);
+		
+		//process static requests normally
+		if(req.getRequestURI()
+				.substring(req.getContextPath().length())
+				.startsWith("/static/")){
+			super.doGet(req, resp);
+		}
+		
+		// route to user controller
+		if(requestURL.startsWith("/users")) {
+			uc.processGetRequests(req, resp);
+		}
+		
+		//req.getRequestDispatcher("/static/ERS_signin.html").forward(req, resp);
 		
 		//below only works with the user bean defined...casting to User because only know it is an object
 //		System.out.println((User)req.getSession().getAttribute("user"));
@@ -49,6 +70,14 @@ public class FrontControllerServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//super.doPost(req, resp);
+		
+		String requestURL = req.getRequestURI().substring(req.getContextPath().length());
+		log.debug("request made with url: " + requestURL);
+		
+		// route to user controller
+		if(requestURL.startsWith("/users")) {
+			uc.processPostRequests(req, resp);
+		}
 		
 		//below was a test and only works if you had a user bean defined with the login method to store the user w/attributes
 //		HttpSession sess = req.getSession();

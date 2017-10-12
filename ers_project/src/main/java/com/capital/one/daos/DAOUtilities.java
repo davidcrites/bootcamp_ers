@@ -232,7 +232,7 @@ public class DAOUtilities {
 		
 		try {
 			log.trace("getting connection from data source");
-			dbProps.load(new FileInputStream("src/main/resources/database.properties"));
+			dbProps.load(new FileInputStream("/Users/den421/Documents/bootcamp_ers/ers_project/src/main/resources/database.properties"));
 			connection = DriverManager.getConnection(dbProps.getProperty("url"), dbProps.getProperty("username"), dbProps.getProperty("password"));
 			log.trace("retreived connection from data source");
 			return connection;
