@@ -2,6 +2,7 @@ package com.capital.one.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,10 @@ public class FrontControllerServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		//super.doGet(req, resp);
 		System.out.println("Processing Front Controller Get Request.");
+		ServletConfig config = getServletConfig();
+		System.out.println(config.getInitParameter("param1"));
 	}
+	
+
 
 }

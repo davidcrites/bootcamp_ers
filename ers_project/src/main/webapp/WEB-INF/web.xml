@@ -4,10 +4,15 @@
   <servlet>
   	<servlet-name>FrontControllerServlet</servlet-name>
   	<servlet-class>com.capital.one.servlets.FrontControllerServlet</servlet-class>
+  	<init-param>
+	  	<param-name>param1</param-name>
+	  	<param-value>hello</param-value>
+  	</init-param>
   	<load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
 		<servlet-name>FrontControllerServlet</servlet-name>
 		<url-pattern>/erslogin</url-pattern>
   </servlet-mapping>
+  
 </web-app>
