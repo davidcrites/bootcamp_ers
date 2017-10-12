@@ -18,7 +18,7 @@
   </servlet>
   <servlet-mapping>
 		<servlet-name>FrontControllerServlet</servlet-name>
-		<url-pattern>/erslogin</url-pattern>
+		<url-pattern>/static/</url-pattern>
   </servlet-mapping>
   
 </web-app>
