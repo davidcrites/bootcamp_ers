@@ -12,18 +12,13 @@ import com.capital.one.datamodelbeans.Reimbursement;
 
 public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
-    public static void main(String[] args) {
-        filterByStatus("Pending");
-
-    }
-
     /***
      * Gets All Records from ERS Reimbursement Tablet
      * 
      * @return
      */
 
-    public static List<Reimbursement> getAllEmployeeReimbursement() {
+    public List<Reimbursement> getAllEmployeeReimbursement() {
 
         try {
             Connection conn = DriverManager.getConnection(
@@ -66,7 +61,7 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
      * @return
      */
 
-    public static List<Reimbursement> filterByStatus(String status) {
+    public List<Reimbursement> filterByStatus(String status) {
         try {
             Connection conn = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
@@ -110,7 +105,45 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     }
 
-    public void approveDenyRequest() {
+    public boolean approveRequest(int id) {
+        try {
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+                    "Knolls2056");
+
+            Statement stmt = conn.createStatement();
+
+            stmt.executeUpdate("UPDATE ers_reimbursement SET reimb_status_id=2" +
+                    "WHERE reimb_status_id=1 And reimb_id=" + id);
+            return true;
+        }
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+            return false;
+        }
+
+    }
+
+    public boolean denyRequest(int id) {
+        try {
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+                    "Knolls2056");
+
+            Statement stmt = conn.createStatement();
+
+            stmt.executeUpdate("UPDATE ers_reimbursement SET reimb_status_id=3" +
+                    "WHERE reimb_status_id=1 And reimb_id=" + id);
+            return true;
+        }
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+            return false;
+        }
 
     }
 
