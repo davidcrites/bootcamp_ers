@@ -28,17 +28,8 @@ public class DAOUtilities {
 
     private static Logger log = Logger.getLogger("DAOUtilities");
 
-    // *******CAN ADD VERSIONS OF THIS FOR OUR DAO Implementations....these are methods that we will need
-    // *******to call from our "screens" package for now....so the screens will be able to use the methods in our
-    // DAOImplementation classes
-    // public static synchronized AnimalDAO getAnimalDao() {
-    //
-    // if (animalDaoImpl == null) {
-    // animalDaoImpl = new AnimalDaoImpl();
-    // }
-    // return animalDaoImpl;
-    // }
-    //
+
+    
     public static synchronized EmployeeDAO getEmployeeDao() {
         if (employeeDaoImpl == null) {
             employeeDaoImpl = new EmployeeDAOImpl();
@@ -65,8 +56,11 @@ public class DAOUtilities {
             // System.out.println(sql);
 
             ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-            return rs.getString("user_role");
+            log.debug("roleId = " + roleId);
+            if(roleId != 0) {
+	            rs.next();
+	            return rs.getString("user_role");
+            }
         }
         catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -197,8 +191,11 @@ public class DAOUtilities {
             // System.out.println(sql);
 
             ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-            return rs.getString("ers_username");
+            
+            if (userId != 0) {
+	            rs.next();
+	            return rs.getString("ers_username");
+            }
         }
         catch (SQLException e) {
             // TODO Auto-generated catch block
