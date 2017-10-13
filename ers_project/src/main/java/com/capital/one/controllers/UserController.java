@@ -12,12 +12,12 @@ import com.capital.one.services.UserService;
 
 public class UserController {
 	
-	private Logger log = Logger.getRootLogger();
+	private Logger log = Logger.getLogger("UserController");
 	private UserService us = new UserService();
 	Users myUser = new Users();
 	
 	public void processGetRequests(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		System.out.println("UserController processing get request");
+		log.info("UserController processing get request");
 		// I'm not populating a list here like he was...could do later but for now, nothing I want to do on get request.
 		
 //		String requestUrl = req.getRequestURI().substring(req.getContextPath().length());
@@ -38,7 +38,7 @@ public class UserController {
 	}
 	
 	public void processPostRequests(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		System.out.println("UserController processing post request.");
+		log.info("UserController processing post request.");
 		String requestUrl = req.getRequestURI().substring(req.getContextPath().length());
 
 		switch (requestUrl) {
@@ -52,10 +52,11 @@ public class UserController {
 	}
 	
 	private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		myUser = (Users) req.getSession().getAttribute("currentUser");
-		System.out.println("Current Role ID = " + req.getSession().getAttribute("currentRoleId"));
+		
+
 		if (us.login(req)) {
-			if((int)req.getSession().getAttribute("currentRoleId")==2) {
+			myUser = ((Users) req.getSession().getAttribute("currentUser"));
+			if(myUser.getUserRoleId()==2) {
 				resp.sendRedirect("/ers_project/static/FinanceManagerMenu.html");
 			} else {
 				resp.sendRedirect("/ers_project/static/EmployeeMenu.html");
