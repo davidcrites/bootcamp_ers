@@ -5,13 +5,15 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.capital.one.daos.DAOUtilities;
 import com.capital.one.daos.EmployeeDAO;
 import com.capital.one.daos.EmployeeDAOImpl;
 import com.capital.one.datamodelbeans.Users;
 
 public class UserService {
 	
-	EmployeeDAO empDao = new EmployeeDAOImpl();
+	EmployeeDAO empDao = DAOUtilities.getEmployeeDao();
+	//EmployeeDAO empDao = new EmployeeDAOImpl();
 	Logger log = Logger.getLogger("UserService");
 	Users newUser = new Users();
 
@@ -27,6 +29,7 @@ public class UserService {
 
 		if (newUser != null) {
 			req.getSession().setAttribute("currentUser", newUser);
+			req.getSession().setAttribute("currentRoleId", newUser.getUserRoleId());
 			log.info("user " + username + " succesfully logged in");
 			return true;
 		}

@@ -49,6 +49,7 @@ public class FrontControllerServlet extends DefaultServlet{
 		//process Employee or Finance Manager static requests only if authorized
 		if(requestURL.startsWith("/static/Employee")){
 			log.debug("got to Employee check");
+			log.debug(req.getSession().getAttribute("currentRoleId"));
 			try {
 				if((int)req.getSession().getAttribute("currentRoleId")==1 ||
 						(int)req.getSession().getAttribute("currentRoleId")==2) {
@@ -64,6 +65,7 @@ public class FrontControllerServlet extends DefaultServlet{
 		
 		if(requestURL.startsWith("/static/FinanceManager")){
 			log.debug("got to Manager check");
+			log.debug(req.getSession().getAttribute("currentRoleId"));
 			try {
 				if((int)req.getSession().getAttribute("currentRoleId")==2){
 					super.doGet(req, resp);
