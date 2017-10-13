@@ -12,7 +12,7 @@ import com.capital.one.datamodelbeans.Users;
 public class UserService {
 	
 	EmployeeDAO empDao = new EmployeeDAOImpl();
-	Logger log = Logger.getRootLogger();
+	Logger log = Logger.getLogger("UserService");
 	Users newUser = new Users();
 
 	public boolean login(HttpServletRequest req) {
@@ -24,11 +24,9 @@ public class UserService {
 		log.debug("user " + username + " is trying to login");
 		
 		newUser = empDao.loginEmployee(username, email, password);
-		System.out.println(newUser);
 
 		if (newUser != null) {
 			req.getSession().setAttribute("currentUser", newUser);
-			req.getSession().setAttribute("currentRoleId", newUser.getUserRoleId());
 			log.info("user " + username + " succesfully logged in");
 			return true;
 		}

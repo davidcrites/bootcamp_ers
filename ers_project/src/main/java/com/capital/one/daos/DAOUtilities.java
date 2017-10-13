@@ -27,7 +27,7 @@ public class DAOUtilities {
 	//private static AnimalDaoImpl animalDaoImpl;
 	private static EmployeeDAOImpl employeeDaoImpl;
 	private static Connection connection;
-	private static Logger log = Logger.getRootLogger();
+	private static Logger log = Logger.getLogger("DAOUtilities");
 
 
 // *******CAN ADD VERSIONS OF THIS FOR OUR DAO Implementations....these are methods that we will need

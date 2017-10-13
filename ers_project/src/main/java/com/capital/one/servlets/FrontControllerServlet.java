@@ -24,7 +24,7 @@ public class FrontControllerServlet extends DefaultServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Logger log = Logger.getRootLogger();
+	Logger log = Logger.getLogger("FrontControllerServlet");
 	UserController uc = new UserController();
 	
 	
@@ -42,13 +42,13 @@ public class FrontControllerServlet extends DefaultServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("Processing Front Controller Get Request.");
+		log.debug("Processing Front Controller Get Request.");
 		String requestURL = req.getRequestURI().substring(req.getContextPath().length());
 		log.debug("request made with url: " + requestURL);
 		
 		//process Employee or Finance Manager static requests only if authorized
 		if(requestURL.startsWith("/static/Employee")){
-			System.out.println("got to Employee check");
+			log.debug("got to Employee check");
 			try {
 				if((int)req.getSession().getAttribute("currentRoleId")==1 ||
 						(int)req.getSession().getAttribute("currentRoleId")==2) {
@@ -63,7 +63,7 @@ public class FrontControllerServlet extends DefaultServlet{
 		}
 		
 		if(requestURL.startsWith("/static/FinanceManager")){
-			System.out.println("got to Manager check");
+			log.debug("got to Manager check");
 			try {
 				if((int)req.getSession().getAttribute("currentRoleId")==2){
 					super.doGet(req, resp);
@@ -80,7 +80,7 @@ public class FrontControllerServlet extends DefaultServlet{
 		if(req.getRequestURI()
 				.substring(req.getContextPath().length())
 				.startsWith("/static/")){
-			System.out.println("processing normally");
+			log.info("processing normally");
 			super.doGet(req, resp);
 		}
 		
