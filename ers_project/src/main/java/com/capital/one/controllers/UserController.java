@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.capital.one.datamodelbeans.Users;
+import com.capital.one.services.UserService;
 
 public class UserController {
 	

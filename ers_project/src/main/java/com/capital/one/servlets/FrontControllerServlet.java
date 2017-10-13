@@ -46,10 +46,41 @@ public class FrontControllerServlet extends DefaultServlet{
 		String requestURL = req.getRequestURI().substring(req.getContextPath().length());
 		log.debug("request made with url: " + requestURL);
 		
-		//process static requests normally
+		//process Employee or Finance Manager static requests only if authorized
+		if(requestURL.startsWith("/static/Employee")){
+			System.out.println("got to Employee check");
+			try {
+				if((int)req.getSession().getAttribute("currentRoleId")==1 ||
+						(int)req.getSession().getAttribute("currentRoleId")==2) {
+					super.doGet(req, resp);
+				} else {
+					req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
+				}
+			}
+			catch (NullPointerException npe) {
+				req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
+			}
+		}
+		
+		if(requestURL.startsWith("/static/FinanceManager")){
+			System.out.println("got to Manager check");
+			try {
+				if((int)req.getSession().getAttribute("currentRoleId")==2){
+					super.doGet(req, resp);
+				} else {
+					req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
+				}
+			}
+			catch(NullPointerException npe) {
+				req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
+			}
+		}
+
+		//process other static requests normally
 		if(req.getRequestURI()
 				.substring(req.getContextPath().length())
 				.startsWith("/static/")){
+			System.out.println("processing normally");
 			super.doGet(req, resp);
 		}
 		
