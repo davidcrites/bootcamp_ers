@@ -41,6 +41,7 @@ public class LoginScreen {
 					System.out.println("Would move on to the Finance Manager Menu Screen Now passing the following user:");
 					System.out.println(newUser);
 					// call Finance Manager Menu Screen .run() method, passing in newUser *****DONNA TODO**********
+					FinanceManagerMenuScreen.run(newUser);
 					// will comment out authenticated = true later...if they return from the run() method then they have chosen to logout
 					// so should be prompted for the login again.
 					authenticated = true; //will never get here if .run() method took us to next screen

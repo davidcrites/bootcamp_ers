@@ -66,3 +66,307 @@
 2017-10-10 18:41:03 TRACE root:62 - retreived connection from data source
 2017-10-10 18:45:33 DEBUG root:44 - Attempting to get connection
 2017-10-10 18:45:33 DEBUG root:44 - Attempting to get connection
+2017-10-13 18:24:11 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:24:11 TRACE DAOUtilities:227 - connection was null, registering driver
+2017-10-13 18:24:11 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:24:11 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:24:11 ERROR EmployeeDAOImpl:63 - There was no user found with that name and email!
+2017-10-13 18:24:11 INFO  EmployeeDAOImpl:80 - Username or Password was incorrect.
+2017-10-13 18:24:27 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:24:27 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:24:27 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:24:27 INFO  EmployeeDAOImpl:84 - You successfully authenticated!
+2017-10-13 18:24:27 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:24:27 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:24:27 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:24:27 DEBUG EmployeeDAOImpl:95 - result set has data - populate authenticatedUser
+2017-10-13 18:24:27 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:24:27 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:24:27 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:24:27 INFO  EmployeeDAOImpl:109 - Finished getting an authenticated user...returning him
+2017-10-13 18:25:48 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:25:48 TRACE DAOUtilities:227 - connection was null, registering driver
+2017-10-13 18:25:48 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:25:49 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:25:49 INFO  EmployeeDAOImpl:84 - You successfully authenticated!
+2017-10-13 18:25:49 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:25:49 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:25:49 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:25:49 DEBUG EmployeeDAOImpl:95 - result set has data - populate authenticatedUser
+2017-10-13 18:25:49 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:25:49 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:25:49 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:25:49 INFO  EmployeeDAOImpl:109 - Finished getting an authenticated user...returning him
+2017-10-13 18:26:06 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:26:06 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:26:06 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:26:06 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:26:06 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:26:06 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:26:06 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:26:06 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:26:06 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:26:06 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:26:06 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:26:06 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:26:06 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:26:06 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:26:06 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:26:48 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:26:48 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:26:48 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:27:04 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:27:04 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:27:04 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:27:04 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:27:04 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:27:04 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:27:04 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:27:04 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:27:04 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:27:04 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:27:04 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:27:04 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:27:04 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:27:04 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:27:04 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:27:04 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:27:04 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:27:04 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:27:04 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:27:04 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:27:04 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:27:04 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:27:04 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:27:04 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:27:04 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:27:04 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:27:04 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:30:31 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:30:31 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:30:31 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:30:31 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:30:31 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:30:31 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:30:31 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:30:31 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:30:31 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:30:31 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:30:31 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:30:31 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:30:31 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:30:31 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:30:31 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:30:31 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:30:31 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:30:31 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:30:31 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:30:31 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:30:31 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:30:31 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:30:31 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:30:31 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:30:31 DEBUG DAOUtilities:223 - Attempting to get connection
+2017-10-13 18:30:31 TRACE DAOUtilities:239 - getting connection from data source
+2017-10-13 18:30:31 TRACE DAOUtilities:244 - retreived connection from data source
+2017-10-13 18:32:55 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:32:55 TRACE DAOUtilities:229 - connection was null, registering driver
+2017-10-13 18:32:55 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:32:55 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:32:55 INFO  EmployeeDAOImpl:84 - You successfully authenticated!
+2017-10-13 18:32:55 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:32:55 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:32:55 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:32:55 DEBUG EmployeeDAOImpl:95 - result set has data - populate authenticatedUser
+2017-10-13 18:32:55 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:32:55 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:32:55 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:32:55 INFO  EmployeeDAOImpl:109 - Finished getting an authenticated user...returning him
+2017-10-13 18:33:01 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:33:01 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:33:01 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:33:01 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:33:01 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:33:01 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:33:01 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:33:01 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:33:01 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:33:01 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:33:01 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:33:01 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:33:01 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:33:01 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:33:01 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:33:01 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:33:01 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:33:01 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:33:01 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:33:01 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:33:01 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:33:01 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:33:01 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:33:01 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:33:01 DEBUG DAOUtilities:225 - Attempting to get connection
+2017-10-13 18:33:01 TRACE DAOUtilities:241 - getting connection from data source
+2017-10-13 18:33:01 TRACE DAOUtilities:246 - retreived connection from data source
+2017-10-13 18:35:41 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:41 TRACE DAOUtilities:231 - connection was null, registering driver
+2017-10-13 18:35:41 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:41 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:41 INFO  EmployeeDAOImpl:84 - You successfully authenticated!
+2017-10-13 18:35:41 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:41 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:41 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:41 DEBUG EmployeeDAOImpl:95 - result set has data - populate authenticatedUser
+2017-10-13 18:35:41 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:41 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:41 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:41 DEBUG DAOUtilities:59 - roleId = 2
+2017-10-13 18:35:41 INFO  EmployeeDAOImpl:109 - Finished getting an authenticated user...returning him
+2017-10-13 18:35:49 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:49 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:49 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:49 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:49 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:49 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:49 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:49 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:49 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:49 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:49 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:49 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:49 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:49 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:49 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:49 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:49 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:49 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:49 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:49 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:49 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:49 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:49 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:49 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:35:49 DEBUG DAOUtilities:227 - Attempting to get connection
+2017-10-13 18:35:49 TRACE DAOUtilities:243 - getting connection from data source
+2017-10-13 18:35:49 TRACE DAOUtilities:248 - retreived connection from data source
+2017-10-13 18:38:15 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:15 TRACE DAOUtilities:234 - connection was null, registering driver
+2017-10-13 18:38:15 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:15 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:15 INFO  EmployeeDAOImpl:84 - You successfully authenticated!
+2017-10-13 18:38:15 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:15 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:15 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:15 DEBUG EmployeeDAOImpl:95 - result set has data - populate authenticatedUser
+2017-10-13 18:38:15 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:15 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:15 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:15 DEBUG DAOUtilities:59 - roleId = 2
+2017-10-13 18:38:15 INFO  EmployeeDAOImpl:109 - Finished getting an authenticated user...returning him
+2017-10-13 18:38:22 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:22 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:22 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:22 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:22 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:22 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:22 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:22 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:22 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:22 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:22 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:22 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:22 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:22 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:22 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:22 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:22 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:22 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:22 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:22 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:22 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:22 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:22 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:22 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:38:22 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:38:22 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:38:22 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:39:07 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:39:07 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:39:07 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:39:07 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:39:07 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:39:07 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:39:07 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:39:07 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:39:07 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:39:07 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:39:07 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:39:07 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:39:28 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:39:28 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:39:28 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:43:54 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:43:54 TRACE DAOUtilities:234 - connection was null, registering driver
+2017-10-13 18:43:54 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:43:54 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:43:54 INFO  EmployeeDAOImpl:84 - You successfully authenticated!
+2017-10-13 18:43:54 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:43:54 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:43:54 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:43:54 DEBUG EmployeeDAOImpl:95 - result set has data - populate authenticatedUser
+2017-10-13 18:43:54 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:43:54 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:43:54 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:43:54 DEBUG DAOUtilities:59 - roleId = 2
+2017-10-13 18:43:54 INFO  EmployeeDAOImpl:109 - Finished getting an authenticated user...returning him
+2017-10-13 18:44:02 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:02 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:02 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:44:02 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:02 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:02 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:44:02 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:02 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:02 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:44:02 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:02 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:02 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:44:02 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:02 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:02 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:44:20 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:20 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:20 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:44:20 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:20 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:20 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:44:20 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:20 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:20 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:44:20 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:20 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:20 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:44:20 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:44:20 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:44:20 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:46:19 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:46:19 TRACE DAOUtilities:234 - connection was null, registering driver
+2017-10-13 18:46:19 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:46:19 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:46:19 INFO  EmployeeDAOImpl:84 - You successfully authenticated!
+2017-10-13 18:46:19 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:46:19 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:46:19 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:46:19 DEBUG EmployeeDAOImpl:95 - result set has data - populate authenticatedUser
+2017-10-13 18:46:19 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:46:19 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:46:19 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:46:19 DEBUG DAOUtilities:59 - roleId = 2
+2017-10-13 18:46:19 INFO  EmployeeDAOImpl:109 - Finished getting an authenticated user...returning him
+2017-10-13 18:46:30 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:46:30 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:46:30 TRACE DAOUtilities:251 - retreived connection from data source
+2017-10-13 18:46:41 DEBUG DAOUtilities:230 - Attempting to get connection
+2017-10-13 18:46:41 TRACE DAOUtilities:246 - getting connection from data source
+2017-10-13 18:46:41 TRACE DAOUtilities:251 - retreived connection from data source
