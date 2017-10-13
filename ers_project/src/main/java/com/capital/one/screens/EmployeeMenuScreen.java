@@ -24,8 +24,8 @@ public class EmployeeMenuScreen {
 		
 		while (choice ==0) {
 			System.out.println("Hello, " + employee.getUserFirstName() + "!  Which of the following would you like to do:");
-			System.out.println("1) View your resolved Reimbursements (Approved/Denied)");
-			System.out.println("2) View your pending Reimbursement tickets");
+			System.out.println("1) View resolved Reimbursements (Approved/Denied) for a specific employee");
+			System.out.println("2) View pending Reimbursement tickets for a specific employee");
 			System.out.println("3) Submit a new reimbursement");
 			System.out.println("4) Logout/Quit");
 			
@@ -67,10 +67,10 @@ public class EmployeeMenuScreen {
 				scan.nextLine();
 				types = scan.nextLine();
 				if ("0".equals(types)) {
-					System.out.println("employee.getErsUsersId() returns " + employee.getErsUsersId());
+					//System.out.println("employee.getErsUsersId() returns " + employee.getErsUsersId());
 					reimbursementsResultList = dao.viewEmployeeTickets(employee.getErsUsersId(), false);
 				}else {
-					String[] parts = types.split(" ");
+					String[] parts = types.split(" "); //parsing the arguments to see what types they want to filter by
 					int[] Types = new int[parts.length];
 					for(int n = 0; n < parts.length; n++) {
 					   try {

@@ -22,11 +22,11 @@ public class DAOUtilities {
     // private static AnimalDaoImpl animalDaoImpl;
     private static EmployeeDAOImpl employeeDaoImpl;
 
-    private static FinanceManagerDaoImpl fianceManagerDaoImpl;
+    private static FinanceManagerDao fianceManagerDaoImpl;
 
     private static Connection connection;
 
-    private static Logger log = Logger.getRootLogger();
+    private static Logger log = Logger.getLogger("DAOUtilities");
 
     // *******CAN ADD VERSIONS OF THIS FOR OUR DAO Implementations....these are methods that we will need
     // *******to call from our "screens" package for now....so the screens will be able to use the methods in our
@@ -247,7 +247,8 @@ public class DAOUtilities {
 
         try {
             log.trace("getting connection from data source");
-            dbProps.load(new FileInputStream("src/main/resources/database.properties"));
+            dbProps.load(new FileInputStream(
+                    "/Users/den421/Documents/bootcamp_ers/ers_project/src/main/resources/database.properties"));
             connection = DriverManager.getConnection(dbProps.getProperty("url"), dbProps.getProperty("username"),
                     dbProps.getProperty("password"));
             log.trace("retreived connection from data source");

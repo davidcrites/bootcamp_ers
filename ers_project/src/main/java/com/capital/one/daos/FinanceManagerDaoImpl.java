@@ -35,7 +35,7 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
                 reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
                 reimbursement.setReimbDescription(rs.getString("reimb_description"));
-                reimbursement.setAuthorId(rs.getInt("reimb_author"));
+                reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
                 reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
                 reimbursement.setReimbStatusId(rs.getInt("reimb_status_id"));
                 reimbursement.setReimbTypeId(rs.getInt("reimb_type_id"));
@@ -85,7 +85,7 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
                 reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
                 reimbursement.setReimbDescription(rs.getString("reimb_description"));
-                reimbursement.setAuthorId(rs.getInt("reimb_author"));
+                reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
                 reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
                 reimbursement.getStatus().setReimbStatus(rs.getString("reimb_status"));
 

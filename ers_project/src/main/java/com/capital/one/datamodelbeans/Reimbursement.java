@@ -2,6 +2,9 @@ package com.capital.one.datamodelbeans;
 
 import java.time.LocalDateTime;
 
+import com.capital.one.daos.DAOUtilities;
+import com.capital.one.daos.EmployeeDAO;
+
 /**
  * Class used to represent data model table for table ers_reimbursement
  * 
@@ -27,6 +30,7 @@ public class Reimbursement {
 	private ReimbursementStatus status = new ReimbursementStatus();
 	private ReimbursementType type = new ReimbursementType();
 	
+	
 	public Reimbursement() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -40,14 +44,15 @@ public class Reimbursement {
 		this.reimbSubmitted = reimbSubmitted;
 		this.reimbResolved = reimbResolved;
 		this.reimbDescription = reimbDescription;
-		this.reimbAuthor = reimbAuthor;
-		this.reimbResolver = reimbResolver;
-		this.reimbStatusId = reimbStatusId;
-		this.reimbTypeId = reimbTypeId;
-		this.setAuthorId(reimbAuthor);  //set Author-> ID and let that set username for Author for now
-		this.setResolverId(reimbResolver); //set Resolver-> ID and let that set username for Resolver for now
-		this.setReimbStatusId(reimbStatusId);//set status->id and let that set status->status
-		this.setReimbTypeId(reimbTypeId);//set type->id and let that set type->type
+		this.setReimbAuthor(reimbAuthor);
+		this.setReimbResolver(reimbResolver);
+		this.setReimbStatusId(reimbStatusId);
+		this.setReimbTypeId(reimbTypeId);
+//		**the below will be set privately by the sets above**
+//		this.setAuthorId(reimbAuthor);  //set Author-> ID and let that set username for Author for now
+//		this.setResolverId(reimbResolver); //set Resolver-> ID and let that set username for Resolver for now
+//		this.setReimbStatusId(reimbStatusId);//set status->id and let that set status->status
+//		this.setReimbTypeId(reimbTypeId);//set type->id and let that set type->type
 		
 		
 	}
@@ -84,60 +89,62 @@ public class Reimbursement {
 	public int getReimbAuthor() {
 		return reimbAuthor;
 	}
-	public void setReimbAuthor(int reimbAuthor) {
+	public void setReimbAuthor(int reimbAuthor) {//**************also calls method to set name/id of author user
 		this.reimbAuthor = reimbAuthor;
+		this.setAuthorId(reimbAuthor);
 	}
 	public int getReimbResolver() {
 		return reimbResolver;
 	}
-	public void setReimbResolver(int reimbResolver) {
+	public void setReimbResolver(int reimbResolver) {//************also calls method to set name/id of resolver user
 		this.reimbResolver = reimbResolver;
+		this.setResolverId(reimbResolver);
 	}
 	public int getReimbStatusId() {
 		return reimbStatusId;
 	}
-	public void setReimbStatusId(int reimbStatusId) {
+	public void setReimbStatusId(int reimbStatusId) {//************also calls method to set name/id of status
 		this.reimbStatusId = reimbStatusId;
 		this.setStatus(reimbStatusId);
 	}
 	public int getReimbTypeId() {
 		return reimbTypeId;
 	}
-	public void setReimbTypeId(int reimbTypeId) {
+	public void setReimbTypeId(int reimbTypeId) {//***********also calls method to set name/id of type
 		this.reimbTypeId = reimbTypeId;
 		this.setType(reimbTypeId);
 	}
 	public int getAuthorId() {
 		return author.getErsUsersId();
 	}
-	public void setAuthorId(int authorId) {
+	private void setAuthorId(int authorId) {
 		this.author.setErsUsersId(authorId);
-		//String name = call DAO method to look up Author username
-		//this.author.setErsUsername(name);
+		String name = DAOUtilities.getEmployeeUsername(authorId);
+		this.author.setErsUsername(name);
 	}
 	public int getResolverId() {
 		return resolver.getErsUsersId();
 	}
-	public void setResolverId(int resolverId) {
+	private void setResolverId(int resolverId) {
 		this.resolver.setErsUsersId(resolverId);
-		//String name = call DAO method to look up Resolver username
-		//this.resolver.setErsUsername(name);
+		String name = DAOUtilities.getEmployeeUsername(resolverId);
+		this.resolver.setErsUsername(name);
 	}
 	public ReimbursementStatus getStatus() {
 		return status;
 	}
-	public void setStatus(int statusId) {
+	private void setStatus(int statusId) {
 		this.status.setReimbStatusId(statusId);
-		//String newStatus = call DAO method to look up Status for statusId
-		//this.status.setReimbStatus(newStatus);
+		String newStatus = DAOUtilities.getReimbursementStatus(statusId);
+		this.status.setReimbStatus(newStatus);
 	}
 	public ReimbursementType getType() {
 		return type;
 	}
-	public void setType(int typeId) {
+	private void setType(int typeId) {
 		this.type.setReimbTypeId(typeId);
-		//String newType = call DAO method to return type using typeId
-		//this.type.setReimbType(newType);
+		String newType = DAOUtilities.getReimbursementType(typeId);
+		this.type.setReimbType(newType);
 	}
 	@Override
 	public int hashCode() {
@@ -226,10 +233,6 @@ public class Reimbursement {
 				+ ", reimbStatusId=" + reimbStatusId + ", reimbTypeId=" + reimbTypeId + ", author=" + author
 				+ ", resolver=" + resolver + ", status=" + status + ", type=" + type + "]";
 	}
-	
-	
-
-	
 	
 
 }

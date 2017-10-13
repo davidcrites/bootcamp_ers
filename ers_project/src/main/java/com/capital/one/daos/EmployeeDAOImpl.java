@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.postgresql.util.PSQLException;
 
 import com.capital.one.datamodelbeans.Reimbursement;
@@ -34,6 +35,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				Connection conn2 = null;
 				ResultSet preparedResultSet;
 				boolean authenticated = false;
+				Logger log = Logger.getLogger("EmployeeDAOImpl");
 				
 				try {
 					conn = DAOUtilities.getConnection();
@@ -58,7 +60,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 						authenticated = preparedResultSet.getBoolean("acessed");
 					}
 					catch (PSQLException psql){
-						System.out.println("There was no user found with that name and email!");
+						log.error("There was no user found with that name and email!");
 					}
 
 				} catch (SQLException e) {
@@ -75,25 +77,22 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				}
 
 				if (authenticated == false) {
-					// then update didn't occur, throw an exception
-					System.out.println("Username or Password was incorrect.");
-					//System.out.println("authenticated = " + authenticated);
+					log.info("Username or Password was incorrect.");
+					// will exit if block and return null
 				}else {
 					Users authenticatedUser = new Users();
-					System.out.println("You successfully authenticated!");
-					//System.out.println("authenticated = " + authenticated);
+					log.info("You successfully authenticated!");
 					try {
 						conn2 = DAOUtilities.getConnection();
 						stmt = conn2.createStatement();
 
 						String sql = ("SELECT ers_users_id, user_first_name, user_last_name, user_role_id FROM ers_users\n" +
 									  "WHERE (ers_username = '" + username +"' AND user_email = '" + email + "');");
-						//System.out.println(sql);
 	
 						ResultSet rs = stmt.executeQuery(sql);
 	
 						while (rs.next()) {
-							//System.out.println("result set has data - populate authenticatedUser");
+							log.debug("result set has data - populate authenticatedUser");
 							authenticatedUser.setErsUsersId(rs.getInt("ers_users_id"));
 							authenticatedUser.setErsUsername(username);
 							authenticatedUser.setErsPassword(password);
@@ -104,17 +103,13 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 						}
 					}
 					catch (SQLException sqle) {
-						System.out.println("SQL Exception thrown");
+						log.error("SQL Exception thrown");
+						sqle.printStackTrace();
 					}
-					//System.out.println("Finished getting an authenticated user...returning him");
-					//System.out.println(authenticatedUser);
+					log.info("Finished getting an authenticated user...returning him");
 					return authenticatedUser;
 				}
 				
-				
-				
-		
-		//*******
 		return null;
 	}
 
