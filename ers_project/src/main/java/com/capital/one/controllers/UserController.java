@@ -42,7 +42,7 @@ public class UserController {
 		String requestUrl = req.getRequestURI().substring(req.getContextPath().length());
 
 		switch (requestUrl) {
-		case "/users/login":
+		case "/static/users/login":
 			login(req, resp);
 			break;
 
