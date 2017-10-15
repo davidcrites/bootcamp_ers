@@ -1,1 +1,96 @@
-You are not authorized to access this area.
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Employee Reimbursement System</title>
+        
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .navbar{
+                margin-bottom:0;
+                border-radius:0;
+            }
+            .btn-cust{
+                float:left;
+                width: 200px !important;
+            }
+            .jumbo-cust{
+                background-color: rgb(76, 94, 153)  !important;
+            }
+            .font-cust{
+                color:white;
+            }
+            .text-yellow{
+                color:yellow;
+            }
+        </style>
+        <style type="text/css">
+            body { background: rgb(203, 237, 250) ; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Employee Reimbursement System</a>
+              </div>
+      
+              <!-- Collect the nav links, forms, and other content for toggling -->
+
+            </div><!-- /.container-fluid -->
+        </nav>
+        <!--CREATING A 4-4-4 GRID inside a 12 grid w/background image: PUTTING A JUMBOTRON IN THE Middle-->
+        <div class="container col-md12">
+            <div class="row">
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+        
+        
+        
+        <div class="container col-md-12" style="background-image: url('images/travelimage.png'); background-repeat: repeat-x;">
+            <div class="container col-md-4" ></div>
+            <div class="row">  
+                <div class="col-md-4" >
+                    <div class="jumbotron text-center jumbo-cust">
+                        <div class="container font-cust">
+                                <h1>ERS</h1>
+                                <h3><p>You are unauthorized to access this site beyond the login page until you have authenticated.</p></h3>
+                            </div>
+                        <div class="container">
+                            <form class="form-signin" action="ERS_signin.html" method="get">
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+                        
+                               </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container col-md-4"></div>
+        </div>
+
+
+
+
+
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>

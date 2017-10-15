@@ -1,1 +1,181 @@
-Finance Manager Menu
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Employee Reimbursement System</title>
+        
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .navbar{
+                margin-bottom:0;
+                border-radius:0;
+            }
+            .btn-cust{
+                float:left;
+                width: 200px !important;
+            }
+            .jumbo-cust{
+                background-color: rgb(76, 94, 153)  !important;
+            }
+            .font-cust{
+                color:white;
+            }
+        </style>
+        <style type="text/css">
+            body { background: rgb(203, 237, 250) ; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Employee Reimbursement System</a>
+              </div>
+      
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="ERS_signin.html">Login</a></li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">View My Pending Reimbursements</a></li>
+                      <li><a href="#">View My Closed Reimbursements</a></li>
+                      <li><a href="#">View All Pending Reimbursements</a></li>
+                      <li><a href="#">View All Closed Reimbursements</a></li>
+                      <li><a href="#">Search Reimbursements</a></li>
+                      <li><a href="#">Create a New Reimbursement</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <!--CREATING A 4-4-4 GRID inside a 12 grid w/background image: PUTTING A JUMBOTRON IN THE Middle-->
+        <div class="container col-md12">
+            <div class="row">
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+        
+        
+        
+        <div class="container col-md-12" style="background-image: url('images/travelimage.png'); background-repeat: repeat-x;">
+            <div class="col-md-4" ></div>
+            <div class="row">  
+                <div class="col-md-4" >
+                    <div class="jumbotron text-center jumbo-cust">
+                        <div class="container font-cust">
+                                <h1>ERS</h1>
+                                <h4>Finance Manager Menu</h4>
+                            </div>
+                        <div class="container">
+                                <div class="panel-group" id="myaccordian">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                              <h3 class="panel-title" data-target="#panel-1" data-toggle="collapse" data-parent="#myaccordian">View Requests</h3>
+                                            </div>
+                                              <div class="panel-collapse collapse" id="panel-1">
+                                                <div class="panel-body">
+                                                <button class="btn btn-info btn-cust" aria-setsize="">
+                                                        <span class="glyphicon glyphicon-folder-open text-info"></span><a href="#"> Pending Requests</a>
+                                                  </button>
+                                                  <br>
+                                                  <br>
+                                                  <button class="btn btn-info btn-cust">
+                                                        <span class="glyphicon glyphicon-folder-close text-info"></span><a href="#"> Closed Requests</a>
+                                                  </button>
+                                                  <br>
+                                                  <br>
+                                                  <button class="btn btn-info btn-cust">
+                                                        <span class="glyphicon glyphicon-search text-info"></span><a href="#"> Search Requests</a>
+                                                  </button>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                              <h3 class="panel-title" data-target="#panel-2" data-toggle="collapse" data-parent="#myaccordian">Create Requests</h3>
+                                            </div>
+                                              <div class="panel-collapse collapse" id="panel-2">
+                                                <div class="panel-body">
+                                                <button class="btn btn-info btn-cust">
+                                                        <span class="glyphicon glyphicon-arrow-down text-info"></span><a href="#">    For Myself    </a>
+                                                    </button>
+                                                    <br>
+                                                    <br>
+                                                <button class="btn btn-info btn-cust">
+                                                        <span class="glyphicon glyphicon-share-alt text-info"></span><a href="#"> For Someone Else</a>
+                                                    </button>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                              <h3 class="panel-title" data-target="#panel-3" data-toggle="collapse" data-parent="#myaccordian">Cancel Requests</h3>
+                                            </div>
+                                              <div class="panel-collapse collapse" id="panel-3">
+                                                <div class="panel-body">
+                                                <button class="btn btn-info btn-cust">
+                                                        <span class="glyphicon glyphicon-arrow-down text-info"></span><a href="#">    For Myself     </a>
+                                                    </button>
+                                                    <br>
+                                                    <br>
+                                                <button class="btn btn-info btn-cust">
+                                                        <span class="glyphicon glyphicon-share-alt text-info"></span><a href="#"> For Someone Else</a>
+                                                    </button>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                              <h3 class="panel-title" data-target="#panel-4" data-toggle="collapse" data-parent="#myaccordian">Approve/Deny Requests</h3>
+                                            </div>
+                                              <div class="panel-collapse collapse" id="panel-4">
+                                                <div class="panel-body">
+                                                <button class="btn btn-info btn-cust">
+                                                        <span class="glyphicon glyphicon-ok-circle text-info"></span><a href="#"> Consider New Requests</a>
+                                                    </button>
+                                                    <br>
+                                                    <br>
+                                                <button class="btn btn-info btn-cust">
+                                                        <span class="glyphicon glyphicon-ok-sign text-info"></span><a href="#"> Consider All Requests</a>
+                                                    </button>
+                                                </div>
+                                              </div>
+                                        </div>
+                                            <div class="panel-footer text-primary"><a href="ERS_signin.html">Logout</a></div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" ></div>
+        </div>
+
+
+
+
+
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
