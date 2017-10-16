@@ -76,6 +76,24 @@ public class ReimbursementController {
 		case "/static/reimbursements/MyNew":
 			resp.sendRedirect("/ers_project/static/EmployeeNewReimbursement.html");
 			break;
+		case "/static/reimbursements/OtherNew":
+			resp.sendRedirect("/ers_project/static/OtherNewReimbursement.html");
+			break;
+		case "/static/reimbursements/MyDelete":
+			resp.sendRedirect("/ers_project/static/EmployeeDeleteReimbursement.html");
+			break;
+		case "/static/reimbursements/OtherDelete":
+			resp.sendRedirect("/ers_project/static/OtherDeleteReimbursement.html");
+			break;
+		case "/static/reimbursements/StatusNew":
+			//TODO: call rs for getting List of Reimbursements but filter by Pending Last 10 days
+			resp.sendRedirect("/ers_project/static/StatusReimbursements.html");
+			break;
+		case "/static/reimbursements/StatusAll":
+			//TODO: call rs for getting List of Reimbursements but filter by Pending
+			resp.sendRedirect("/ers_project/static/StatusReimbursements.html");
+			break;
+
 
 		// /users/{id}
 		default:

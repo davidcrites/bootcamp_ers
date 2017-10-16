@@ -19,6 +19,8 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
      * 
      * @return
      */
+	
+	Logger log = Logger.getLogger("FinanceManagerDaoImpl");
 
     public List<Reimbursement> getAllEmployeeReimbursement() {
 
@@ -27,13 +29,14 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 //          "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
 //          "Knolls2056");
 		Connection conn = DAOUtilities.getConnection();
-		Logger log = Logger.getLogger("FinanceManagerDaoImpl");
+		
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\"");
             List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
-            Reimbursement reimbursement = new Reimbursement();
+            
             while (rs.next()) {
                 log.trace("reimb_id = " + rs.getInt("reimb_id"));
+                Reimbursement reimbursement = new Reimbursement();
                 reimbursement.setReimbusementId(rs.getInt("reimb_id"));// populate the object
                 reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
@@ -51,7 +54,7 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
             }
             
-            System.out.println(reimbursementList);
+            log.trace(reimbursementList);
             return reimbursementList;
 
         }
@@ -92,17 +95,20 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
                 reimbursement.setReimbusementId(rs.getInt("reimb_id"));// populate the object
                 reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
-                reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                if (rs.getTimestamp("reimb_resolved") != null) {
+            			reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+	            }else {
+	            		reimbursement.setReimbResolved(null);
+	            }
                 reimbursement.setReimbDescription(rs.getString("reimb_description"));
                 reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
                 reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
                 reimbursement.getStatus().setReimbStatus(rs.getString("reimb_status"));
 
                 reimbursementList.add(reimbursement);
-                System.out.println(reimbursementList);
-                return reimbursementList;
-
             }
+            log.trace(reimbursementList);
+            return reimbursementList;
 
         }
         catch (SQLException e) {
