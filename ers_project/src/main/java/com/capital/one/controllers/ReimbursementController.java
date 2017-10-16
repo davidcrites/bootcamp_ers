@@ -31,6 +31,51 @@ public class ReimbursementController {
 			rs.myPendingReimbursements(req, resp);
 			resp.sendRedirect("/ers_project/static/DisplayReimbursements.html");
 			break;
+		case "/static/reimbursements/MyPast":
+			rs.myPastReimbursements(req, resp);
+			resp.sendRedirect("/ers_project/static/DisplayReimbursements.html");
+			break;
+		case "/static/reimbursements/AllPending":
+			try {
+				if((int)req.getSession().getAttribute("currentRoleId")==2) {
+					rs.allPendingReimbursements(req, resp);
+					resp.sendRedirect("/ers_project/static/DisplayReimbursements.html");
+				}else {
+					req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
+				}
+			}
+			catch (Exception e) {
+				log.error("Page did not exist");
+			}
+			break;
+		case "/static/reimbursements/AllPast":
+			try {
+				if((int)req.getSession().getAttribute("currentRoleId")==2) {
+					rs.allPastReimbursements(req, resp);
+					resp.sendRedirect("/ers_project/static/DisplayReimbursements.html");
+				}else {
+					req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
+				}
+			}
+			catch (Exception e) {
+				log.error("Page did not exist");
+			}
+			break;
+		case "/static/reimbursements/MySearch":
+			try {
+				if((int)req.getSession().getAttribute("currentRoleId")==2) {
+					req.getRequestDispatcher("/static/FinanceManagerSearch.html").forward(req, resp);
+				}else {
+					req.getRequestDispatcher("/static/EmployeeSearch.html").forward(req, resp);
+				}
+			}
+			catch (Exception e) {
+				log.error("Page did not exist");
+			}
+			break;
+		case "/static/reimbursements/MyNew":
+			resp.sendRedirect("/ers_project/static/EmployeeNewReimbursement.html");
+			break;
 
 		// /users/{id}
 		default:

@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.capital.one.datamodelbeans.Reimbursement;
 
 public class FinanceManagerDaoImpl implements FinanceManagerDao {
@@ -25,29 +27,32 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 //          "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
 //          "Knolls2056");
 		Connection conn = DAOUtilities.getConnection();
-
+		Logger log = Logger.getLogger("FinanceManagerDaoImpl");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\"");
             List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
+            Reimbursement reimbursement = new Reimbursement();
             while (rs.next()) {
-                Reimbursement reimbursement = new Reimbursement();
+                log.trace("reimb_id = " + rs.getInt("reimb_id"));
                 reimbursement.setReimbusementId(rs.getInt("reimb_id"));// populate the object
                 reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
                 if (rs.getTimestamp("reimb_resolved") != null) {
                 		reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                }else {
+                	reimbursement.setReimbResolved(null);
                 }
                 reimbursement.setReimbDescription(rs.getString("reimb_description"));
                 reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
                 reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
                 reimbursement.setReimbStatusId(rs.getInt("reimb_status_id"));
                 reimbursement.setReimbTypeId(rs.getInt("reimb_type_id"));
-
                 reimbursementList.add(reimbursement);
-                System.out.println(reimbursementList);
-                return reimbursementList;
 
             }
+            
+            System.out.println(reimbursementList);
+            return reimbursementList;
 
         }
         catch (SQLException e) {
