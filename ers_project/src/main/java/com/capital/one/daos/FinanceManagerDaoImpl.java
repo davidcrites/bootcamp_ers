@@ -1,12 +1,13 @@
 package com.capital.one.daos;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import com.capital.one.datamodelbeans.Reimbursement;
 
@@ -18,33 +19,43 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
      * @return
      */
 
+    Logger log = Logger.getLogger("FinanceManagerDaoImpl");
+
     public List<Reimbursement> getAllEmployeeReimbursement() {
 
         try {
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-                    "");
+            // Connection conn = DriverManager.getConnection(
+            // "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+            // "Knolls2056");
+            Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\"");
             List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
+
             while (rs.next()) {
+                log.trace("reimb_id = " + rs.getInt("reimb_id"));
                 Reimbursement reimbursement = new Reimbursement();
                 reimbursement.setReimbusementId(rs.getInt("reimb_id"));// populate the object
                 reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
-                reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                if (rs.getTimestamp("reimb_resolved") != null) {
+                    reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                }
+                else {
+                    reimbursement.setReimbResolved(null);
+                }
                 reimbursement.setReimbDescription(rs.getString("reimb_description"));
                 reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
                 reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
                 reimbursement.setReimbStatusId(rs.getInt("reimb_status_id"));
                 reimbursement.setReimbTypeId(rs.getInt("reimb_type_id"));
-
                 reimbursementList.add(reimbursement);
-                System.out.println(reimbursementList);
-                return reimbursementList;
 
             }
+
+            log.trace(reimbursementList);
+            return reimbursementList;
 
         }
         catch (SQLException e) {
@@ -63,9 +74,10 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public List<Reimbursement> filterByStatus(String status) {
         try {
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-                    "");
+            // Connection conn = DriverManager.getConnection(
+            // "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+            // "Knolls2056");
+            Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt
@@ -83,17 +95,21 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
                 reimbursement.setReimbusementId(rs.getInt("reimb_id"));// populate the object
                 reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
-                reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                if (rs.getTimestamp("reimb_resolved") != null) {
+                    reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                }
+                else {
+                    reimbursement.setReimbResolved(null);
+                }
                 reimbursement.setReimbDescription(rs.getString("reimb_description"));
                 reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
                 reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
                 reimbursement.getStatus().setReimbStatus(rs.getString("reimb_status"));
 
                 reimbursementList.add(reimbursement);
-                System.out.println(reimbursementList);
-                return reimbursementList;
-
             }
+            log.trace(reimbursementList);
+            return reimbursementList;
 
         }
         catch (SQLException e) {
@@ -107,9 +123,10 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public boolean approveRequest(int id) {
         try {
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-                    "Knolls2056");
+            // Connection conn = DriverManager.getConnection(
+            // "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+            // "Knolls2056");
+            Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
 
@@ -128,9 +145,10 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public boolean denyRequest(int id) {
         try {
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-                    "Knolls2056");
+            // Connection conn = DriverManager.getConnection(
+            // "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+            // "Knolls2056");
+            Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
 
