@@ -30,8 +30,7 @@ public class ReimbursementService {
 		displayList = empDao.viewEmployeeTickets(currentUser.getErsUsersId(), false);
 		req.getSession().setAttribute("myPending", displayList);
 		for(int i=0; i<displayList.size();i++) {
-			System.out.println(displayList.get(i));
-			System.out.println("");
+			log.trace(displayList.get(i));
 		}
 	}
 	
@@ -42,20 +41,18 @@ public class ReimbursementService {
 		displayList = empDao.viewEmployeeTickets(currentUser.getErsUsersId(), true);
 		req.getSession().setAttribute("myPending", displayList);
 		for(int i=0; i<displayList.size();i++) {
-			System.out.println(displayList.get(i));
-			System.out.println("");
+			log.trace(displayList.get(i));
 		}
 	}
 	
 	public void allPendingReimbursements(HttpServletRequest req, HttpServletResponse resp) {
 		List<Reimbursement> displayList = new ArrayList<Reimbursement>();
 		displayList = finManDao.getAllEmployeeReimbursement().stream()
-				.filter(element->"Pending".equals(element.getStatus().getReimbStatus()))
+				.filter((element)->"Pending".equals(element.getStatus().getReimbStatus()))
 				.collect(Collectors.toList());
 		req.getSession().setAttribute("allPending", displayList);
 		for(int i=0; i<displayList.size();i++) {
-			System.out.println(displayList.get(i));
-			System.out.println("");
+			log.trace(displayList.get(i));
 		}
 	}
 	
@@ -63,14 +60,13 @@ public class ReimbursementService {
 		List<Reimbursement> displayList = new ArrayList<Reimbursement>();
 		log.trace("In rs.allPastReimbursements");
 		displayList = finManDao.getAllEmployeeReimbursement().stream()
-				.filter(element->{ return ("Approved".equals(element.getStatus().getReimbStatus()) ||
+				.filter((element)->{ return ("Approved".equals(element.getStatus().getReimbStatus()) ||
 										  "Denied".equals(element.getStatus().getReimbStatus()));})
 				.collect(Collectors.toList());
 		req.getSession().setAttribute("allPast", displayList);
 		log.trace("Geting ready to display the filtered displayList");
 		for(int i=0; i<displayList.size();i++) {
-			System.out.println(displayList.get(i));
-			System.out.println("");
+			log.trace(displayList.get(i));
 		}
 	}
 
