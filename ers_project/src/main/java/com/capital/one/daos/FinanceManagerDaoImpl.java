@@ -21,10 +21,9 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
     public List<Reimbursement> getAllEmployeeReimbursement() {
 
         try {
-//          Connection conn = DriverManager.getConnection(
-//          "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-//          "Knolls2056");
-		Connection conn = DAOUtilities.getConnection();
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+                    "");
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\"");
@@ -34,9 +33,7 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
                 reimbursement.setReimbusementId(rs.getInt("reimb_id"));// populate the object
                 reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
-                if (rs.getTimestamp("reimb_resolved") != null) {
-                		reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
-                }
+                reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
                 reimbursement.setReimbDescription(rs.getString("reimb_description"));
                 reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
                 reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
@@ -66,10 +63,9 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public List<Reimbursement> filterByStatus(String status) {
         try {
-//          Connection conn = DriverManager.getConnection(
-//          "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-//          "Knolls2056");
-		Connection conn = DAOUtilities.getConnection();
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+                    "");
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt
@@ -111,10 +107,9 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public boolean approveRequest(int id) {
         try {
-//          Connection conn = DriverManager.getConnection(
-//          "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-//          "Knolls2056");
-		Connection conn = DAOUtilities.getConnection();
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+                    "Knolls2056");
 
             Statement stmt = conn.createStatement();
 
@@ -133,10 +128,9 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public boolean denyRequest(int id) {
         try {
-//            Connection conn = DriverManager.getConnection(
-//                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-//                    "Knolls2056");
-        		Connection conn = DAOUtilities.getConnection();
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
+                    "Knolls2056");
 
             Statement stmt = conn.createStatement();
 
