@@ -1,0 +1,77 @@
+body {
+  padding-top: 200px;
+  padding-bottom: 200px;
+  background-color: #fffff;
+}
+
+
+.form-signin  {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin  {
+  margin-bottom: 10px;
+}
+
+.form-signin  {
+  font-weight: normal;
+}
+
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  cursor: pointer;
+}
+.form-signin input[type="password"]
+{
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  cursor: pointer;
+}
+
+.form-signin input[type="email"]
+ {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  cursor: pointer;
+}
+#submitButton:hover,
+#submitButton:focus,
+#submitButton:active {
+  margin-bottom: 10px;
+  cursor: pointer;
+  
+}
+#img_logo {
+    max-height: 150px;
+    max-width: 150px;
+    text-align: center;
+}
+
+.col-sm-4 {
+  text-align: center;
+  font-size: 16px;
+  background-color: #C3E7F7;
+
+}
+
+
+
+
+}
