@@ -1,109 +1,131 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>DOM</title>
-</head>
-<body>
-     <div>
-     <h1>DUMMY PAGE - NEED TO BUILD PAGE TO DISPLAY RESULTS</h1>
-     
-     </div>
-     
-  <div>
-    <div>
-      <h3>Sum: <span id="sum"></span></h3>
-      <h5 id="currentTime"></h5>
-    </div>
-    <div>
-      <h1>United <span data-customAttr="USA">States</span> of America (<span>USA</span>)</h1>
-      <div><a>Click Here</a><a>Click Here</a><a>Click Here</a><a>Click Here</a><a>Click Here</a></div>
-      <a>Click Here</a>
-      <a>Click <span>Here1</span></a>
-      <a>Click Here</a>
-      <div>
-	  <select name="colors">
-	    <option value="green">Green</option>
-	    <option value="blue">Blue</option>
-	    <option value="red" selected="selected">Red</option>
-	    <option value="purple">Purple</option>
-	    <option value="yellow" selected="selected">Yellow</option>
-	  </select>
-      </div>
-    </div>
-    <p id="helloWorld">Hello, World!</p>
-    <div>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Department</th>
-        </tr>
-        <tr>
-          <td class="empName">John</td>
-          <td>Sales</td>
-        </tr>
-        <tr>
-          <td class="empName">Amy</td>
-          <td>Finance</td>
-        </tr>
-        <tr>
-          <td class="empName">Austin</td>
-          <td>Sales</td>
-        </tr>
-        <tr>
-          <td class="empName">Katie</td>
-          <td>Marketing</td>
-        </tr>
-        <tr>
-          <td class="empName" data-customAttr="court">Courtney</td>
-          <td>Sales</td>
-        </tr>
-        <tr>
-          <td class="empName">Scout</td>
-          <td>Sales</td>
-        </tr>
-      </table>
-    </div>
-    <form id="firstForm">
-      <a>Click <span>Here2</span></a>
-	  <input type="text" data-customAttr="7"/><br/>
-	  <input type="text" data-customAttr="24"/><br/>
-	  <input type="radio" name="favoriteAnimal" value="dog"/>Dog<br/>
-	  <input type="radio" name="favoriteColor" value="blue"/>Blue<br/>
-	  <input id="num1" class="nums" type="text"/><br/>
-	  <input type="radio" name="favoriteAnimal" value="cat"/>Cat<br/>
-	  <input type="radio" name="favoriteColor" value="red"/>Red<br/>
-	  <input type="radio" name="favoriteAnimal" value="horse"/>Horse<br/>
-	  <input type="radio" name="favoriteAnimal" value="dolphin"/>Dolphin<br/>
-	  <a>Click <span>Here</span></a><br/>
-	  <input type="radio" name="favoriteAnimal" value="eagle"/>Eagle<br/>
-	  <input type="radio" name="favoriteColor" value="green"/>Green<br/>
-	  <input type="radio" name="favoriteColor" value="orange"/>Orange<br/>
-	  <select name="hobbies">
-	    <option value="photography">Photography</option>
-	    <option value="football" selected="selected">Football</option>
-	    <option value="kayaking" selected="selected">Kayaking</option>
-	    <option value="hiking">Hiking</option>
-	    <option value="programming" selected="selected">Programming</option>
-	  </select>
-	  <input id="num2" class="nums" type="text"/>
-	  <select name="skills">
-	    <option value="java">Java</option>
-	    <option value="net">.NET</option>
-	    <option value="dom" selected="selected">DOM</option>
-	    <option value="html">HTML</option>
-	    <option value="css">CSS</option>
-	    <option value="javascript" selected="selected">Javascript</option>
-	  </select>
-    </form>
-  </div>
-  <a>Click Here</a>
-  <a>Click <span data-customAttr="500">Here3</span></a>
-  <a>Click Here</a>
-	  
-  <script type="text/javascript">
-    //TODO: Javascript homework
-  </script>
-  
-</body>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Employee Reimbursement System</title>
+        
+        <!-- Bootstrap -->
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .navbar{
+                margin-bottom:0;
+                border-radius:0;
+            }
+            .btn-cust{
+                float:left;
+                width: 200px !important;
+            }
+            .jumbo-cust{
+                background-color: rgb(76, 94, 153)  !important;
+            }
+            .font-cust{
+                color:white;
+            }
+            .text-yellow{
+                color:yellow;
+            }
+            #table-dynamic{
+                background-color:white;
+                border-color:rgb(7, 7, 51);
+                border-width:3px;
+            
+            }
+            #table-dynamic td{
+                border:rgb(7, 7, 51) solid 1px !important;
+            }
+            #table-dynamic th{
+                border:rgb(7, 7, 51) solid 1px !important;
+            }
+        </style>
+        <style type="text/css">
+            body { background: rgb(203, 237, 250) ; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Employee Reimbursement System</a>
+              </div>
+      
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="ERS_signin.html">Login</a></li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
+                    <ul id="dropdown-links" class="dropdown-menu">
+                        <li><a href="http://localhost:8080/ers_project/static/reimbursements/MyPending">View My Pending Reimbursements</a></li>
+                        <li><a href="MyPast">View My Past Reimbursements</a></li>
+                        <li><a href="MySearch">Search Reimbursements</a></li>
+                        <li><a href="MyNew">Create a New Reimbursement</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <!--CREATING A 4-4-4 GRID inside a 12 grid w/background image: PUTTING A JUMBOTRON IN THE Middle-->
+        <div class="container col-md12">
+            <div class="row">
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+        
+        
+        
+        <div class="container col-md-12">
+            <div class="container col-md-2" ></div>
+            
+                <div class="col-md-8" >
+                    <table id="table-dynamic" class="table table-bordered table-striped table-hover">
+                        <!-- table-striped table-bordered table-hover table-condensed-->
+                       <tbody id="table-body">
+                        <tr id="table-headers">
+                            <th>ID</th>
+                            <th>Amount</th>
+                            <th>Open Date</th>
+                            <th>Closed Date</th>
+                            <th>Description</th>
+                            <th>Receipt</th>
+                            <th>Author</th>
+                            <th>Resolver</th>
+                            <th>Status</th>
+                            <th>Type</th>
+                        </tr>
+                        <!--DYNAMIC CONTENT should be applied here-->
+                       </tbody>
+
+                    </table>
+                </div>
+            
+            <div class="container col-md-2"></div>
+        </div>
+
+
+
+
+
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!-- It looks like I have to go back one directory since the display was called from reimbursements/... -->
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/displayreimbursements.js"></script>
+    </body>
 </html>
