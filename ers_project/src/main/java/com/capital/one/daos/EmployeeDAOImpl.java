@@ -25,6 +25,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	 * @param password - this is provided by the user for authentication
 	 * @return - If the Employee is validated, we will populate a User object and return it, else we will give error message and return null
 	 */
+	
+	Logger log = Logger.getLogger("EmployeeDAOImpl");
 	public Users loginEmployee(String username, String email, String password) {
 		// TODO Auto-generated method stub
 		//*******
@@ -35,7 +37,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				Connection conn2 = null;
 				ResultSet preparedResultSet;
 				boolean authenticated = false;
-				Logger log = Logger.getLogger("EmployeeDAOImpl");
+				
 				
 				try {
 					conn = DAOUtilities.getConnection();
@@ -246,6 +248,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				r.setReimbResolver(rs.getInt("reimb_resolver"));
 				r.setReimbStatusId(rs.getInt("reimb_status_id"));
 				r.setReimbTypeId(rs.getInt("reimb_type_id"));
+				
+				log.debug(r);
 				
 				reimbList.add(r);
 			}

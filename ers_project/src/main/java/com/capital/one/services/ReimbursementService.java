@@ -19,7 +19,7 @@ public class ReimbursementService {
 	
 	EmployeeDAO empDao = DAOUtilities.getEmployeeDao();
 	FinanceManagerDao finManDao = DAOUtilities.getFinanceManagerDao();
-	Logger log = Logger.getLogger("UserService");
+	Logger log = Logger.getLogger("ReimbursementService");
 	Users currentUser = new Users();
 	Reimbursement tempReimbursement = new Reimbursement();
 	

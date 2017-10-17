@@ -9,7 +9,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 /**
  * Class used to retrieve DAO Implementations. Serves as a factory. Also used to create JDBC connections.
@@ -261,6 +267,26 @@ public class DAOUtilities {
         }
         log.trace("could not retreive connection");
         return null;
+    }
+    
+    public static void writeJSONtoResponse(Object o, HttpServletResponse resp) {
+		log.debug("writing js to response");
+    		try {
+    		// jackson code for converting to json
+		ObjectMapper om = new ObjectMapper();
+		ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
+		String json = ow.writeValueAsString(o);
+		log.debug("MY JSON after converting the Reimbursement Object List is: " + json);
+		
+		// write to response body
+		resp.getWriter().print(json);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 }
