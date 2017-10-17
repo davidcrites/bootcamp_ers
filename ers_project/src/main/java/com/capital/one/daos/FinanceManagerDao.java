@@ -28,7 +28,7 @@ public interface FinanceManagerDao {
      * @param id
      * @return
      */
-    boolean approveRequest(int id);
+    boolean approveRequest(int id, int resolverId);
 
     /***
      * Allows finance manager to deny requests that are pending but not eligible for approval
@@ -36,6 +36,6 @@ public interface FinanceManagerDao {
      * @param id
      * @return
      */
-    boolean denyRequest(int id);
+    boolean denyRequest(int id, int resolverId);
 
 }

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -21,12 +22,14 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     Logger log = Logger.getLogger("FinanceManagerDaoImpl");
 
+    Calendar calendar = Calendar.getInstance();
+
+    java.sql.Timestamp ourJavaTimestampObject = new java.sql.Timestamp(calendar.getTime().getTime());
+
     public List<Reimbursement> getAllEmployeeReimbursement() {
 
         try {
-            // Connection conn = DriverManager.getConnection(
-            // "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-            // "Knolls2056");
+
             Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
@@ -74,9 +77,7 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public List<Reimbursement> filterByStatus(String status) {
         try {
-            // Connection conn = DriverManager.getConnection(
-            // "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-            // "Knolls2056");
+
             Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
@@ -121,17 +122,17 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     }
 
-    public boolean approveRequest(int id) {
+    public boolean approveRequest(int id, int resolverId) {
         try {
-            // Connection conn = DriverManager.getConnection(
-            // "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-            // "Knolls2056");
+
             Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate("UPDATE ers_reimbursement SET reimb_status_id=2" +
-                    "WHERE reimb_status_id=1 And reimb_id=" + id);
+            stmt.executeUpdate(
+                    "UPDATE ers_reimbursement SET reimb_status_id=2, resolved_time=CURRENT_TIMESTAMP, reimb_resolver="
+                            + resolverId +
+                            "WHERE reimb_status_id=1 And reimb_id=" + id);
             return true;
         }
         catch (SQLException e) {
@@ -143,17 +144,17 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     }
 
-    public boolean denyRequest(int id) {
+    public boolean denyRequest(int id, int resolverId) {
         try {
-            // Connection conn = DriverManager.getConnection(
-            // "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-            // "Knolls2056");
+
             Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate("UPDATE ers_reimbursement SET reimb_status_id=3" +
-                    "WHERE reimb_status_id=1 And reimb_id=" + id);
+            stmt.executeUpdate(
+                    "UPDATE ers_reimbursement SET reimb_status_id=3, reimb_resolved=CURRENT_TIMESTAMP, reimb_resolver="
+                            + resolverId +
+                            "WHERE reimb_status_id=1 And reimb_id=" + id);
             return true;
         }
         catch (SQLException e) {
