@@ -1,7 +1,6 @@
 package com.capital.one.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +13,8 @@ import com.capital.one.datamodelbeans.Reimbursement;
 import com.capital.one.datamodelbeans.Users;
 import com.capital.one.services.ReimbursementService;
 
-
 public class ReimbursementController {
+
 	private Logger log = Logger.getLogger("ReimbursementController");
 	private ReimbursementService rs = new ReimbursementService();
 	Users myUser = new Users();

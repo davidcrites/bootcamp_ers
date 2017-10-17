@@ -34,8 +34,6 @@ public class DAOUtilities {
 
     private static Logger log = Logger.getLogger("DAOUtilities");
 
-
-    
     public static synchronized EmployeeDAO getEmployeeDao() {
         if (employeeDaoImpl == null) {
             employeeDaoImpl = new EmployeeDAOImpl();
@@ -63,9 +61,9 @@ public class DAOUtilities {
 
             ResultSet rs = stmt.executeQuery(sql);
             log.debug("roleId = " + roleId);
-            if(roleId != 0) {
-	            rs.next();
-	            return rs.getString("user_role");
+            if (roleId != 0) {
+                rs.next();
+                return rs.getString("user_role");
             }
         }
         catch (SQLException e) {
@@ -197,10 +195,10 @@ public class DAOUtilities {
             // System.out.println(sql);
 
             ResultSet rs = stmt.executeQuery(sql);
-            
+
             if (userId != 0) {
-	            rs.next();
-	            return rs.getString("ers_username");
+                rs.next();
+                return rs.getString("ers_username");
             }
         }
         catch (SQLException e) {
@@ -252,6 +250,7 @@ public class DAOUtilities {
             log.trace("getting connection from data source");
             dbProps.load(new FileInputStream(
                     "/Users/den421/Documents/bootcamp_ers/ers_project/src/main/resources/database.properties"));
+            // "/Users/ltv783/eclipse-workspace/ERS_Project/bootcamp_ers/ers_project/src/main/resources/database.properties"));
             connection = DriverManager.getConnection(dbProps.getProperty("url"), dbProps.getProperty("username"),
                     dbProps.getProperty("password"));
             log.trace("retreived connection from data source");

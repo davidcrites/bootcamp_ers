@@ -16,7 +16,7 @@ import com.capital.one.datamodelbeans.Reimbursement;
 import com.capital.one.datamodelbeans.Users;
 
 public class ReimbursementService {
-	
+
 	EmployeeDAO empDao = DAOUtilities.getEmployeeDao();
 	FinanceManagerDao finManDao = DAOUtilities.getFinanceManagerDao();
 	Logger log = Logger.getLogger("ReimbursementService");
@@ -69,5 +69,3 @@ public class ReimbursementService {
 			log.trace(displayList.get(i));
 		}
 	}
-
-}

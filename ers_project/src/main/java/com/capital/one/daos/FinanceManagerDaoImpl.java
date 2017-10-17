@@ -1,11 +1,11 @@
 package com.capital.one.daos;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -19,21 +19,23 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
      * 
      * @return
      */
-	
-	Logger log = Logger.getLogger("FinanceManagerDaoImpl");
+
+    Logger log = Logger.getLogger("FinanceManagerDaoImpl");
+
+    Calendar calendar = Calendar.getInstance();
+
+    java.sql.Timestamp ourJavaTimestampObject = new java.sql.Timestamp(calendar.getTime().getTime());
 
     public List<Reimbursement> getAllEmployeeReimbursement() {
 
         try {
-//          Connection conn = DriverManager.getConnection(
-//          "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-//          "Knolls2056");
-		Connection conn = DAOUtilities.getConnection();
-		
+
+            Connection conn = DAOUtilities.getConnection();
+
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\"");
             List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
-            
+
             while (rs.next()) {
                 log.trace("reimb_id = " + rs.getInt("reimb_id"));
                 Reimbursement reimbursement = new Reimbursement();
@@ -41,9 +43,10 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
                 reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
                 if (rs.getTimestamp("reimb_resolved") != null) {
-                		reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
-                }else {
-                	reimbursement.setReimbResolved(null);
+                    reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                }
+                else {
+                    reimbursement.setReimbResolved(null);
                 }
                 reimbursement.setReimbDescription(rs.getString("reimb_description"));
                 reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
@@ -53,7 +56,7 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
                 reimbursementList.add(reimbursement);
 
             }
-            
+
             log.trace(reimbursementList);
             return reimbursementList;
 
@@ -74,10 +77,8 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public List<Reimbursement> filterByStatus(String status) {
         try {
-//          Connection conn = DriverManager.getConnection(
-//          "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-//          "Knolls2056");
-		Connection conn = DAOUtilities.getConnection();
+
+            Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt
@@ -96,10 +97,11 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
                 reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
                 reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
                 if (rs.getTimestamp("reimb_resolved") != null) {
-            			reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
-	            }else {
-	            		reimbursement.setReimbResolved(null);
-	            }
+                    reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                }
+                else {
+                    reimbursement.setReimbResolved(null);
+                }
                 reimbursement.setReimbDescription(rs.getString("reimb_description"));
                 reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
                 reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
@@ -120,17 +122,17 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     }
 
-    public boolean approveRequest(int id) {
+    public boolean approveRequest(int id, int resolverId) {
         try {
-//          Connection conn = DriverManager.getConnection(
-//          "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-//          "Knolls2056");
-		Connection conn = DAOUtilities.getConnection();
+
+            Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate("UPDATE ers_reimbursement SET reimb_status_id=2" +
-                    "WHERE reimb_status_id=1 And reimb_id=" + id);
+            stmt.executeUpdate(
+                    "UPDATE ers_reimbursement SET reimb_status_id=2, resolved_time=CURRENT_TIMESTAMP, reimb_resolver="
+                            + resolverId +
+                            "WHERE reimb_status_id=1 And reimb_id=" + id);
             return true;
         }
         catch (SQLException e) {
@@ -142,17 +144,17 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     }
 
-    public boolean denyRequest(int id) {
+    public boolean denyRequest(int id, int resolverId) {
         try {
-//            Connection conn = DriverManager.getConnection(
-//                    "jdbc:postgresql://localhost:5432/postgres?currentSchema=public", "postgres",
-//                    "Knolls2056");
-        		Connection conn = DAOUtilities.getConnection();
+
+            Connection conn = DAOUtilities.getConnection();
 
             Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate("UPDATE ers_reimbursement SET reimb_status_id=3" +
-                    "WHERE reimb_status_id=1 And reimb_id=" + id);
+            stmt.executeUpdate(
+                    "UPDATE ers_reimbursement SET reimb_status_id=3, reimb_resolved=CURRENT_TIMESTAMP, reimb_resolver="
+                            + resolverId +
+                            "WHERE reimb_status_id=1 And reimb_id=" + id);
             return true;
         }
         catch (SQLException e) {
