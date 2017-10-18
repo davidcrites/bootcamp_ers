@@ -235,7 +235,12 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 			while (rs.next()) {
 				Reimbursement r = new Reimbursement();
-				
+				if(rs.getInt("reimb_author")!=0) {
+					r.setAuthor(rs.getInt("reimb_author"));
+				}
+				if(rs.getInt("reimb_resolver")!=0) {
+					r.setResolver(rs.getInt("reimb_resolver"));
+				}
 				r.setReimbusementId(rs.getInt("reimb_id"));
 				r.setReimbursementAmount(rs.getDouble("reimb_amount"));
 				r.setReimbSubmitted((rs.getTimestamp("reimb_submitted").toLocalDateTime()));
@@ -277,6 +282,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 		Statement stmt = null;
 		Connection conn3 = null;
+		ResultSet rs = null;
 		
 		Users referencedUser = new Users();
 		
@@ -285,13 +291,19 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			stmt = conn3.createStatement();
 
 			String sql = ("SELECT ers_username, user_email, user_first_name, user_last_name, user_role_id FROM ers_users\n" +
-						  "WHERE ers_users_id = '" + userID +"';");
+						  "WHERE ers_users_id = " + userID +";");
+			
+			log.debug("sql below:");
+			log.debug(sql);
 
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
+			
+			log.debug("result set below:");
+			log.debug(rs);
 
 			rs.next();
 			log.debug("result set has data - populate User");
-			referencedUser.setErsUsersId(rs.getInt("ers_users_id"));
+			referencedUser.setErsUsersId(userID);
 			referencedUser.setErsUsername(rs.getString("ers_username"));
 			referencedUser.setErsPassword("password"); //inserting dummy value
 			referencedUser.setUserEmail(rs.getString("user_email"));
@@ -305,7 +317,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			sqle.printStackTrace();
 			return null;
 		}
-		log.info("Finished getting an authenticated user...returning him");
+		log.info("Finished getting a referenced user...returning him: " + referencedUser);
 		return referencedUser;
 				
 	}
