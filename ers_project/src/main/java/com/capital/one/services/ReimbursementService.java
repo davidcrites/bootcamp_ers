@@ -39,7 +39,7 @@ public class ReimbursementService {
 		currentUser = (Users) req.getSession().getAttribute("currentUser");
 		// true paramater in below call gets past tickets
 		displayList = empDao.viewEmployeeTickets(currentUser.getErsUsersId(), true);
-		req.getSession().setAttribute("myPending", displayList);
+		req.getSession().setAttribute("myPast", displayList);
 		for(int i=0; i<displayList.size();i++) {
 			log.trace(displayList.get(i));
 		}
