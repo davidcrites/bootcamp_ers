@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.capital.one.daos.DAOUtilities;
 import com.capital.one.daos.EmployeeDAO;
+import com.capital.one.daos.EmployeeDAOImpl;
 
 /**
  * Class used to represent data model table for table ers_reimbursement
@@ -29,6 +30,7 @@ public class Reimbursement {
 	private Users resolver = new Users();
 	private ReimbursementStatus status = new ReimbursementStatus();
 	private ReimbursementType type = new ReimbursementType();
+	EmployeeDAOImpl empDao = new EmployeeDAOImpl();
 	
 	
 	public Reimbursement() {
@@ -146,6 +148,18 @@ public class Reimbursement {
 		String newType = DAOUtilities.getReimbursementType(typeId);
 		this.type.setReimbType(newType);
 	}
+	public Users getAuthor() {
+		return author;
+	}
+	public void setAuthor(int AuthId) {
+		this.author = empDao.getUser(AuthId);
+	}
+	public Users getResolver() {
+		return resolver;
+	}
+	public void setResolver(int ResolverId) {
+		this.resolver = empDao.getUser(ResolverId);
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -233,7 +247,6 @@ public class Reimbursement {
 				+ ", reimbStatusId=" + reimbStatusId + ", reimbTypeId=" + reimbTypeId + ", author=" + author
 				+ ", resolver=" + resolver + ", status=" + status + ", type=" + type + "]";
 	}
-	
 	
 
 }

@@ -24,26 +24,23 @@ function appendResults(results){
     reimbursements.forEach((Reimbursement)=>{
     document.getElementById("table-body").innerHTML += `
             <tr>
-                <td>${Reimbursement.reimbursementId}</td>
+                <td>${Reimbursement.reimbusementId}</td>
                 <td>${Reimbursement.reimbursementAmount}</td>
-                <td>${Reimbursement.reimbSubmitted}</td>
+                <td>${Reimbursement.reimbSubmitted.year}-${Reimbursement.reimbSubmitted.monthValue}-${Reimbursement.reimbSubmitted.dayOfMonth} 
+                ${Reimbursement.reimbSubmitted.hour}:${Reimbursement.reimbSubmitted.minute}:${Reimbursement.reimbSubmitted.second}</td>
                 <td>${Reimbursement.reimbResolved}</td>
                 <td>${Reimbursement.reimbDescription}</td>
                 <td>RECEIPT</td>
-                <td>${Reimbursement.authorId}</td>
-                <td>test</td>
+    			    <td>${Reimbursement.author.ersUsername}</td>
+                <td>${Reimbursement.resolver.ersUsername}</td>
                 <td>${Reimbursement.status.reimbStatus}</td>
                 <td>${Reimbursement.type.reimbType}</td>
             </tr>
     `;
-    // NOTE: even though the author User and resolver User objects
-    // attached to a reimbursement are present on the object before
-    // writing to the response, the ObjectWriter is not correctly
-    // adding them to the response for some reason..I have pulled
-    // those fields out temporarily until I figure out why..replaced
-    // with the authorID and "test"
+    // NOTE: may need to resolver.ersUsername to "null" since these are pending
     //  <td>${Reimbursement.author.ersUsername}</td>
     //  <td>${Reimbursement.resolver.ersUsername}</td>
+    // NOTE: reimbusementId intentionally misspelled...misspelled earlier in database.
 
     });
 }    
