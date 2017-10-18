@@ -43,8 +43,17 @@ public class ReimbursementController {
 			break;
 			
 		case "/static/reimbursements/MyPast":
+			try {
+				req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
+			} catch (ServletException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;
+		case "/static/reimbursements/pastReimb":
 			rs.myPastReimbursements(req, resp);
-			resp.sendRedirect("/ers_project/static/DisplayReimbursements.html");
+			DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("myPast"),resp);
+			log.debug(req.getSession().getAttribute("myPast"));
 			break;
 		case "/static/reimbursements/AllPending":
 			try {
