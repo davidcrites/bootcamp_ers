@@ -248,6 +248,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				r.setReimbResolver(rs.getInt("reimb_resolver"));
 				r.setReimbStatusId(rs.getInt("reimb_status_id"));
 				r.setReimbTypeId(rs.getInt("reimb_type_id"));
+			
 				
 				log.debug(r);
 				
@@ -271,5 +272,43 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 		return reimbList;
 	}
+	
+	public Users getUser(int userID) {
+
+		Statement stmt = null;
+		Connection conn3 = null;
+		
+		Users referencedUser = new Users();
+		
+		try {
+			conn3 = DAOUtilities.getConnection();
+			stmt = conn3.createStatement();
+
+			String sql = ("SELECT ers_username, user_email, user_first_name, user_last_name, user_role_id FROM ers_users\n" +
+						  "WHERE ers_users_id = '" + userID +"';");
+
+			ResultSet rs = stmt.executeQuery(sql);
+
+			rs.next();
+			log.debug("result set has data - populate User");
+			referencedUser.setErsUsersId(rs.getInt("ers_users_id"));
+			referencedUser.setErsUsername(rs.getString("ers_username"));
+			referencedUser.setErsPassword("password"); //inserting dummy value
+			referencedUser.setUserEmail(rs.getString("user_email"));
+			referencedUser.setUserFirstName(rs.getString("user_first_name"));
+			referencedUser.setUserLastName(rs.getString("user_last_name"));
+			referencedUser.setRole(rs.getInt("user_role_id"));
+			
+		}
+		catch (SQLException sqle) {
+			log.error("SQL Exception thrown");
+			sqle.printStackTrace();
+			return null;
+		}
+		log.info("Finished getting an authenticated user...returning him");
+		return referencedUser;
+				
+	}
+
 
 }
