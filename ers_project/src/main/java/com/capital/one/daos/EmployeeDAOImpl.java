@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.postgresql.util.PSQLException;
 
 import com.capital.one.datamodelbeans.Reimbursement;
+import com.capital.one.datamodelbeans.UserRoles;
 import com.capital.one.datamodelbeans.Users;
 
 
@@ -108,6 +109,16 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 						log.error("SQL Exception thrown");
 						sqle.printStackTrace();
 					}
+					finally {
+						try {
+							if (stmt != null)
+								stmt.close();
+							if (conn2 != null)
+								conn2.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
 					log.info("Finished getting an authenticated user...returning him");
 					return authenticatedUser;
 				}
@@ -177,15 +188,15 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		// TODO Auto-generated method stub
 		List<Reimbursement> reimbList = new ArrayList<Reimbursement>();
 		
-		Connection connection = null;
+		Connection conn = null;
 		Statement stmt = null;
 		String sqlBase = "SELECT * FROM ers_reimbursement a\n";
 		String sqlComplete = "";
 
 		try {
-			connection = DAOUtilities.getConnection();
+			conn = DAOUtilities.getConnection();
 
-			stmt = connection.createStatement();
+			stmt = conn.createStatement();
 			
 			if (Types.length == 0) { //they didn't pass through any Types to filter by, so don't filter by them
 				if (boolResolved) { //they only want resolved tickets so filter by employeeId and status_id>1
@@ -267,8 +278,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				if (stmt != null) {
 					stmt.close();
 				}
-				if (connection != null) {
-					connection.close();
+				if (conn != null) {
+					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -277,18 +288,22 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 		return reimbList;
 	}
-	
+	/***
+	 * getUser used to fully populate a User Object, given the user id
+	 * @param userID
+	 * @return
+	 */
 	public Users getUser(int userID) {
 
 		Statement stmt = null;
-		Connection conn3 = null;
+		Connection conn = null;
 		ResultSet rs = null;
 		
 		Users referencedUser = new Users();
 		
 		try {
-			conn3 = DAOUtilities.getConnection();
-			stmt = conn3.createStatement();
+			conn = DAOUtilities.getConnection();
+			stmt = conn.createStatement();
 
 			String sql = ("SELECT ers_username, user_email, user_first_name, user_last_name, user_role_id FROM ers_users\n" +
 						  "WHERE ers_users_id = " + userID +";");
@@ -317,10 +332,69 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			sqle.printStackTrace();
 			return null;
 		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		log.info("Finished getting a referenced user...returning him: " + referencedUser);
 		return referencedUser;
 				
 	}
+	/***
+	 * Populate a Role Object given only a Role ID....useful for populating a Users bean since it will have a Role object but we initially
+	 * only have the Role Id from the database
+	 * @param userId
+	 * @return
+	 */
+	public UserRoles populateRole(int userId) {
+		UserRoles ur = new UserRoles();
+		Statement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		
+		
+		try {
+			conn = DAOUtilities.getConnection();
+			stmt = conn.createStatement();
 
+			String sql = ("SELECT ers_user_role_id, user_role FROM ers_user_roles, ers_users\n" +
+						  "WHERE (ers_users_id = " + userId +" AND ers_user_roles.ers_user_role_id = ers_users.user_role_id);");
+			
+			log.debug("sql below:");
+			log.debug(sql);
 
+			rs = stmt.executeQuery(sql);
+			
+			log.debug("result set below:");
+			log.debug(rs);
+
+			rs.next();
+			log.debug("result set has data - populate Role");
+			ur.setErsUserRoleid(rs.getInt("ers_user_role_id"));
+			ur.setUserRole(rs.getString("user_role"));
+		}
+		catch (SQLException sqle) {
+			log.error("SQL Exception thrown");
+			sqle.printStackTrace();
+			return null;
+		}finally {
+		try {
+			if (stmt != null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+		log.info("Finished getting a role...returning it: " + ur);
+		return ur;
+	}
+	
 }
