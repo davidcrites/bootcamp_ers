@@ -110,7 +110,7 @@ public class FrontControllerServlet extends DefaultServlet{
 		}else
 		if(requestURL.startsWith("/static")) {
 			
-			if(!(requestURL.startsWith("/static/users/login") || requestURL.startsWith("/static/users/login"))) { 		//if NOT /users/login
+			if(!( requestURL.startsWith("/static/users/login") ) ) { 		//if NOT /users/login
 				if (!this.validateUser(req, requestURL)) {           //if NOT a validated User
 					req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
 				}

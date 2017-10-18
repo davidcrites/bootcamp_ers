@@ -13,6 +13,7 @@ import com.capital.one.daos.DAOUtilities;
 import com.capital.one.daos.EmployeeDAO;
 import com.capital.one.daos.FinanceManagerDao;
 import com.capital.one.datamodelbeans.Reimbursement;
+import com.capital.one.datamodelbeans.UserRoles;
 import com.capital.one.datamodelbeans.Users;
 
 public class ReimbursementService {
@@ -22,6 +23,18 @@ public class ReimbursementService {
 	Logger log = Logger.getLogger("ReimbursementService");
 	Users currentUser = new Users();
 	Reimbursement tempReimbursement = new Reimbursement();
+	
+	public void populateRole(HttpServletRequest req) {
+		UserRoles currentRole = new UserRoles();
+		Users u = new Users();
+		int userId;
+		u = ((Users) req.getSession().getAttribute("currentUser"));
+		userId = u.getErsUsersId();
+		log.debug("The userId we are getting from currentUser's getErsUsersId is: " + userId);
+		currentRole = empDao.populateRole(userId);
+		log.debug("The ROLE that we just populated with populateRole is" + currentRole);
+		req.getSession().setAttribute("currentRole", currentRole);
+	}
 	
 	public void myPendingReimbursements(HttpServletRequest req, HttpServletResponse resp) {
 		List<Reimbursement> displayList = new ArrayList<Reimbursement>();

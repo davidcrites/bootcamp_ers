@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.capital.one.datamodelbeans.Reimbursement;
+import com.capital.one.datamodelbeans.UserRoles;
 import com.capital.one.datamodelbeans.Users;
 
 
@@ -39,5 +40,20 @@ public interface EmployeeDAO {
 	 * @return
 	 */
 	List<Reimbursement> viewEmployeeTickets(int employeeId, boolean boolResolved, int ...Types);
+	
+	/***
+	 * This method will populate a User object given an ID...useful for the Reimbursement bean, which has an Author and Resolver object that are users
+	 * since we initially only have stored the ID in the database object.
+	 * @param userID
+	 * @return
+	 */
+	public Users getUser(int userID);
 
+	/***
+	 * Populate a Role Object given only a Role ID....useful for populating a Users bean since it will have a Role object but we initially
+	 * only have the Role Id from the database
+	 * @param userId
+	 * @return
+	 */
+	public UserRoles populateRole(int userId);
 }

@@ -28,6 +28,12 @@ public class ReimbursementController {
 
 		switch (requestUrl) {
 
+		case "/static/reimbursements/getRole":
+			rs.populateRole(req);
+			DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("currentRole"),resp);
+			log.debug(req.getSession().getAttribute("currentRole"));
+			break;
+			
 		case "/static/reimbursements/MyPending": //forward to DisplayReimbursements and let the java script call pendingReimb to pull data
 			try {
 				req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
@@ -57,9 +63,8 @@ public class ReimbursementController {
 			break;
 		case "/static/reimbursements/AllPending":
 			try {
-				if((int)req.getSession().getAttribute("currentRoleId")==2) {
-					rs.allPendingReimbursements(req, resp);
-					resp.sendRedirect("/ers_project/static/DisplayReimbursements.html");
+				if((int)req.getSession().getAttribute("currentRoleId")==2) {			
+					req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
 				}else {
 					req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
 				}
@@ -68,11 +73,15 @@ public class ReimbursementController {
 				log.error("Page did not exist");
 			}
 			break;
+		case "/static/reimbursements/pendingAll":
+			rs.allPendingReimbursements(req, resp);
+			DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("allPending"),resp);
+			log.debug(req.getSession().getAttribute("allPending"));
+			break;
 		case "/static/reimbursements/AllPast":
 			try {
 				if((int)req.getSession().getAttribute("currentRoleId")==2) {
-					rs.allPastReimbursements(req, resp);
-					resp.sendRedirect("/ers_project/static/DisplayReimbursements.html");
+					req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
 				}else {
 					req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
 				}
@@ -80,6 +89,11 @@ public class ReimbursementController {
 			catch (Exception e) {
 				log.error("Page did not exist");
 			}
+			break;
+		case "/static/reimbursements/pastAll":
+			rs.allPastReimbursements(req, resp);
+			DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("allPast"),resp);
+			log.debug(req.getSession().getAttribute("allPast"));
 			break;
 		case "/static/reimbursements/MySearch":
 			try {
