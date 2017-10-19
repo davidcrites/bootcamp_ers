@@ -28,12 +28,76 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public List<Reimbursement> getAllEmployeeReimbursement() {
 
+        Statement stmt = null;
+
+        Connection conn = null;
+
         try {
 
-            Connection conn = DAOUtilities.getConnection();
+            Connection conn1 = DAOUtilities.getConnection();
 
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\"");
+            Statement stmt1 = conn1.createStatement();
+            ResultSet rs = stmt1.executeQuery("SELECT * FROM \"ers_reimbursement\"");
+            List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
+
+            while (rs.next()) {
+                log.trace("reimb_id = " + rs.getInt("reimb_id"));
+                Reimbursement reimbursement = new Reimbursement();
+                reimbursement.setReimbusementId(rs.getInt("reimb_id"));// populate the object
+                reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
+                reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
+                if (rs.getTimestamp("reimb_resolved") != null) {
+                    reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                }
+                else {
+                    reimbursement.setReimbResolved(null);
+                }
+                reimbursement.setReimbDescription(rs.getString("reimb_description"));
+                reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
+                reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
+                reimbursement.setReimbStatusId(rs.getInt("reimb_status_id"));
+                reimbursement.setReimbTypeId(rs.getInt("reimb_type_id"));
+                reimbursementList.add(reimbursement);
+                System.out.println(reimbursementList);
+
+            }
+
+            log.trace(reimbursementList);
+            return reimbursementList;
+
+        }
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+                if (conn != null)
+                    conn.close();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return null;
+
+    }
+
+    public List<Reimbursement> getAllEmployeeReimbursementOrderByPending() {
+
+        Statement stmt = null;
+
+        Connection conn = null;
+
+        try {
+
+            Connection conn1 = DAOUtilities.getConnection();
+
+            Statement stmt1 = conn1.createStatement();
+            ResultSet rs = stmt1.executeQuery("SELECT * FROM \"ers_reimbursement\" ORDER BY reimb_status_id asc");
             List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
 
             while (rs.next()) {
@@ -65,7 +129,81 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+                if (conn != null)
+                    conn.close();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
         return null;
+
+    }
+
+    public List<Reimbursement> getAllEmployeeReimbursementOrderByLast10Days() {
+
+        Statement stmt = null;
+
+        Connection conn = null;
+
+        try {
+
+            Connection conn1 = DAOUtilities.getConnection();
+
+            Statement stmt1 = conn1.createStatement();
+            ResultSet rs = stmt1.executeQuery("SELECT * FROM \"ers_reimbursement\" ORDER BY reimb_status_id asc");
+            List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
+
+            while (rs.next()) {
+                log.trace("reimb_id = " + rs.getInt("reimb_id"));
+                Reimbursement reimbursement = new Reimbursement();
+                reimbursement.setReimbusementId(rs.getInt("reimb_id"));// populate the object
+                reimbursement.setReimbursementAmount(rs.getDouble("reimb_amount"));
+                reimbursement.setReimbSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
+                if (rs.getTimestamp("reimb_resolved") != null) {
+                    reimbursement.setReimbResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+                }
+                else {
+                    reimbursement.setReimbResolved(null);
+                }
+                reimbursement.setReimbDescription(rs.getString("reimb_description"));
+                reimbursement.setReimbAuthor(rs.getInt("reimb_author"));
+                reimbursement.setReimbResolver(rs.getInt("reimb_resolver"));
+                reimbursement.setReimbStatusId(rs.getInt("reimb_status_id"));
+                reimbursement.setReimbTypeId(rs.getInt("reimb_type_id"));
+                reimbursementList.add(reimbursement);
+
+            }
+
+            log.trace(reimbursementList);
+            return reimbursementList;
+
+        }
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+                if (conn != null)
+                    conn.close();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return null;
+
     }
 
     /***
@@ -76,12 +214,17 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
      */
 
     public List<Reimbursement> filterByStatus(String status) {
+
+        Statement stmt = null;
+
+        Connection conn = null;
+
         try {
 
-            Connection conn = DAOUtilities.getConnection();
+            Connection conn1 = DAOUtilities.getConnection();
 
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt
+            Statement stmt1 = conn1.createStatement();
+            ResultSet rs = stmt1
                     .executeQuery("Select table1.\"reimb_id\", table1.\"reimb_amount\", table1.\"reimb_submitted\"," +
                             "table1.\"reimb_resolved\", table1.\"reimb_description\", table1.\"reimb_receipt\", table1.\"reimb_author\", table1.\"reimb_resolver\","
                             +
@@ -118,18 +261,36 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
             e.printStackTrace();
 
         }
+
+        finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+                if (conn != null)
+                    conn.close();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
         return null;
 
     }
 
     public boolean approveRequest(int id, int resolverId) {
+
+        Statement stmt = null;
+
+        Connection conn = null;
+
         try {
 
-            Connection conn = DAOUtilities.getConnection();
+            Connection conn1 = DAOUtilities.getConnection();
 
-            Statement stmt = conn.createStatement();
+            Statement stmt1 = conn1.createStatement();
 
-            stmt.executeUpdate(
+            stmt1.executeUpdate(
                     "UPDATE ers_reimbursement SET reimb_status_id=2, resolved_time=CURRENT_TIMESTAMP, reimb_resolver="
                             + resolverId +
                             "WHERE reimb_status_id=1 And reimb_id=" + id);
@@ -138,20 +299,38 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
         catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-
-            return false;
         }
+
+        finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+                if (conn != null)
+                    conn.close();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return false;
 
     }
 
     public boolean denyRequest(int id, int resolverId) {
+
+        Statement stmt = null;
+
+        Connection conn = null;
+
         try {
 
-            Connection conn = DAOUtilities.getConnection();
+            Connection conn1 = DAOUtilities.getConnection();
 
-            Statement stmt = conn.createStatement();
+            Statement stmt1 = conn1.createStatement();
 
-            stmt.executeUpdate(
+            stmt1.executeUpdate(
                     "UPDATE ers_reimbursement SET reimb_status_id=3, reimb_resolved=CURRENT_TIMESTAMP, reimb_resolver="
                             + resolverId +
                             "WHERE reimb_status_id=1 And reimb_id=" + id);
@@ -160,9 +339,22 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
         catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-
-            return false;
         }
+
+        finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+                if (conn != null)
+                    conn.close();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return false;
 
     }
 

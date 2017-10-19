@@ -1,4 +1,38 @@
-Finance Manager Search Screen
+<!DOCTYPE html>
+<head>
+  <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
-Accept Search Criteria on a form, and then post call to SearchResults
-Search Results queries and serves up the DisplayReimbursements page
+<!-- Custom styles for this template -->
+    <link href="custom_css/searchCSS.css" rel="stylesheet">
+
+</head>
+
+<html>
+
+<body>
+
+<h2 class="SearchHeader"> Search For Request By Status:</h2>
+
+<h6 class="ChooseAnOption"> Select an option from the dropdown and then click the Search button:</h6>
+<form class="searchForm" action="/ers_project/static/reimbursement/search" method="get"> 
+<label class="fieldLabel" id="filterByLabel"> Filter By:</label>
+<select id="selectDropdown" name="selectStatus" class="Dropdown">
+<option value="ALL">All</option>
+<option value="PENDING">Pending</option>
+<option value="ACCEPTED">Accepted</option>
+<option value="DENIED">Denied</option>
+</select>
+<button id="searchButton" class="btn btn-lg btn-primary btn-block" type="submit">Search</button> 
+</form>
+
+
+
+<script type="text/javascript" src="searchScript.js"></script>
+  
+
+
+
+
+</body>
+</html>
