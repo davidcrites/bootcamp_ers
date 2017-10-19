@@ -28,17 +28,17 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
     public List<Reimbursement> getAllEmployeeReimbursement() {
 
+    		List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
         Statement stmt = null;
-
-        Connection conn = null;
+        Connection conn_gae = null;
 
         try {
 
-            conn = DAOUtilities.getConnection();
+            conn_gae = DAOUtilities.getConnection();
 
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\"");
-            List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
+            stmt = conn_gae.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM ers_reimbursement");
+            reimbursementList = new ArrayList<Reimbursement>();
 
             while (rs.next()) {
                 log.trace("reimb_id = " + rs.getInt("reimb_id"));
@@ -68,21 +68,21 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
         }
         catch (SQLException e) {
             // TODO Auto-generated catch block
+        		log.error("SQL Exception thrown trying to pull back All Reibursements in FinanceManagerrDaoImpl");
             e.printStackTrace();
-        }
-        finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-                if (conn != null)
-                    conn.close();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
+        }finally {
+	            try {
+	                if (stmt != null)
+	                    stmt.close();
+	                if (conn_gae != null)
+	                    conn_gae.close();
+	            }
+	            catch (SQLException e) {
+	                e.printStackTrace();
             }
 
         }
-        return null;
+        return reimbursementList;
 
     }
 

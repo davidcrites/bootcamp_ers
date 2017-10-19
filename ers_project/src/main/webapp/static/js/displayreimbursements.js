@@ -1,7 +1,7 @@
 //Global Variables needed
 let localRoleId = 0;
 
-// FUNCTION for getting roleID
+// FUNCTION for getting roleID and calling function to add Manager options
 function getRoleId(){
 	let xhttp= new XMLHttpRequest();
 	
@@ -11,6 +11,10 @@ function getRoleId(){
 	        console.log(xhttp.responseText);
 	        let id = JSON.parse(xhttp.responseText);
 	        localRoleId=id.ersUserRoleid;
+	        //Add options to navbar if they are a manager
+	        if(localRoleId===2){
+	        		addOptions();
+	        }
 	    } else {
 	    	
 	    }
@@ -18,6 +22,13 @@ function getRoleId(){
     xhttp.open('GET','getRole');
     xhttp.send(); 
     
+}
+
+// FUNCTION for adding options if they are a Manager
+function addOptions(){
+	document.getElementById("dropdown-links").innerHTML +=`
+    <li><a href="http://localhost:8080/ers_project/static/reimbursements/AllPending">View All Pending Reimbursements</a></li>
+    <li><a href="http://localhost:8080/ers_project/static/reimbursements/AllPast">View All Closed Reimbursements</a></li>`;
 }
 
 // FUNCTIONS for calling queries
@@ -138,6 +149,7 @@ function appendResults(results){
 } 
 //Populate the Local Role Id
 getRoleId();
+
 
 //OnClick event on my List Item for "Home" in the navbar calls this function
 function goHome(){

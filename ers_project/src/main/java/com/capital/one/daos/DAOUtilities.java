@@ -1,6 +1,7 @@
 package com.capital.one.daos;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -238,33 +239,47 @@ public class DAOUtilities {
             log.trace("connection was null, registering driver");
             try {
                 Class.forName("org.postgresql.Driver");
+                log.trace("getting connection from data source");
+                dbProps.load(new FileInputStream(
+                        "/Users/den421/Documents/bootcamp_ers/ers_project/src/main/resources/database.properties"));
+                // "/Users/ltv783/eclipse-workspace/ERS_Project/bootcamp_ers/ers_project/src/main/resources/database.properties"));
+                connection = DriverManager.getConnection(dbProps.getProperty("url"), dbProps.getProperty("username"),
+                        dbProps.getProperty("password"));
+                log.trace("retreived connection from data source");
+                return connection;
             }
             catch (ClassNotFoundException e) {
                 System.out.println("Could not register driver!");
                 e.printStackTrace();
                 return null;
-            }
+            } catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else {
+	        try {
+	            log.trace("already have connection...sending it back.");
+	            if (connection.isClosed()) {
+	            	log.trace("getting connection from data source");
+	                dbProps.load(new FileInputStream(
+	                        "/Users/den421/Documents/bootcamp_ers/ers_project/src/main/resources/database.properties"));
+	                // "/Users/ltv783/eclipse-workspace/ERS_Project/bootcamp_ers/ers_project/src/main/resources/database.properties"));
+	                connection = DriverManager.getConnection(dbProps.getProperty("url"), dbProps.getProperty("username"),
+	                        dbProps.getProperty("password"));
+	                log.trace("retreived connection from data source");
+	            }
+	            return connection;
+	        }
+	        catch (Exception e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
+	        log.trace("unknown exception");
+	        return null;
         }
-
-        try {
-            log.trace("getting connection from data source");
-            dbProps.load(new FileInputStream(
-                    "/Users/den421/Documents/bootcamp_ers/ers_project/src/main/resources/database.properties"));
-            // "/Users/ltv783/eclipse-workspace/ERS_Project/bootcamp_ers/ers_project/src/main/resources/database.properties"));
-            connection = DriverManager.getConnection(dbProps.getProperty("url"), dbProps.getProperty("username"),
-                    dbProps.getProperty("password"));
-            log.trace("retreived connection from data source");
-            return connection;
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        log.trace("could not retreive connection");
         return null;
     }
     

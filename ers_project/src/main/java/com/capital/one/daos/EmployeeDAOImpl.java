@@ -35,7 +35,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				PreparedStatement preparedStmt = null;
 				Statement stmt = null;
 				Connection conn = null;
-				Connection conn2 = null;
 				ResultSet preparedResultSet;
 				boolean authenticated = false;
 				
@@ -86,8 +85,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 					Users authenticatedUser = new Users();
 					log.info("You successfully authenticated!");
 					try {
-						conn2 = DAOUtilities.getConnection();
-						stmt = conn2.createStatement();
+						conn = DAOUtilities.getConnection();
+						stmt = conn.createStatement();
 
 						String sql = ("SELECT ers_users_id, user_first_name, user_last_name, user_role_id FROM ers_users\n" +
 									  "WHERE (ers_username = '" + username +"' AND user_email = '" + email + "');");
@@ -113,8 +112,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 						try {
 							if (stmt != null)
 								stmt.close();
-							if (conn2 != null)
-								conn2.close();
+							if (conn != null)
+								conn.close();
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
