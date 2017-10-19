@@ -1,0 +1,51 @@
+body {
+background-color: rgb(203, 237, 250) ;
+padding-top: 200px;
+padding-bottom: 200px;
+
+}
+.SearchHeader {
+text-align: center;
+color: #000080;
+}
+.ChooseAnOption {
+  text-align: center;
+  
+}
+
+#searchButton {
+	float: center;
+    width: 200px;
+
+
+}
+
+#filterByLabel {
+	text-align: center;
+
+}
+
+.searchForm {
+	max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+    padding: 10px;margin-bottom: 10px;
+
+}
+
+.Dropdown {
+	float: center;
+	width: 50%;
+    padding: 10px;
+}
+
+}
+
+
+
+}
+

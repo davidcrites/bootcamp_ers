@@ -15,6 +15,15 @@ public interface FinanceManagerDao {
     List<Reimbursement> getAllEmployeeReimbursement();
 
     /***
+     * Allows finance manager to get all employee reimbursement records and in the ers reimbursement table ordering by
+     * pending first
+     * 
+     * @return
+     */
+
+    List<Reimbursement> getAllEmployeeReimbursementOrderByPending();
+
+    /***
      * Allows finance manager to filter by status type
      * 
      * @param status
