@@ -34,10 +34,10 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
         try {
 
-            Connection conn1 = DAOUtilities.getConnection();
+            conn = DAOUtilities.getConnection();
 
-            Statement stmt1 = conn1.createStatement();
-            ResultSet rs = stmt1.executeQuery("SELECT * FROM \"ers_reimbursement\"");
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\"");
             List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
 
             while (rs.next()) {
@@ -94,10 +94,10 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
         try {
 
-            Connection conn1 = DAOUtilities.getConnection();
+            conn = DAOUtilities.getConnection();
 
-            Statement stmt1 = conn1.createStatement();
-            ResultSet rs = stmt1.executeQuery("SELECT * FROM \"ers_reimbursement\" ORDER BY reimb_status_id asc");
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\" ORDER BY reimb_status_id asc");
             List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
 
             while (rs.next()) {
@@ -154,10 +154,10 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
         try {
 
-            Connection conn1 = DAOUtilities.getConnection();
+            conn = DAOUtilities.getConnection();
 
-            Statement stmt1 = conn1.createStatement();
-            ResultSet rs = stmt1.executeQuery("SELECT * FROM \"ers_reimbursement\" ORDER BY reimb_status_id asc");
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM \"ers_reimbursement\" ORDER BY reimb_status_id asc");
             List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
 
             while (rs.next()) {
@@ -221,10 +221,10 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
         try {
 
-            Connection conn1 = DAOUtilities.getConnection();
+            conn = DAOUtilities.getConnection();
 
-            Statement stmt1 = conn1.createStatement();
-            ResultSet rs = stmt1
+            stmt = conn.createStatement();
+            ResultSet rs = stmt
                     .executeQuery("Select table1.\"reimb_id\", table1.\"reimb_amount\", table1.\"reimb_submitted\"," +
                             "table1.\"reimb_resolved\", table1.\"reimb_description\", table1.\"reimb_receipt\", table1.\"reimb_author\", table1.\"reimb_resolver\","
                             +
@@ -279,18 +279,17 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
     }
 
     public boolean approveRequest(int id, int resolverId) {
-
         Statement stmt = null;
 
         Connection conn = null;
 
         try {
 
-            Connection conn1 = DAOUtilities.getConnection();
+            conn = DAOUtilities.getConnection();
 
-            Statement stmt1 = conn1.createStatement();
+            stmt = conn.createStatement();
 
-            stmt1.executeUpdate(
+            stmt.executeUpdate(
                     "UPDATE ers_reimbursement SET reimb_status_id=2, resolved_time=CURRENT_TIMESTAMP, reimb_resolver="
                             + resolverId +
                             "WHERE reimb_status_id=1 And reimb_id=" + id);
@@ -326,11 +325,11 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
         try {
 
-            Connection conn1 = DAOUtilities.getConnection();
+            conn = DAOUtilities.getConnection();
 
-            Statement stmt1 = conn1.createStatement();
+            stmt = conn.createStatement();
 
-            stmt1.executeUpdate(
+            stmt.executeUpdate(
                     "UPDATE ers_reimbursement SET reimb_status_id=3, reimb_resolved=CURRENT_TIMESTAMP, reimb_resolver="
                             + resolverId +
                             "WHERE reimb_status_id=1 And reimb_id=" + id);
