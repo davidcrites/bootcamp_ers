@@ -1,51 +1,48 @@
 body {
-background-color: rgb(203, 237, 250) ;
-padding-top: 200px;
-padding-bottom: 200px;
-
-}
-.SearchHeader {
-text-align: center;
-color: #000080;
-}
-.ChooseAnOption {
-  text-align: center;
-  
-}
-
-#searchButton {
-	float: center;
-    width: 200px;
-
-
-}
-
-#filterByLabel {
-	text-align: center;
-
+  padding-top: 200px;
+  padding-bottom: 200px;
+  background: rgb(203, 237, 250);
 }
 
 .searchForm {
-	max-width: 330px;
-    padding: 15px;
+	background-color: rgb(76, 94, 153);
+	max-width: 900px;
+    padding: 50px;
     margin: 0 auto;
-    position: relative;
-    height: auto;
-    -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-    padding: 10px;margin-bottom: 10px;
 
 }
 
-.Dropdown {
-	float: center;
-	width: 50%;
-    padding: 10px;
+ #searchHeader {
+ 	text-align: center;
+ 	color: white !important;
+
+
+ }
+
+ 
+#statusDescription {
+  color: white !important;
 }
 
+#typeDescription {
+	 color: white !important;
 }
 
 
+ .radio {
+ 	color: white !important;
+ }
+
+ #searchTypeLabel {
+ 	color: white !important;
+ }
+
+  #searchStatusLabel {
+ 	color: white !important;
+ }
+
+
+
+ 
 
 }
-
