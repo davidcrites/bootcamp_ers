@@ -79,6 +79,27 @@
                 border:2px !important;
                 border-color:rgb(79,123,163) !important;
             }
+            .success-modal  {
+		    		background-color: rgba(4, 4, 4, 0.8); 
+		    }
+            .success-modal-body {
+                 background-color: #0f8845;
+    				color: white;
+            }
+            .invalid-modal  {
+		    		background-color: rgba(4, 4, 4, 0.8); 
+		    }
+            .invalid-modal-body {
+                 background-color: #eca622;
+    				color: white;
+            }
+            .unfound-modal  {
+		    		background-color: rgba(4, 4, 4, 0.8); 
+		    }
+            .unfound-modal-body {
+                 background-color: #ac3607;
+    				color: white;
+            }
 
         </style>
         <style type="text/css">
@@ -125,7 +146,8 @@
         
         <div class="container col-md-12">
             <div class="row">  
-            	  <form action="/ers_project/static/reimbursement/new" method="post">
+            <!-- <form action="/ers_project/static/reimbursement/new" method="post"> -->
+            	  <form id="submit-form">
                 <div class="col-md-9 border-submission">
                     <!--Enter New Reimbursement Div
                     <table id="new-entry" class="display" cellspacing="0" width="100%">-->
@@ -149,7 +171,7 @@
                                 <td class="reimb-box col-md-5 col-md-offset-2" id="new-reimb-name"></td>
                                 <td class="reimb-input col-md-5 col-md-offset-2"><input  class="new-input" type="text" id="new-reimb-description" name="new-description"></td>
                                 <td class="reimb-box col-md-5 col-md-offset-2" >timestamp</td>
-                                <td class="reimb-input col-md-5 col-md-offset-2"><input class="new-input" type="text" id="new-reimb-amount" name="new-amount"></td>
+                                <td class="reimb-input col-md-5 col-md-offset-2"><input class="new-input" type="number" onkeypress="return event.charCode >= 48" min="0" id="new-reimb-amount" name="new-amount"></td>
                                 <td class="col-md-5 col-md-offset-2"><select size="1" id="new-reimb-type" name="new-type">
                                     <option value="Travel" selected="selected">
                                         Travel
@@ -169,18 +191,83 @@
                         </tbody>
                     </table>
                 </div>
+                </form>
                 <div class="col-md-2 border-all">
                     <!--submit button goes here-->
-                    <button class="btn btn-primary btn-block">Submit</button>
+                    <button id="reimb-submit" class="btn btn-primary btn-block" onClick="submit()">Submit</button>
                 </div>
-               </form>
+                
+                <!-- Invalid Input Modal -->
+				  <div class="modal invalid-modal fade" id="invalid-modal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content invalid-modal-body">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h3 class="modal-title">Missing Input</h3>
+				        </div>
+				        <div class="modal-body invalid-modal-body">
+				          <h4>Please enter all fields before submitting.</h4>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
+				  
+				  <!-- Unfound Input Modal -->
+				  <div class="modal unfound-modal fade" id="unfound-modal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content unfound-modal-body">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h3 class="modal-title">Invalid Employee ID</h3>
+				        </div>
+				        <div class="modal-body unfound-modal-body">
+				          <h4>No user was found with that ID.</h4>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
+				  
+				  <!-- Success Modal -->
+				  <div class="modal success-modal fade" id="success-modal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content success-modal-body">
+				        <div class="modal-header">
+				          <!--  COMMENTING OUT BUTTONS BECAUSE I AM CLOSING WITH A TIMEOUT FUNCTION AFTER A COUPLE OF SECONDS -->
+				          <!--  <button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+				          <h3 class="modal-title">Success</h3>
+				        </div>
+				        <div class="modal-body success-modal-body">
+				          <h4>Reimbursement submitted!</h4>
+				        </div>
+				        <div class="modal-footer">
+				          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
+                
             </div><!--row-->
         </div>
         <div>
             <div class="row">
                 <div class="container col-md-12 border-all">
                     <!--Pending Reimbursements Header Div-->
-                    <h1 id="employee-name" class="text-center">Pending Reimbursements</h1>
+                    <h1 id="employee-name" class="text-center">Pending Reimbursements for <span id="pend-title">Name</span></h1>
                 </div>
                 <div class="container col-md-12 border-all">
                     <!--Pending Reimbursements Div-->

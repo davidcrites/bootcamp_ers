@@ -1,7 +1,6 @@
 package com.capital.one.servlets;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +82,11 @@ public class FrontControllerServlet extends DefaultServlet{
 				//send to Reimbursement Controller
 				log.trace("/static/reimbursements: " + requestURL);
 				rc.processGetRequests(req, resp);
+			}else //  
+			if(requestURL.startsWith("/static/reimbursement")) {  //send reimbursement functions to reimbursement controller
+				//send to Reimbursement Controller
+				log.trace("/static/reimbursement: " + requestURL);
+				//try doing nothing here.
 			}else {
 				log.trace("non-site URL: " + requestURL);
 				super.doGet(req, resp);  // non-site Get requests processed normally

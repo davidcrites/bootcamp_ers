@@ -1,5 +1,6 @@
 package com.capital.one.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,18 +78,25 @@ public class ReimbursementService {
         //List<Reimbursement> displayList = new ArrayList<Reimbursement>();
         Users tempUser = new Users();
         Reimbursement newReimbursement = new Reimbursement();
+        int typeId=0;
         tempUser = (Users) req.getSession().getAttribute("currentUser");
         newReimbursement.setReimbDescription((String) req.getSession().getAttribute("newDescription"));
-        newReimbursement.setReimbursementAmount((Double) req.getSession().getAttribute("newAmount"));
-        newReimbursement.setReimbTypeId((int) req.getSession().getAttribute("newType"));
+        newReimbursement.setReimbursementAmount(Double.valueOf((String)req.getSession().getAttribute("newAmount")));
+        typeId=DAOUtilities.getReimbursementTypeId((String)req.getSession().getAttribute("newType"));
+        newReimbursement.setReimbTypeId(typeId);
+        newReimbursement.setReimbStatusId(1); //new Reimbursements are by default Pending, status ID = 1
+        newReimbursement.setReimbSubmitted(LocalDateTime.now());
         
-        if (tempUser.getErsUsersId() == ((int) req.getSession().getAttribute("newId"))) {
+        if (tempUser.getErsUsersId() == (Integer.valueOf((String)req.getSession().getAttribute("newId")))) {
         		log.info("createNewReimbursement service being used for Self");
-        		tempUser = empDao.getUser((int) req.getSession().getAttribute("newId"));
-        		newReimbursement.setAuthor((int) req.getSession().getAttribute("newId"));
+        		newReimbursement.setAuthor(tempUser.getErsUsersId());
+        		newReimbursement.setReimbAuthor(tempUser.getErsUsersId());
+        		
         }else {
         		log.info("createNewReimbursement service being used for Other");
-        		newReimbursement.setAuthor(tempUser.getErsUsersId());
+        		int tempId = Integer.valueOf((String)req.getSession().getAttribute("newId"));
+        		newReimbursement.setAuthor(tempId);
+        		newReimbursement.setReimbAuthor(tempId);
         }
         try {
         		log.debug("My newRembursement I should be submitting now is : " + newReimbursement);

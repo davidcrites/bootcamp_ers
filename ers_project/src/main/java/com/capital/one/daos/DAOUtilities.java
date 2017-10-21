@@ -126,11 +126,13 @@ public class DAOUtilities {
 
             stmt = conn2.createStatement();
 
-            String sql = ("SELECT reimb_type_id FROM ers_reimbursement_type WHERE reimb_type = " + type);
+            String sql = ("SELECT reimb_type_id FROM ers_reimbursement_type WHERE reimb_type = '" + type + "';");
             // System.out.println(sql);
 
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
+            log.debug("rs.getInt('reimb_type_id') = " + rs.getInt("reimb_type_id"));
+            
             return rs.getInt("reimb_type_id");
         }
         catch (SQLException e) {

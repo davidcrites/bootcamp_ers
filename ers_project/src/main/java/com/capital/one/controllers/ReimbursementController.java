@@ -201,13 +201,22 @@ public class ReimbursementController {
 	}
 	
 	public void processPostRequests(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		log.info("UserController processing post request.");
+		
 		String requestUrl = req.getRequestURI().substring(req.getContextPath().length());
-
+		log.info("ReimbursementController processing post request with requestUrl = " + requestUrl);
+		
+		String shortUrl = requestUrl;
+		
+		if (requestUrl.contains("/MyNew?") || requestUrl.contains("/MyOther?")) {
+			shortUrl=requestUrl.substring(requestUrl.indexOf('?')+1);
+		}
+		log.debug("shortUrl = " + shortUrl);
+		
 		switch (requestUrl) {
 		
-		
-		case "/ers_project/static/reimbursement/new":
+		case "/static/reimbursements/MyNew/?":
+		case "/static/reimbursements/MyOther/?":
+			log.debug("I THINK I AM EXECUTING THE MyNew and MyOther code HERE");
 			req.getSession().setAttribute("newId", req.getParameter("new-id"));
 			req.getSession().setAttribute("newDescription", req.getParameter("new-description"));
 			req.getSession().setAttribute("newAmount", req.getParameter("new-amount"));
@@ -215,7 +224,7 @@ public class ReimbursementController {
 			rs.createNewReimbursement(req);
 			try {
 				Users tempUser = (Users) req.getSession().getAttribute("currentUser");
-		        if (tempUser.getErsUsersId() == ((int) req.getSession().getAttribute("newId"))) {
+		        if (tempUser.getErsUsersId() == (Integer.valueOf((String)req.getSession().getAttribute("newId")))) {
 		        		log.info("returning to the NewReimbursement for Self with ID");
 		        		// shouldn't need to forward...they are already on the page...let's see what happens...hopefully page refreshes
 		        		//req.getRequestDispatcher("/static/NewReimbursements.html").forward(req, resp);
@@ -229,6 +238,49 @@ public class ReimbursementController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		case "/static/reimbursement/new":
+			log.debug("TRYING TO PARSE THE POST PARAMETERS");
+			log.trace("newId: "+ req.getParameter("new-id"));
+			log.trace("newDescription: "+ req.getParameter("new-description"));
+			log.trace("newAmount: "+ req.getParameter("new-amount"));
+			log.trace("newType: "+ req.getParameter("new-type"));
+			req.getSession().setAttribute("newId", req.getParameter("new-id"));
+			req.getSession().setAttribute("newDescription", req.getParameter("new-description"));
+			req.getSession().setAttribute("newAmount", req.getParameter("new-amount"));
+			req.getSession().setAttribute("newType", req.getParameter("new-type"));
+			rs.createNewReimbursement(req);
+			try {
+				Users tempUser = (Users) req.getSession().getAttribute("currentUser");
+		        if (tempUser.getErsUsersId() == (Integer.valueOf((String)req.getSession().getAttribute("newId")))) {
+		        		log.info("returning to the NewReimbursement for Self with ID");
+		        		// shouldn't need to forward...they are already on the page...let's see what happens...hopefully page refreshes
+		        		//req.getRequestDispatcher("/static/NewReimbursements.html").forward(req, resp);
+		        }else {
+		        		log.info("returning to the NewReimbursement that defaults to Other with ID ");
+		        		// shouldn't need to forward...they are already on the page...let's see what happens...hopefully page refreshes
+		        		//req.getRequestDispatcher("/static/NewReimbursements.html").forward(req, resp);
+		        }
+			
+			} catch (Exception e) { //(ServletException e1)
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		case "/static/reimbursements/MyNew":
+			try {
+				req.getRequestDispatcher("/static/NewReimbursement.html").forward(req, resp);
+			} catch (ServletException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;
+		case "/static/reimbursements/OtherNew":
+			try {
+				req.getRequestDispatcher("/static/NewReimbursement.html").forward(req, resp);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 			
 //			Example of what Donna's code might look like
 //		case "/static/reimbursements/searchRequest":
