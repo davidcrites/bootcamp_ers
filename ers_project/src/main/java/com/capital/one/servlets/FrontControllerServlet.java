@@ -120,7 +120,7 @@ public class FrontControllerServlet extends DefaultServlet{
 			if(requestURL.startsWith("/static/users")) {
 				uc.processPostRequests(req, resp);
 			}
-			if(requestURL.startsWith("/static/reimbursements")) {
+			if(requestURL.startsWith("/static/reimbursement")) {
 				rc.processPostRequests(req, resp);
 			}
 		}

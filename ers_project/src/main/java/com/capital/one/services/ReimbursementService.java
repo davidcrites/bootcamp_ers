@@ -50,6 +50,17 @@ public class ReimbursementService {
             log.trace(displayList.get(i));
         }
     }
+    
+    public void otherPendingReimbursements(HttpServletRequest req, int otherId) {
+        List<Reimbursement> displayList = new ArrayList<Reimbursement>();
+
+        // false parameter in below call gets pending tickets
+        displayList = empDao.viewEmployeeTickets(otherId, false);
+        req.getSession().setAttribute("otherPending", displayList);
+        for (int i = 0; i < displayList.size(); i++) {
+            log.trace(displayList.get(i));
+        }
+    }
 
     public void myPastReimbursements(HttpServletRequest req, HttpServletResponse resp) {
         List<Reimbursement> displayList = new ArrayList<Reimbursement>();
@@ -60,6 +71,33 @@ public class ReimbursementService {
         for (int i = 0; i < displayList.size(); i++) {
             log.trace(displayList.get(i));
         }
+    }
+
+    public void createNewReimbursement(HttpServletRequest req) {
+        //List<Reimbursement> displayList = new ArrayList<Reimbursement>();
+        Users tempUser = new Users();
+        Reimbursement newReimbursement = new Reimbursement();
+        tempUser = (Users) req.getSession().getAttribute("currentUser");
+        newReimbursement.setReimbDescription((String) req.getSession().getAttribute("newDescription"));
+        newReimbursement.setReimbursementAmount((Double) req.getSession().getAttribute("newAmount"));
+        newReimbursement.setReimbTypeId((int) req.getSession().getAttribute("newType"));
+        
+        if (tempUser.getErsUsersId() == ((int) req.getSession().getAttribute("newId"))) {
+        		log.info("createNewReimbursement service being used for Self");
+        		tempUser = empDao.getUser((int) req.getSession().getAttribute("newId"));
+        		newReimbursement.setAuthor((int) req.getSession().getAttribute("newId"));
+        }else {
+        		log.info("createNewReimbursement service being used for Other");
+        		newReimbursement.setAuthor(tempUser.getErsUsersId());
+        }
+        try {
+        		log.debug("My newRembursement I should be submitting now is : " + newReimbursement);
+			empDao.submitReimbursement(newReimbursement);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
     }
 
     public void myDeletedRecords(HttpServletRequest req, HttpServletResponse resp) {

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Employee Reimbursement System</title>
+        
+        <!-- Bootstrap -->
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <!--https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css-->
+        <style>
+            .navbar{
+                margin-bottom:0;
+                border-radius:0;
+            }
+            .btn-cust{
+                float:left;
+                width: 200px !important;
+            }
+            .jumbo-cust{
+                background-color: rgb(76, 94, 153)  !important;
+            }
+            .font-cust{
+                color:white;
+            }
+            .text-yellow{
+                color:yellow;
+            }
+            #table-dynamic{
+                background-color:white;
+                border-color:rgb(7, 7, 51);
+                border-width:3px;
+            
+            }
+            #table-dynamic td{
+                border:rgb(7, 7, 51) solid 1px !important;
+            }
+            #table-dynamic th{
+                border:rgb(7, 7, 51) solid 1px !important;
+            }
+            #pending-rows{
+                overflow-y:auto;
+            }
+            .border-all{
+                border: 2px solid black;
+                margin: 5px;
+                padding: 5px;
+                background-color:rgb(187, 197, 216) !important;
+            }
+            .border-title{
+                border: 2px solid black;
+                margin: 5px;
+                padding: 5px;
+                background-color:white !important;
+            }
+            .border-submission{
+                border: 4px solid rgb(79, 123, 163);
+                margin: 5px;
+                padding: 5px;
+                background-color:white !important;
+            }
+            .display{
+                table-layout:fixed;
+            }
+            .gray-back{
+                background-color:rgb(173, 172, 172);
+            }
+            .new-input{
+                border-width:3px !important;
+                border-color:rgb(79,123,163) !important;
+            }
+            select{
+                width:150px;
+                border-width:3px;
+                border-color:rgb(79,123,163) !important;
+            }
+            .reimb-box{
+                border:2px !important;
+                border-color:rgb(79,123,163) !important;
+            }
+
+        </style>
+        <style type="text/css">
+            body { background: rgb(203, 237, 250) ; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Employee Reimbursement System</a>
+              </div>
+      
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a class="nav-link" onclick=" goHome()">Home</a></li>
+                  <li><a href="http://localhost:8080/ers_project/static/ERS_signin.html">Login</a></li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
+                    <ul id="dropdown-links" class="dropdown-menu">
+                        <li><a href="http://localhost:8080/ers_project/static/reimbursements/MyPending">View My Pending Reimbursements</a></li>
+                        <li><a href="http://localhost:8080/ers_project/static/reimbursements/MyPast">View My Past Reimbursements</a></li>
+                        <li><a href="http://localhost:8080/ers_project/static/reimbursements/MySearch">Search Reimbursements</a></li>
+                        <li><a href="http://localhost:8080/ers_project/static/reimbursements/MyNew">Create a New Reimbursement</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+          
+        <div class="container col-md-12 border-title">
+            <!--Employee Name Div-->
+            <h1 id="employee-name" class="text-center">Reimbursement Submission for <span id="replace-name">Other:</span></h1>
+        </div>
+        
+        <div class="container col-md-12">
+            <div class="row">  
+            	  <form action="/ers_project/static/reimbursement/new" method="post">
+                <div class="col-md-9 border-submission">
+                    <!--Enter New Reimbursement Div
+                    <table id="new-entry" class="display" cellspacing="0" width="100%">-->
+                    
+                    <table class="display table">
+                        <thead>
+                            <tr>
+                                <th class="col-md-5 col-md-offset-2 reimb-head">Employee ID</th>
+                                <th class="col-md-5 col-md-offset-2 reimb-head">Employee Name</th>
+                                <th class="col-md-5 col-md-offset-2 reimb-head">Expense Description</th>
+                                <th class="col-md-5 col-md-offset-2 reimb-head">Submission Date</th>
+                                <th class="col-md-5 col-md-offset-2 reimb-head">Expense Amount</th>
+                                <th class="col-md-5 col-md-offset-2 reimb-head">Expense Type</th>
+                                <th class="col-md-5 col-md-offset-2 reimb-head">Receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="reimb-input col-md-5 col-md-offset-2"><input readonly="readonly" class="new-input gray-back" type="text" id="new-reimb-id" name="new-id"></td>
+                                <!--<td class="reimb-box col-md-5 col-md-offset-2" id="new-reimb-empID"></td>-->
+                                <td class="reimb-box col-md-5 col-md-offset-2" id="new-reimb-name"></td>
+                                <td class="reimb-input col-md-5 col-md-offset-2"><input  class="new-input" type="text" id="new-reimb-description" name="new-description"></td>
+                                <td class="reimb-box col-md-5 col-md-offset-2" >timestamp</td>
+                                <td class="reimb-input col-md-5 col-md-offset-2"><input class="new-input" type="text" id="new-reimb-amount" name="new-amount"></td>
+                                <td class="col-md-5 col-md-offset-2"><select size="1" id="new-reimb-type" name="new-type">
+                                    <option value="Travel" selected="selected">
+                                        Travel
+                                    </option>
+                                    <option value="Lodging">
+                                        Lodging
+                                    </option>
+                                    <option value="Food">
+                                        Food
+                                    </option>
+                                    <option value="Other">
+                                        Other
+                                    </option>
+                                </select></td>
+                                <td class="reimb-box col-md-5 col-md-offset-2">Receipt</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-2 border-all">
+                    <!--submit button goes here-->
+                    <button class="btn btn-primary btn-block">Submit</button>
+                </div>
+               </form>
+            </div><!--row-->
+        </div>
+        <div>
+            <div class="row">
+                <div class="container col-md-12 border-all">
+                    <!--Pending Reimbursements Header Div-->
+                    <h1 id="employee-name" class="text-center">Pending Reimbursements</h1>
+                </div>
+                <div class="container col-md-12 border-all">
+                    <!--Pending Reimbursements Div-->
+                    <table id="new-entry" class="display table">
+                        <thead>
+                            <tr>
+                                <th class="col-md-5 col-md-offset-2">Employee ID</th>
+                                <th class="col-md-5 col-md-offset-2">Employee Name</th>
+                                <th class="col-md-5 col-md-offset-2">Expense Description</th>
+                                <th class="col-md-5 col-md-offset-2">Submission Date</th>
+                                <th class="col-md-5 col-md-offset-2">Expense Amount</th>
+                                <th class="col-md-5 col-md-offset-2">Expense Type</th>
+                                <th class="col-md-5 col-md-offset-2">Receipt</th>
+                                <th class="col-md-5 col-md-offset-2"></th><!--adding a column for the delete button-->
+                            </tr>
+                        </thead>
+                        <tbody id="pending-rows">
+                            <!--rows appended here-->
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- row -->
+        </div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/newreimbursement.js"></script>
+    </body>
+</html>

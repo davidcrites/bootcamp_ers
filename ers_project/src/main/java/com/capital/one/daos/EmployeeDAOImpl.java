@@ -143,6 +143,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_submitted, reimb_description, reimb_author, reimb_status_id,reimb_type_id)\n" + 
 					"	VALUES (?,'" + timestamp + "',?,?,?,?)";
 			// Setup PreparedStatement
+			log.debug("My sql to insert my reimbursement is being run now: " + sql);
 			preparedStmt = conn.prepareStatement(sql);
 			
 			// Add parameters into PreparedStatement
@@ -169,7 +170,11 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 		if (success == 0) {
 			// then update didn't occur, throw an exception
+			log.error("Insert was unsuccessful");
 			throw new Exception("Insert reimbursement failed: " + reimbRecord);
+			
+		}else {
+			log.info("Insert of reimbursement should have been successful");
 		}
 		
 		
