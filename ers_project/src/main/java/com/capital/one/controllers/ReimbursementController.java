@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.capital.one.daos.DAOUtilities;
+import com.capital.one.daos.EmployeeDAO;
 import com.capital.one.datamodelbeans.Reimbursement;
 import com.capital.one.datamodelbeans.Users;
 import com.capital.one.services.ReimbursementService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ReimbursementController {
 
@@ -19,14 +21,24 @@ public class ReimbursementController {
 	private ReimbursementService rs = new ReimbursementService();
 	Users myUser = new Users();
 	Reimbursement tempReimbursement = new Reimbursement();
+	EmployeeDAO empDao = DAOUtilities.getEmployeeDao();
 	
 	public void processGetRequests(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		log.info("ReimbursementController processing get request");
 		// I'm not populating a list here like he was...could do later but for now, nothing I want to do on get request.
 		
 		String requestUrl = req.getRequestURI().substring(req.getContextPath().length());
-
-		switch (requestUrl) {
+		log.debug("requestUrl = " + requestUrl);
+		String shortUrl = requestUrl;
+		
+		if (requestUrl.contains("/static/reimbursements/pendingOther/")) {
+			shortUrl=requestUrl.substring(0,35);	
+		}else if(requestUrl.contains("/static/reimbursements/getOtherUser")) {
+			shortUrl=requestUrl.substring(0,35);
+		}
+		log.debug("shortUrl = " + shortUrl);
+		
+		switch (shortUrl) {
 
 		case "/static/reimbursements/getRole":
 			rs.populateRole(req);
@@ -46,6 +58,45 @@ public class ReimbursementController {
 			rs.myPendingReimbursements(req, resp);
 			DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("myPending"),resp);
 			log.debug(req.getSession().getAttribute("myPending"));
+			break;
+			
+		case "/static/reimbursements/getCurrentUser":
+			//nothing to call...we should already have one
+			try {
+			DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("currentUser"),resp);
+			log.debug(req.getSession().getAttribute("currentUser"));
+			}
+			catch (Exception e){
+				log.error("For some reason we don't have a 'currentUser' attribute stored, so can't write");
+				e.printStackTrace();
+			}
+			break;
+			
+		case "/static/reimbursements/getOtherUser":
+			//need to call service for retrieving user
+			Users otherUser = new Users();
+			
+			String getOtherUserId = requestUrl.substring(36);
+			otherUser = empDao.getUser(Integer.valueOf(getOtherUserId));
+			try {
+			DAOUtilities.writeJSONtoResponse(otherUser,resp);
+			req.getSession().setAttribute("otherUser", otherUser);
+			log.debug("Other User = " + otherUser);
+			}
+			catch (Exception e){
+				log.error("For some reason we don't have 'otherUser' so can't write");
+				e.printStackTrace();
+			}
+			break;
+			
+		case "/static/reimbursements/pendingOther":
+			String pendingOtherId = requestUrl.substring(36);
+			int otherId = Integer.valueOf(pendingOtherId);
+			log.debug("otherId has been set to: " + otherId);
+			rs.otherPendingReimbursements(req, otherId);
+			DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("otherPending"),resp);
+			log.debug(req.getSession().getAttribute("otherPending"));
+
 			break;
 			
 		case "/static/reimbursements/MyPast":
@@ -108,10 +159,20 @@ public class ReimbursementController {
 			}
 			break;
 		case "/static/reimbursements/MyNew":
-			resp.sendRedirect("/ers_project/static/EmployeeNewReimbursement.html");
+			try {
+				req.getRequestDispatcher("/static/NewReimbursement.html").forward(req, resp);
+			} catch (ServletException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		case "/static/reimbursements/OtherNew":
-			resp.sendRedirect("/ers_project/static/OtherNewReimbursement.html");
+			try {
+				req.getRequestDispatcher("/static/NewReimbursement.html").forward(req, resp);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case "/static/reimbursements/MyDelete":
 			//TODO: can call for Employee's pending reimbursements so page has that list to work with
@@ -143,7 +204,33 @@ public class ReimbursementController {
 		log.info("UserController processing post request.");
 		String requestUrl = req.getRequestURI().substring(req.getContextPath().length());
 
-//		switch (requestUrl) {
+		switch (requestUrl) {
+		
+		
+		case "/ers_project/static/reimbursement/new":
+			req.getSession().setAttribute("newId", req.getParameter("new-id"));
+			req.getSession().setAttribute("newDescription", req.getParameter("new-description"));
+			req.getSession().setAttribute("newAmount", req.getParameter("new-amount"));
+			req.getSession().setAttribute("newType", req.getParameter("new-type"));
+			rs.createNewReimbursement(req);
+			try {
+				Users tempUser = (Users) req.getSession().getAttribute("currentUser");
+		        if (tempUser.getErsUsersId() == ((int) req.getSession().getAttribute("newId"))) {
+		        		log.info("returning to the NewReimbursement for Self with ID");
+		        		// shouldn't need to forward...they are already on the page...let's see what happens...hopefully page refreshes
+		        		//req.getRequestDispatcher("/static/NewReimbursements.html").forward(req, resp);
+		        }else {
+		        		log.info("returning to the NewReimbursement that defaults to Other with ID ");
+		        		// shouldn't need to forward...they are already on the page...let's see what happens...hopefully page refreshes
+		        		//req.getRequestDispatcher("/static/NewReimbursements.html").forward(req, resp);
+		        }
+			
+			} catch (Exception e) { //(ServletException e1)
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+//			Example of what Donna's code might look like
 //		case "/static/reimbursements/searchRequest":
 //
 //			req.getSession().setAttribute("SearchCriteria", req.getParameter("searchField"));
@@ -155,9 +242,9 @@ public class ReimbursementController {
 //			}
 //			break;
 //
-//		default:
-//			break;
-//		}
+		default:
+			break;
+		}
 	}
 
 }

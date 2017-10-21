@@ -290,7 +290,7 @@ public class DAOUtilities {
 		ObjectMapper om = new ObjectMapper();
 		ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
 		String json = ow.writeValueAsString(o);
-		log.debug("MY JSON after converting the Reimbursement Object List is: " + json);
+		log.debug("MY JSON after converting the Object is: " + json);
 		
 		// write to response body
 		resp.getWriter().print(json);
