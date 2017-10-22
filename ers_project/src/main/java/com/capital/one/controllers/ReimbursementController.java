@@ -40,28 +40,17 @@ public class ReimbursementController {
         else if (requestUrl.contains("/static/reimbursements/getOtherUser")) {
             shortUrl = requestUrl.substring(0, 35);
         }
+        else if (requestUrl.contains("/static/reimbursements/deleteRecord")) {
+            shortUrl = requestUrl.substring(0, 35);
+        }
         log.debug("shortUrl = " + shortUrl);
 
         switch (shortUrl) {
-            // action="/ers_project/static/reimbursements/managersearch"
+
             case "/static/reimbursements/getRole":
                 rs.populateRole(req);
                 DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("currentRole"), resp);
                 log.debug(req.getSession().getAttribute("currentRole"));
-                break;
-
-            case "/static/reimbursements/managersearch":
-                String searchType = req.getParameter("optType");
-                String searchStatus = req.getParameter("optStatus");
-                String[] searchParam = new String[] {"searchType", "searchStatus"};
-                req.getSession().setAttribute("searchParam", searchParam);
-                try {
-                    req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
-                }
-                catch (ServletException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
                 break;
 
             case "/static/reimbursements/MyPending": // forward to DisplayReimbursements and let the java script call
@@ -74,6 +63,21 @@ public class ReimbursementController {
                     e1.printStackTrace();
                 }
                 break;
+
+            case "/static/reimbursements/managersearch":
+                String searchType = req.getParameter("optType");
+                String searchStatus = req.getParameter("optStatus");
+                String[] searchParam = new String[] {searchType, searchStatus};
+                req.getSession().setAttribute("searchParam", searchParam);
+                try {
+                    req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
+                }
+                catch (ServletException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                break;
+
             case "/static/reimbursements/pendingReimb":
                 rs.myPendingReimbursements(req, resp);
                 DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("myPending"), resp);
@@ -107,6 +111,14 @@ public class ReimbursementController {
                     log.error("For some reason we don't have 'otherUser' so can't write");
                     e.printStackTrace();
                 }
+                break;
+
+            case "/static/reimbursements/deleteRecord":
+                // need to call service for deleting record
+                int delReimbursementId = Integer.valueOf(requestUrl.substring(36));
+
+                rs.deleteReimbursement(req, delReimbursementId);
+
                 break;
 
             case "/static/reimbursements/pendingOther":
@@ -202,11 +214,23 @@ public class ReimbursementController {
                 break;
             case "/static/reimbursements/MyDelete":
                 // TODO: can call for Employee's pending reimbursements so page has that list to work with
-                resp.sendRedirect("/ers_project/static/EmployeeDeleteReimbursement.html");
+                try {
+                    req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
+                }
+                catch (ServletException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 break;
             case "/static/reimbursements/OtherDelete":
                 // TODO: can call for All pending reimbursements so page has that list to work with
-                resp.sendRedirect("/ers_project/static/OtherDeleteReimbursement.html");
+                try {
+                    req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
+                }
+                catch (ServletException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 break;
             case "/static/reimbursements/StatusNew":
                 // TODO: call rs for getting List of Reimbursements but filter by Pending Last 10 days
