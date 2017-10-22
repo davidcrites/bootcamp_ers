@@ -35,6 +35,8 @@ public class ReimbursementController {
 			shortUrl=requestUrl.substring(0,35);	
 		}else if(requestUrl.contains("/static/reimbursements/getOtherUser")) {
 			shortUrl=requestUrl.substring(0,35);
+		}else if(requestUrl.contains("/static/reimbursements/deleteRecord")) {
+			shortUrl=requestUrl.substring(0,35);
 		}
 		log.debug("shortUrl = " + shortUrl);
 		
@@ -87,6 +89,14 @@ public class ReimbursementController {
 				log.error("For some reason we don't have 'otherUser' so can't write");
 				e.printStackTrace();
 			}
+			break;
+			
+		case "/static/reimbursements/deleteRecord":
+			//need to call service for deleting record
+			int delReimbursementId = Integer.valueOf(requestUrl.substring(36));
+			
+			rs.deleteReimbursement(req, delReimbursementId);
+			
 			break;
 			
 		case "/static/reimbursements/pendingOther":
@@ -176,11 +186,21 @@ public class ReimbursementController {
 			break;
 		case "/static/reimbursements/MyDelete":
 			//TODO: can call for Employee's pending reimbursements so page has that list to work with
-			resp.sendRedirect("/ers_project/static/EmployeeDeleteReimbursement.html");
+			try {
+				req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
+			} catch (ServletException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		case "/static/reimbursements/OtherDelete":
 			//TODO: can call for All pending reimbursements so page has that list to work with
-			resp.sendRedirect("/ers_project/static/OtherDeleteReimbursement.html");
+			try {
+				req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
+			} catch (ServletException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		case "/static/reimbursements/StatusNew":
 			//TODO: call rs for getting List of Reimbursements but filter by Pending Last 10 days

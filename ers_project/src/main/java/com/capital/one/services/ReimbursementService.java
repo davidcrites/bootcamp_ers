@@ -73,6 +73,10 @@ public class ReimbursementService {
             log.trace(displayList.get(i));
         }
     }
+    
+    public void deleteReimbursement(HttpServletRequest req, int reimbId) {
+        empDao.deleteRecord(reimbId);
+    }
 
     public void createNewReimbursement(HttpServletRequest req) {
         //List<Reimbursement> displayList = new ArrayList<Reimbursement>();

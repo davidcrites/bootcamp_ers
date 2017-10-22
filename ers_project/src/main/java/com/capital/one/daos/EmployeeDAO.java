@@ -56,4 +56,11 @@ public interface EmployeeDAO {
 	 * @return
 	 */
 	public UserRoles populateRole(int userId);
+	
+	/***
+	 * I want to delete a reimbursement record
+	 * @param reimbId - a reimbursement ID is needed so we know which record to remove from the database.
+	 * 
+	 */
+	public void deleteRecord(int reimbId);
 }
