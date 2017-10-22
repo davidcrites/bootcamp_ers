@@ -26,13 +26,16 @@ import com.fasterxml.jackson.databind.ObjectWriter;
  */
 public class DAOUtilities {
 
-    // private static AnimalDaoImpl animalDaoImpl;
+    
     private static EmployeeDAOImpl employeeDaoImpl;
-
     private static FinanceManagerDao fianceManagerDaoImpl;
 
     private static Connection connection;
-
+    private static Properties dbProps = new Properties();
+	private static String connectionUsername = "";
+	private static String connectionPassword = "";
+	private static String connectionURL = "";
+    
     private static Logger log = Logger.getLogger("DAOUtilities");
 
     public static synchronized EmployeeDAO getEmployeeDao() {
@@ -234,21 +237,28 @@ public class DAOUtilities {
     }
 
     static synchronized Connection getConnection() throws SQLException {
-        log.debug("Attempting to get connection");
-        Properties dbProps = new Properties();
+    	
+    	    log.debug("Attempting to get connection");
+        //Properties dbProps = new Properties();
 
         if (connection == null) {
             log.trace("connection was null, registering driver");
             try {
                 Class.forName("org.postgresql.Driver");
-                log.trace("getting connection from data source");
+                log.trace("getting initial pull of connection parameters from database.properties and storing");
                 dbProps.load(new FileInputStream(
                         "/Users/den421/Documents/bootcamp_ers/ers_project/src/main/resources/database.properties"));
                 // "/Users/ltv783/eclipse-workspace/ERS_Project/bootcamp_ers/ers_project/src/main/resources/database.properties"));
-                connection = DriverManager.getConnection(dbProps.getProperty("url"), dbProps.getProperty("username"),
-                        dbProps.getProperty("password"));
-                log.trace("retreived connection from data source");
-                return connection;
+                connectionUsername = dbProps.getProperty("username");
+                connectionPassword = dbProps.getProperty("password");
+                connectionURL = dbProps.getProperty("url");
+                //Setting the below properties and changing the format of the Driver call to (URL,dbProps)
+                //to try to prevent socket connections from closing
+                dbProps.setProperty("tcpKeepAlive", "true");
+                dbProps.setProperty("loginTimeout", "5");   //specified in seconds
+                dbProps.setProperty("connectTimeout", "0"); //"0" means this is disabled
+                dbProps.setProperty("socketTimeout", "0");  //"0" means this is disabled
+
             }
             catch (ClassNotFoundException e) {
                 System.out.println("Could not register driver!");
@@ -261,28 +271,19 @@ public class DAOUtilities {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }else {
-	        try {
-	            log.trace("already have connection...sending it back.");
-	            if (connection.isClosed()) {
-	            	log.trace("getting connection from data source");
-	                dbProps.load(new FileInputStream(
-	                        "/Users/den421/Documents/bootcamp_ers/ers_project/src/main/resources/database.properties"));
-	                // "/Users/ltv783/eclipse-workspace/ERS_Project/bootcamp_ers/ers_project/src/main/resources/database.properties"));
-	                connection = DriverManager.getConnection(dbProps.getProperty("url"), dbProps.getProperty("username"),
-	                        dbProps.getProperty("password"));
-	                log.trace("retreived connection from data source");
-	            }
-	            return connection;
-	        }
-	        catch (Exception e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        }
-	        log.trace("unknown exception");
-	        return null;
+            log.trace("getting first connection from data source");
+            //connection = DriverManager.getConnection(connectionURL, connectionUsername, connectionPassword);
+            connection = DriverManager.getConnection(connectionURL, dbProps);
+            log.trace("retreived connection from data source");
         }
-        return null;
+        if (connection.isClosed()) {
+	            	log.trace("Connection was closed: getting new connection from data source");
+	            //connection = DriverManager.getConnection(connectionURL, connectionUsername, connectionPassword);
+	            	connection = DriverManager.getConnection(connectionURL, dbProps);
+	            	log.trace("retreived connection from data source");
+	    }
+	    return connection;
+
     }
     
     public static void writeJSONtoResponse(Object o, HttpServletResponse resp) {

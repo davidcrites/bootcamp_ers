@@ -65,9 +65,11 @@ public class ReimbursementController {
                 break;
 
             case "/static/reimbursements/managersearch":
+            		log.trace("We are in the /static/reimbursements/managersearch case check in the Reimbursment Controller.");
                 String searchType = req.getParameter("optType");
                 String searchStatus = req.getParameter("optStatus");
                 String[] searchParam = new String[] {searchType, searchStatus};
+                log.debug("My search parameter array contains : " + searchParam[0] + " and " + searchParam[1]);
                 req.getSession().setAttribute("searchParam", searchParam);
                 try {
                     req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
