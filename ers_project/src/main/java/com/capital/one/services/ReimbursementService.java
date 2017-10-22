@@ -166,6 +166,7 @@ public class ReimbursementService {
         log.debug("my search parameters are" + searchParam[0] + ", " + searchParam[1]);
         if ("All".equals(searchParam[0]) && !("All".equals(searchParam[1]))) {
             // only need to search by 2nd parameter status
+        	    log.info("filtering by search status of " + searchParam[1]);
             displayList = finManDao.getAllEmployeeReimbursement().stream()
                     .filter((element) ->
                         {
@@ -175,6 +176,7 @@ public class ReimbursementService {
         }
         else if (!("All".equals(searchParam[0])) && ("All".equals(searchParam[1]))) {
             // only need to search by 1st parameter type
+        	    log.info("filtering by search type of " + searchParam[0]);
             displayList = finManDao.getAllEmployeeReimbursement().stream()
                     .filter((element) ->
                         {
@@ -184,16 +186,18 @@ public class ReimbursementService {
         }
         else if (!("All".equals(searchParam[0])) && !("All".equals(searchParam[1]))) {
             // need to search by type and status
+           	log.info("filtering by search status of " + searchParam[1] + "and search type of " + searchParam[0]);
             displayList = finManDao.getAllEmployeeReimbursement().stream()
                     .filter((element) ->
                         {
-                            return (searchParam[0].equals(element.getType().getReimbType()) ||
+                            return (searchParam[0].equals(element.getType().getReimbType()) &&
                                     searchParam[1].equals(element.getStatus().getReimbStatus()));
                         })
                     .collect(Collectors.toList());
         }
         else {
             // no filter return all
+        	    log.info("not applying any filtering because the search params were " + searchParam[1] + " " + searchParam[0]);
             displayList = finManDao.getAllEmployeeReimbursement();
         }
 
