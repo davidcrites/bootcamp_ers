@@ -417,7 +417,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			stmt = conn.createStatement();
 			
 			//Second Delete the reimbursement record
-			
+			log.debug("The reimbId (reimbursementId); we are trying to delete a record with is : "+ reimbId);
 			String sql = ("DELETE FROM ers_reimbursement WHERE reimb_id = " + reimbId +";");
 			rs = stmt.executeQuery(sql);
 			
