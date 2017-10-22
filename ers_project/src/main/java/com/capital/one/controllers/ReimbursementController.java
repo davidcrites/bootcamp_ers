@@ -78,6 +78,13 @@ public class ReimbursementController {
                 }
                 break;
 
+            case "/static/reimbursements/doSearch":
+                // call the service to go get the data
+                rs.searchReimbursements(req, resp);
+                DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("searchResults"), resp);
+                log.debug(req.getSession().getAttribute("searchResults"));
+                break;
+
             case "/static/reimbursements/pendingReimb":
                 rs.myPendingReimbursements(req, resp);
                 DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("myPending"), resp);

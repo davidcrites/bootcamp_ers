@@ -51,7 +51,7 @@ public class ReimbursementService {
             log.trace(displayList.get(i));
         }
     }
-    
+
     public void otherPendingReimbursements(HttpServletRequest req, int otherId) {
         List<Reimbursement> displayList = new ArrayList<Reimbursement>();
 
@@ -73,43 +73,45 @@ public class ReimbursementService {
             log.trace(displayList.get(i));
         }
     }
-    
+
     public void deleteReimbursement(HttpServletRequest req, int reimbId) {
         empDao.deleteRecord(reimbId);
     }
 
     public void createNewReimbursement(HttpServletRequest req) {
-        //List<Reimbursement> displayList = new ArrayList<Reimbursement>();
+        // List<Reimbursement> displayList = new ArrayList<Reimbursement>();
         Users tempUser = new Users();
         Reimbursement newReimbursement = new Reimbursement();
-        int typeId=0;
+        int typeId = 0;
         tempUser = (Users) req.getSession().getAttribute("currentUser");
         newReimbursement.setReimbDescription((String) req.getSession().getAttribute("newDescription"));
-        newReimbursement.setReimbursementAmount(Double.valueOf((String)req.getSession().getAttribute("newAmount")));
-        typeId=DAOUtilities.getReimbursementTypeId((String)req.getSession().getAttribute("newType"));
+        newReimbursement.setReimbursementAmount(Double.valueOf((String) req.getSession().getAttribute("newAmount")));
+        typeId = DAOUtilities.getReimbursementTypeId((String) req.getSession().getAttribute("newType"));
         newReimbursement.setReimbTypeId(typeId);
-        newReimbursement.setReimbStatusId(1); //new Reimbursements are by default Pending, status ID = 1
+        newReimbursement.setReimbStatusId(1); // new Reimbursements are by default Pending, status ID = 1
         newReimbursement.setReimbSubmitted(LocalDateTime.now());
-        
-        if (tempUser.getErsUsersId() == (Integer.valueOf((String)req.getSession().getAttribute("newId")))) {
-        		log.info("createNewReimbursement service being used for Self");
-        		newReimbursement.setAuthor(tempUser.getErsUsersId());
-        		newReimbursement.setReimbAuthor(tempUser.getErsUsersId());
-        		
-        }else {
-        		log.info("createNewReimbursement service being used for Other");
-        		int tempId = Integer.valueOf((String)req.getSession().getAttribute("newId"));
-        		newReimbursement.setAuthor(tempId);
-        		newReimbursement.setReimbAuthor(tempId);
+
+        if (tempUser.getErsUsersId() == (Integer.valueOf((String) req.getSession().getAttribute("newId")))) {
+            log.info("createNewReimbursement service being used for Self");
+            newReimbursement.setAuthor(tempUser.getErsUsersId());
+            newReimbursement.setReimbAuthor(tempUser.getErsUsersId());
+
+        }
+        else {
+            log.info("createNewReimbursement service being used for Other");
+            int tempId = Integer.valueOf((String) req.getSession().getAttribute("newId"));
+            newReimbursement.setAuthor(tempId);
+            newReimbursement.setReimbAuthor(tempId);
         }
         try {
-        		log.debug("My newRembursement I should be submitting now is : " + newReimbursement);
-			empDao.submitReimbursement(newReimbursement);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-       
+            log.debug("My newRembursement I should be submitting now is : " + newReimbursement);
+            empDao.submitReimbursement(newReimbursement);
+        }
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     public void myDeletedRecords(HttpServletRequest req, HttpServletResponse resp) {
@@ -150,6 +152,53 @@ public class ReimbursementService {
                 .collect(Collectors.toList());
         req.getSession().setAttribute("allPast", displayList);
         log.trace("Geting ready to display the filtered displayList");
+        for (int i = 0; i < displayList.size(); i++) {
+            log.trace(displayList.get(i));
+        }
+    }
+
+    public void searchReimbursements(HttpServletRequest req, HttpServletResponse resp) {
+        List<Reimbursement> displayList = new ArrayList<Reimbursement>();
+        log.trace("In rs.searchReimbursements");
+        String[] searchParam;
+        searchParam = (String[]) req.getSession().getAttribute("searchParam");
+        // searchType, searchStatus
+        log.debug("my search parameters are" + searchParam[0] + ", " + searchParam[1]);
+        if ("All".equals(searchParam[0]) && !("All".equals(searchParam[1]))) {
+            // only need to search by 2nd parameter status
+            displayList = finManDao.getAllEmployeeReimbursement().stream()
+                    .filter((element) ->
+                        {
+                            return (searchParam[1].equals(element.getStatus().getReimbStatus()));
+                        })
+                    .collect(Collectors.toList());
+        }
+        else if (!("All".equals(searchParam[0])) && ("All".equals(searchParam[1]))) {
+            // only need to search by 1st parameter type
+            displayList = finManDao.getAllEmployeeReimbursement().stream()
+                    .filter((element) ->
+                        {
+                            return (searchParam[0].equals(element.getType().getReimbType()));
+                        })
+                    .collect(Collectors.toList());
+        }
+        else if (!("All".equals(searchParam[0])) && !("All".equals(searchParam[1]))) {
+            // need to search by type and status
+            displayList = finManDao.getAllEmployeeReimbursement().stream()
+                    .filter((element) ->
+                        {
+                            return (searchParam[0].equals(element.getType().getReimbType()) ||
+                                    searchParam[1].equals(element.getStatus().getReimbStatus()));
+                        })
+                    .collect(Collectors.toList());
+        }
+        else {
+            // no filter return all
+            displayList = finManDao.getAllEmployeeReimbursement();
+        }
+
+        req.getSession().setAttribute("searchResults", displayList);
+        log.trace("Getting ready to display the filtered displayList");
         for (int i = 0; i < displayList.size(); i++) {
             log.trace(displayList.get(i));
         }

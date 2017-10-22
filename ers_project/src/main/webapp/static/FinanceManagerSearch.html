@@ -40,26 +40,22 @@
       <span style="font-size: 55px" class="glyphicon glyphicon-check"></span></label>
       <div class="col-sm-10">
         <div class="radio">
-      <label><input type="radio" id ="radio0" name="optStatus"> All </label>
+      <label><input type="radio" id ="radio0" name="optStatus" checked="checked">All</label>
     </div>
     <div class="radio">
-      <label><input type="radio" id="radio1" name="optStatus"> Pending </label>
+      <label><input type="radio" id="radio1" name="optStatus">Pending</label>
     </div>
     <div class="radio">
-      <label><input type="radio" id="radio2" name="optStatus"> Approved </label>
+      <label><input type="radio" id="radio2" name="optStatus">Approved</label>
     </div>
     <div class="radio">
-      <label><input type="radio" id="radio3" name="optStatus"> Denied </label>
+      <label><input type="radio" id="radio3" name="optStatus">Denied</label>
     </div>
       </div>
     </div>
-    <div class="form-group row">
-      <div class="offset-sm-2 col-sm-10">
-        <button type="submit" onclick="storeStatusSession()" class="btn btn-primary">Search By Status</button>
-      </div>
-    </div>
-    <br>
-    <br>
+    
+    
+   
     
 
      <p id="typeDescription"> Search for employee reimbursements by Type: </p>
@@ -68,17 +64,20 @@
       <label for="searchField1" id="searchTypeLabel" class="col-sm-2 col-form-label">
       <span style="font-size: 55px" class="glyphicon glyphicon-plane"></span></label>
       <div class="col-sm-10">
+      <div class="radio">
+      <label><input type="radio" name="optType" checked="checked">All</label>
+    </div>
          <div class="radio">
-      <label><input type="radio" name="optType"> Food </label>
+      <label><input type="radio" name="optType">Food</label>
     </div>
     <div class="radio">
-      <label><input type="radio" name="optType"> Lodging </label>
+      <label><input type="radio" name="optType">Lodging</label>
     </div>
     <div class="radio">
-      <label><input type="radio" name="optType"> Expense </label>
+      <label><input type="radio" name="optType">Expense</label>
     </div>
     <div class="radio">
-      <label><input type="radio" name="optType"> Other </label>
+      <label><input type="radio" name="optType">Other</label>
     </div>
       </div>
     </div>
@@ -86,7 +85,7 @@
    
     <div class="form-group row">
       <div class="offset-sm-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Search By Type
+        <button type="submit" class="btn btn-primary">Search
        </button>
       </div>
     </div>
@@ -96,6 +95,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
-        <script src="searchScript.js"></script>
+        <script src="js/displayreimbursements.js"></script>
     </body>
 </html>

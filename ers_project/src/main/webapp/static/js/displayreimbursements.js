@@ -34,6 +34,23 @@ function addOptions(){
 
 // FUNCTIONS for calling queries
 
+function retrieveSearchResults(){
+
+	//DECLARATIONS
+	let xhttp= new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function(){
+	    console.log('readyState = ${xhttp.readyState}');
+	    if (xhttp.readyState===4 && xhttp.status===200){
+	        console.log(xhttp.responseText);
+	        appendResults(xhttp.responseText);
+	    		}
+	   }
+    xhttp.open('GET','doSearch');
+    xhttp.send(); 
+}
+
+
 function retrievePending(optString){
 
 	//DECLARATIONS
@@ -259,6 +276,11 @@ function goHome(){
 }
 
 //DETERMINE WHICH QUERY TO CALL
+
+if (document.URL.includes("managersearch")){
+	document.getElementById("replace-name").innerText = (': Search Results');
+	retrieveSearchResults();
+}
 
 if (document.URL.includes("MyPending")){
 	populateMyFields();
