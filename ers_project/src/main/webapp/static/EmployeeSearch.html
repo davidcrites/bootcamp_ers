@@ -11,8 +11,13 @@
 
    
 
+
     <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!--   <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="custom_css/searchCSS.css" rel="stylesheet">
@@ -23,16 +28,18 @@
      </head>
 
   <body>
-
-<div class="container">
-  <form class="searchForm" action="put">
+<div class="container" style="margin: auto">
+<div class="col-md-2">
+</div>
+<div class="col-md-8">
+  <form class="searchForm" action="/ers_project/static/users/EmployeeSearch" method="get">
     <h2 id="searchHeader" class="searchFormHeader"> Search for Your Reimbursements: </h2>
     <br>
     <br>
     <p id="statusDescription"> Search for your reimbursements by Status: </p>
     <div class="form-group row">
         
-      <label for="searchField1"  id="searchTypeLabel" class="col-sm-2 col-form-label">Search By Status:</label>
+      <label for="searchField1"  id="searchTypeLabel" class="col-sm-2 col-form-label"><span style="font-size: 55px" class="glyphicon glyphicon-check"></span></label>
       <div class="col-sm-10">
         <div class="radio">
       <label><input type="radio" name="optradio"> All </label>
@@ -52,7 +59,7 @@
       <div class="offset-sm-2 col-sm-10">
         <button type="submit" class="btn btn-primary">Search By Status </button>
       </div>
-    </div>
+    
     <br>
     <br>
     
@@ -60,19 +67,19 @@
      <p id="typeDescription"> Search for your reimbursements by Type: </p>
    <div class="form-group row">
    
-      <label for="searchField1" id="searchTypeLabel" class="col-sm-2 col-form-label">Search By Type:</label>
+      <label for="searchField1" id="searchTypeLabel" class="col-sm-2 col-form-label"><span style="font-size: 55px" class="glyphicon glyphicon-plane"></span></label>
       <div class="col-sm-10">
          <div class="radio">
-      <label><input type="radio" name="optradio"> Food </label>
+      <label><input type="radio" value="MyFood"> Food </label>
     </div>
     <div class="radio">
-      <label><input type="radio" name="optradio"> Lodging </label>
+      <label><input type="radio" value="MyLodging"> Lodging </label>
     </div>
     <div class="radio">
-      <label><input type="radio" name="optradio"> Expense </label>
+      <label><input type="radio" value="MyExpense"> Expense </label>
     </div>
     <div class="radio">
-      <label><input type="radio" name="optradio"> Other </label>
+      <label><input type="radio" value="MyOther"> Other </label>
     </div>
       </div>
     </div>
@@ -85,4 +92,13 @@
       </div>
     </div>
   </form>
+  </div> <!--div8-->
+    <div class="col-md-2">
+    </div>
+   </div>
 </div>
+
+  <script src="../js/displayreimbursements.js"></script>
+ 
+</body>
+</html>
