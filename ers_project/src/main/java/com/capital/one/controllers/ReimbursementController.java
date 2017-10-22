@@ -190,6 +190,7 @@ public class ReimbursementController {
                 break;
             case "/static/reimbursements/MySearch":
                 try {
+                		log.debug("The currentRoleId attribute stored on the session is equal to " + (int)req.getSession().getAttribute("currentRoleId"));
                     if ((int) req.getSession().getAttribute("currentRoleId") == 2) {
                         req.getRequestDispatcher("/static/FinanceManagerSearch.html").forward(req, resp);
                     }
