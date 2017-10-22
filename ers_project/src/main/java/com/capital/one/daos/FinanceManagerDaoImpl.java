@@ -70,18 +70,19 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
             // TODO Auto-generated catch block
         		log.error("SQL Exception thrown trying to pull back All Reibursements in FinanceManagerrDaoImpl");
             e.printStackTrace();
-        }finally {
-	            try {
-	                if (stmt != null)
-	                    stmt.close();
-	                if (conn_gae != null)
-	                    conn_gae.close();
-	            }
-	            catch (SQLException e) {
-	                e.printStackTrace();
-            }
-
         }
+//        finally {
+//	            try {
+//	                if (stmt != null)
+//	                    stmt.close();
+//	                if (conn_gae != null)
+//	                    conn_gae.close();
+//	            }
+//	            catch (SQLException e) {
+//	                e.printStackTrace();
+//            }
+//
+//        }
         return reimbursementList;
 
     }
@@ -130,18 +131,18 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
             e.printStackTrace();
         }
 
-        finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-                if (conn != null)
-                    conn.close();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        }
+//        finally {
+//            try {
+//                if (stmt != null)
+//                    stmt.close();
+//                if (conn != null)
+//                    conn.close();
+//            }
+//            catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
         return null;
 
     }
@@ -190,18 +191,18 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
             e.printStackTrace();
         }
 
-        finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-                if (conn != null)
-                    conn.close();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        }
+//        finally {
+//            try {
+//                if (stmt != null)
+//                    stmt.close();
+//                if (conn != null)
+//                    conn.close();
+//            }
+//            catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
         return null;
 
     }
@@ -262,18 +263,18 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
 
         }
 
-        finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-                if (conn != null)
-                    conn.close();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        }
+//        finally {
+//            try {
+//                if (stmt != null)
+//                    stmt.close();
+//                if (conn != null)
+//                    conn.close();
+//            }
+//            catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
         return null;
 
     }
@@ -300,18 +301,18 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
             e.printStackTrace();
         }
 
-        finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-                if (conn != null)
-                    conn.close();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        }
+//        finally {
+//            try {
+//                if (stmt != null)
+//                    stmt.close();
+//                if (conn != null)
+//                    conn.close();
+//            }
+//            catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
 
         return false;
 
@@ -340,18 +341,18 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
             e.printStackTrace();
         }
 
-        finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-                if (conn != null)
-                    conn.close();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        }
+//        finally {
+//            try {
+//                if (stmt != null)
+//                    stmt.close();
+//                if (conn != null)
+//                    conn.close();
+//            }
+//            catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
 
         return false;
 

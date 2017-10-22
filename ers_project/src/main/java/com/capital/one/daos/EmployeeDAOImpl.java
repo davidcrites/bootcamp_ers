@@ -67,16 +67,17 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 				} catch (SQLException e) {
 					e.printStackTrace();
-				} finally {
-					try {
-						if (preparedStmt != null)
-							preparedStmt.close();
-						if (conn != null)
-							conn.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
+				} 
+//				finally {
+//					try {
+//						if (preparedStmt != null)
+//							preparedStmt.close();
+//						if (conn != null)
+//							conn.close();
+//					} catch (SQLException e) {
+//						e.printStackTrace();
+//					}
+//				}
 
 				if (authenticated == false) {
 					log.info("Username or Password was incorrect.");
@@ -108,16 +109,16 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 						log.error("SQL Exception thrown");
 						sqle.printStackTrace();
 					}
-					finally {
-						try {
-							if (stmt != null)
-								stmt.close();
-							if (conn != null)
-								conn.close();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}
+//					finally {
+//						try {
+//							if (stmt != null)
+//								stmt.close();
+//							if (conn != null)
+//								conn.close();
+//						} catch (SQLException e) {
+//							e.printStackTrace();
+//						}
+//					}
 					log.info("Finished getting an authenticated user...returning him");
 					return authenticatedUser;
 				}
@@ -157,16 +158,17 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (preparedStmt != null)
-					preparedStmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+//		finally {
+//			try {
+//				if (preparedStmt != null)
+//					preparedStmt.close();
+//				if (conn != null)
+//					conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
 
 		if (success == 0) {
 			// then update didn't occur, throw an exception
@@ -277,18 +279,19 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+//		finally {
+//			try {
+//				if (stmt != null) {
+//					stmt.close();
+//				}
+//				if (conn != null) {
+//					conn.close();
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
 
 		return reimbList;
 	}
@@ -336,16 +339,16 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			sqle.printStackTrace();
 			return null;
 		}
-		finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+//		finally {
+//			try {
+//				if (stmt != null)
+//					stmt.close();
+//				if (conn != null)
+//					conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		log.info("Finished getting a referenced user...returning him: " + referencedUser);
 		return referencedUser;
 				
@@ -387,16 +390,17 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			log.error("SQL Exception thrown");
 			sqle.printStackTrace();
 			return null;
-		}finally {
-		try {
-			if (stmt != null)
-				stmt.close();
-			if (conn != null)
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
+//		finally {
+//			try {
+//				if (stmt != null)
+//					stmt.close();
+//				if (conn != null)
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//		}
 		log.info("Finished getting a role...returning it: " + ur);
 		return ur;
 	}
@@ -427,16 +431,16 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			sqle.printStackTrace();
 			return;
 		}
-		finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+//		finally {
+//			try {
+//				if (stmt != null)
+//					stmt.close();
+//				if (conn != null)
+//					conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		log.info("Finished deleting a reimbursement record...returning");
 		return;
 
