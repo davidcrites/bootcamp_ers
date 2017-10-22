@@ -14,7 +14,7 @@
 	  	<param-name>param1</param-name>
 	  	<param-value>hello</param-value>
   	</init-param>
-  	<load-on-startup>1</load-on-startup>
+  	<!--  <load-on-startup>1</load-on-startup>-->
   </servlet>
   <servlet-mapping>
 		<servlet-name>FrontControllerServlet</servlet-name>

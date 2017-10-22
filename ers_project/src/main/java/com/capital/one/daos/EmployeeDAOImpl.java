@@ -239,7 +239,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 						break;
 				}
 			}
-
+			log.debug("sqlComplete from viewEmployeeTickets is : " + sqlComplete);
 			
 
 			ResultSet rs = stmt.executeQuery(sqlComplete);
@@ -393,12 +393,53 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				stmt.close();
 			if (conn != null)
 				conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-	}
 		log.info("Finished getting a role...returning it: " + ur);
 		return ur;
+	}
+	
+	/***
+	 * I want to delete a reimbursement record, but I want to return the user owner so the client knows whose records to refresh at the page
+	 * @param reimbId - a reimbursement ID is needed so we know which record to remove from the database.
+	 * @return a User is returned to be written on the response
+	 */
+	public void deleteRecord(int reimbId) {
+		Statement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		
+		
+		try {
+			conn = DAOUtilities.getConnection();
+			stmt = conn.createStatement();
+			
+			//Second Delete the reimbursement record
+			
+			String sql = ("DELETE FROM ers_reimbursement WHERE reimb_id = " + reimbId +";");
+			rs = stmt.executeQuery(sql);
+			
+		}
+		catch (SQLException sqle) {
+			log.error("SQL Exception thrown");
+			sqle.printStackTrace();
+			return;
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		log.info("Finished deleting a reimbursement record...returning");
+		return;
+
 	}
 	
 }

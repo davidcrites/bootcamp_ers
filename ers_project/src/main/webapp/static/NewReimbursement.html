@@ -167,7 +167,6 @@
                         <tbody>
                             <tr>
                                 <td class="reimb-input col-md-5 col-md-offset-2"><input readonly="readonly" class="new-input gray-back" type="text" id="new-reimb-id" name="new-id"></td>
-                                <!--<td class="reimb-box col-md-5 col-md-offset-2" id="new-reimb-empID"></td>-->
                                 <td class="reimb-box col-md-5 col-md-offset-2" id="new-reimb-name"></td>
                                 <td class="reimb-input col-md-5 col-md-offset-2"><input  class="new-input" type="text" id="new-reimb-description" name="new-description"></td>
                                 <td class="reimb-box col-md-5 col-md-offset-2" >timestamp</td>
@@ -260,6 +259,71 @@
 				      
 				    </div>
 				  </div>
+				  
+				  				  				  <!-- Delete Confirm Modal -->
+				  <div class="modal invalid-modal fade" id="del-confirm-modal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content invalid-modal-body">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h3 class="modal-title">Deletion Request</h3>
+				        </div>
+				        <div class="modal-body invalid-modal-body">
+				          <h4>Are you sure you want to DELETE?</h4>
+				        </div>
+				        <div class="modal-footer">
+				          <button id="confirm-del" type="button" class="btn btn-danger" data-dismiss="modal">Confirm Delete</button>
+				          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
+				  
+				  				  <!-- Delete Fail Modal -->
+				  <div class="modal unfound-modal fade" id="del-failure-modal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content unfound-modal-body">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h3 class="modal-title">Failure!</h3>
+				        </div>
+				        <div class="modal-body unfound-modal-body">
+				          <h4>We were unable to delete that record!</h4>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
+				  
+				  				<!-- Delete Success Modal -->
+				  <div class="modal success-modal fade" id="del-success-modal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content success-modal-body">
+				        <div class="modal-header">
+				          <!--  COMMENTING OUT BUTTONS BECAUSE I AM CLOSING WITH A TIMEOUT FUNCTION AFTER A COUPLE OF SECONDS -->
+				          <!--  <button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+				          <h3 class="modal-title">Success</h3>
+				        </div>
+				        <div class="modal-body success-modal-body">
+				          <h4>Record deleted!</h4>
+				        </div>
+				        <div class="modal-footer">
+				          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
                 
             </div><!--row-->
         </div>
@@ -274,14 +338,14 @@
                     <table id="new-entry" class="display table">
                         <thead>
                             <tr>
-                                <th class="col-md-5 col-md-offset-2">Employee ID</th>
+                                <th class="col-md-5 col-md-offset-2">Reimbursement ID</th>
                                 <th class="col-md-5 col-md-offset-2">Employee Name</th>
                                 <th class="col-md-5 col-md-offset-2">Expense Description</th>
                                 <th class="col-md-5 col-md-offset-2">Submission Date</th>
                                 <th class="col-md-5 col-md-offset-2">Expense Amount</th>
                                 <th class="col-md-5 col-md-offset-2">Expense Type</th>
                                 <th class="col-md-5 col-md-offset-2">Receipt</th>
-                                <th class="col-md-5 col-md-offset-2"></th><!--adding a column for the delete button-->
+                                <th class="invisible col-md-5 col-md-offset-2">Delete</th><!--adding a column for the delete button-->
                             </tr>
                         </thead>
                         <tbody id="pending-rows">

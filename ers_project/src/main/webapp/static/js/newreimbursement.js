@@ -3,6 +3,7 @@
 //	let newDescription='';
 //	let newAmount=0;
 //	let newType='';
+let localUser=null;
 
 
 // FUNCTION for getting roleID and calling function to add Manager options
@@ -45,7 +46,7 @@ function populateMyFields(){
 	    console.log('readyState = '+ xhttp.readyState);
 	    if (xhttp.readyState===4 && xhttp.status===200){
 	        //console.log(xhttp.responseText);
-	        let localUser = JSON.parse(xhttp.responseText);
+	        localUser = JSON.parse(xhttp.responseText);
 	        document.getElementById("new-reimb-id").defaultValue = localUser.ersUsersId;
             document.getElementById("new-reimb-name").innerText = (localUser.userFirstName + ' ' + localUser.userLastName);
             document.getElementById("replace-name").innerText = (localUser.userFirstName + ' ' + localUser.userLastName);
@@ -65,7 +66,7 @@ function populateOtherFields(passedId){
 	    console.log('readyState = '+ xhttp.readyState);
 	    if (xhttp.readyState===4 && xhttp.status===200){
 	        //console.log(xhttp.responseText);
-	        let localUser = JSON.parse(xhttp.responseText);
+	        localUser = JSON.parse(xhttp.responseText);
 	        if(localUser != null){
 		        document.getElementById("new-reimb-id").defaultValue = localUser.ersUsersId;
 	            document.getElementById("new-reimb-name").innerText = (localUser.userFirstName + ' ' + localUser.userLastName);
@@ -191,7 +192,7 @@ function appendResults(results){
     reimbursements.forEach((Reimbursement)=>{   	    
     		document.getElementById("pending-rows").innerHTML += `
             <tr>
-                <td>${Reimbursement.reimbusementId}</td>
+                <td value="${Reimbursement.reimbusementId}">${Reimbursement.reimbusementId}</td>
                 <td>${Reimbursement.author.ersUsername}</td>
                 <td>${Reimbursement.reimbDescription}</td>
                 <td>${Reimbursement.reimbSubmitted.year}-${Reimbursement.reimbSubmitted.monthValue}-${Reimbursement.reimbSubmitted.dayOfMonth} 
@@ -199,12 +200,50 @@ function appendResults(results){
                 <td>${Reimbursement.reimbursementAmount}</td>
     				<td>${Reimbursement.type.reimbType}</td>
                 <td>RECEIPT</td>
-                
+                <td><button class="btn btn-danger" onclick="deleteRow(this)">Delete</button></td>
             </tr>
         		`;   	   
     });
     
 } 
+
+//function to prompt for confirmation of delete and add a listener....make sure to call module to confirm
+function deleteRow(button)
+{
+    // var i=row.parentNode.parentNode.rowIndex;
+	// document.getElementById("test-row").cells[0].attributes.value.value
+	let reimbId = button.parentNode.parentNode.cells[0].attributes.value.value;
+	console.log(reimbId);
+	
+	//prompt the user to see if they are sure they want to delete; will return true if they confirm.
+	$("#del-confirm-modal").modal();
+	
+	//document.getElementById("confirm-del").addEventListener("click",function(){retrieveOther();});
+	document.getElementById("confirm-del").addEventListener("click",function(){confirmDelete(reimbId);});
+}
+//function to delete a pending reimbursement.
+function confirmDelete(id){
+	
+	let xhttp= new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function(){
+	    console.log('readyState = ${xhttp.readyState}');
+	    if (xhttp.readyState===4 && xhttp.status===200){
+	        //call delete success modal
+			$("#del-success-modal").modal()
+			setTimeout(function() {$('#del-success-modal').modal('hide');}, 2000);
+			
+		    	//Get author of deleted record from response...use his ers_users_id to call retreiveOther(id)
+	    		let userId = localUser.ersUsersId;
+	    		retrieveOther(userId);
+        }else if (xhttp.status===500){
+			//call delete failed modal
+        	$("#del-failure-modal").modal()
+		}
+	}
+    xhttp.open('GET','deleteRecord/'+id);
+    xhttp.send(); 
+}
 
 //OnClick event on my List Item for "Home" in the navbar calls this function
 function goHome(){
