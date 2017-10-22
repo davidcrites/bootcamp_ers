@@ -178,7 +178,7 @@ function appendResults(results){
 	                <td><button class="disabled btn btn-danger" onclick="deleteRow(this)">Delete</button></td>
 	            </tr>
 	        		`;
-    	    }else{
+    	    }else if (document.URL.includes("managersearch")){
 	    		document.getElementById("table-body").innerHTML += `
 	            <tr>
 	                <td value="${Reimbursement.reimbusementId}">${Reimbursement.reimbusementId}</td>
@@ -192,9 +192,26 @@ function appendResults(results){
 	                <td>${Reimbursement.resolver.ersUsername}</td>
 	                <td>${Reimbursement.status.reimbStatus}</td>
 	                <td>${Reimbursement.type.reimbType}</td>
-	                <td><button class="disabled btn btn-danger" onclick="deleteRow(this)">Delete</button></td>
+	                <td><button class="btn btn-danger" onclick="deleteRow(this)">Delete</button></td>
 	            </tr>
 	        		`;
+    	    }else{
+	    		document.getElementById("table-body").innerHTML += `
+		            <tr>
+		                <td value="${Reimbursement.reimbusementId}">${Reimbursement.reimbusementId}</td>
+		                <td>${Reimbursement.reimbursementAmount}</td>
+		                <td>${Reimbursement.reimbSubmitted.year}-${Reimbursement.reimbSubmitted.monthValue}-${Reimbursement.reimbSubmitted.dayOfMonth} 
+		                ${Reimbursement.reimbSubmitted.hour}:${Reimbursement.reimbSubmitted.minute}:${Reimbursement.reimbSubmitted.second}</td>
+		    				<td>${Reimbursement.reimbResolved}</td>
+		    				<td>${Reimbursement.reimbDescription}</td>
+		                <td>RECEIPT</td>
+		    			    <td>${Reimbursement.author.ersUsername}</td>
+		                <td>${Reimbursement.resolver.ersUsername}</td>
+		                <td>${Reimbursement.status.reimbStatus}</td>
+		                <td>${Reimbursement.type.reimbType}</td>
+		                <td><button class="disabled btn btn-danger" onclick="deleteRow(this)">Delete</button></td>
+		            </tr>
+		        		`;
     	    }
     });
     
@@ -284,7 +301,7 @@ if (document.URL.includes("managersearch")){
 
 if (document.URL.includes("MyPending")){
 	populateMyFields();
-	retrievePending();
+	retrievePending("Delete");
 }
 if (document.URL.includes("MyDelete")){
 	populateMyFields();
@@ -295,7 +312,7 @@ if (document.URL.includes("MyPast")){
 	populateMyFields();
 }
 if (document.URL.includes("AllPending")){
-	retrieveAllPending();
+	retrieveAllPending("Delete");
 	document.getElementById("replace-name").innerText = ': All Pending';
 }
 if (document.URL.includes("OtherDelete")){
