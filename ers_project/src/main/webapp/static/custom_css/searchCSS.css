@@ -5,16 +5,22 @@ body {
 }
 
 .searchForm {
+	display: block;
 	background-color: rgb(76, 94, 153);
-	max-width: 900px;
+	max-width: 1000px;
     padding: 50px;
-    margin: 0 auto;
+    margin: auto;
+    width: 100%;
+    border: 3px solid black;
+   
+ }
 
-}
+
 
  #searchHeader {
  	text-align: center;
  	color: white !important;
+ 	margin: auto;
 
 
  }
@@ -22,15 +28,19 @@ body {
  
 #statusDescription {
   color: white !important;
+  margin: auto;
 }
 
 #typeDescription {
-	 color: white !important;
+  color: white !important;
+  margin: auto;
+  padding: 10px;
 }
 
 
  .radio {
- 	color: white !important;
+  color: white !important;
+  margin: auto;
  }
 
  #searchTypeLabel {
@@ -39,7 +49,14 @@ body {
 
   #searchStatusLabel {
  	color: white !important;
+ 	font-size: 100px !important;;
  }
+ 
+ .glyphicon {
+    font-size: 50px;
+}
+ 
+ 
 
 
 
