@@ -75,7 +75,29 @@ public class ReimbursementService {
     }
 
     public void deleteReimbursement(HttpServletRequest req, int reimbId) {
-        empDao.deleteRecord(reimbId);
+    		empDao.deleteRecord(reimbId);
+    }
+    public boolean approveReimbursement(HttpServletRequest req, int reimbId) {
+    	    boolean success = false;
+    	    Users tempUser = new Users();
+    	    tempUser = (Users) req.getSession().getAttribute("currentUser");
+    	    int resolverId = tempUser.getErsUsersId();
+        success = finManDao.approveRequest(reimbId, resolverId);
+        if (!success) {
+        		log.error("Unable to Approve Record.");
+        }
+        return success;
+    }
+    public boolean denyReimbursement(HttpServletRequest req, int reimbId) {
+	    boolean success = false; 
+	    Users tempUser = new Users();
+	    tempUser = (Users) req.getSession().getAttribute("currentUser");
+	    int resolverId = tempUser.getErsUsersId();
+	    success = finManDao.denyRequest(reimbId, resolverId);
+	    if (!success) {
+	    		log.error("Unable to Approve Record.");	
+	    }
+	    return success;
     }
 
     public void createNewReimbursement(HttpServletRequest req) {

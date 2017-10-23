@@ -75,6 +75,8 @@ public class FrontControllerServlet extends DefaultServlet {
             }
             else if (requestURL.startsWith("/static/ERS_signin.html")) { // send reimbursement functions to
                                                                          // reimbursement controller
+            	    // signing in, so remove the current user if there is one
+            	    req.getSession().removeAttribute("currentUser");
                 // send to Reimbursement Controller
                 log.trace("/static/ERS_signin.html: " + requestURL);
                 super.doGet(req, resp);

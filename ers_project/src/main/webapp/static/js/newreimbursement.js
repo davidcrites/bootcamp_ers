@@ -273,19 +273,4 @@ if (document.URL.includes("MyNew")){
 // On valid ID entry and lose focus event or User ID, call retrieveOther()
 document.getElementById("new-reimb-id").addEventListener("change",function(){retrieveOther();});
 
-// onClick of submit button in html button, call MY submit function, and call to post, sending parameters
-// to write new reimb to the database...when returns here, run retrieveOther() since that
-// works for any id...doing this near the top of the .js page...not here
 
-
-//document.getElementById("reimb-submit").addEventListener("click",function(event){
-//	event.preventDefault();
-//	console.log("If performed after click values should be available");
-//	newId=document.getElementById("new-reimb-id").Value;
-//	newDescription=document.getElementById("new-reimb-description").innerText;
-//	newAmount=document.getElementById("new-reimb-amount").Value;
-//	newType=document.getElementById("new-reimb-type").Value;
-//	console.log(newId + ' ' + newDescription + ' ' + newAmount + ' ' + newType);
-//	postTicket();
-//	
-//})

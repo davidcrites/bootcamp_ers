@@ -43,6 +43,14 @@ public class ReimbursementController {
         else if (requestUrl.contains("/static/reimbursements/deleteRecord")) {
             shortUrl = requestUrl.substring(0, 35);
         }
+        else if (requestUrl.contains("/static/reimbursements/approveRecord")) {
+            shortUrl = requestUrl.substring(0, 36);
+        }
+        else if (requestUrl.contains("/static/reimbursements/denyRecord")) {
+            shortUrl = requestUrl.substring(0, 33);
+        }else {
+        		//no change
+        }
         log.debug("shortUrl = " + shortUrl);
 
         switch (shortUrl) {
@@ -127,6 +135,26 @@ public class ReimbursementController {
                 int delReimbursementId = Integer.valueOf(requestUrl.substring(36));
 
                 rs.deleteReimbursement(req, delReimbursementId);
+
+                break;
+                
+            case "/static/reimbursements/approveRecord":
+                // need to call service for deleting record
+                int apprReimbursementId = Integer.valueOf(requestUrl.substring(37));
+
+                if(!(rs.approveReimbursement(req, apprReimbursementId))) {
+                	resp.setStatus(500);  // couldn't update the record, so change the status on response
+                }
+
+                break;
+                
+            case "/static/reimbursements/denyRecord":
+                // need to call service for deleting record
+                int denyReimbursementId = Integer.valueOf(requestUrl.substring(34));
+
+                if(!(rs.denyReimbursement(req, denyReimbursementId))) {
+                	resp.setStatus(500);  // couldn't update the record, so change the status on response
+                }
 
                 break;
 
@@ -242,14 +270,18 @@ public class ReimbursementController {
                     e1.printStackTrace();
                 }
                 break;
-            case "/static/reimbursements/StatusNew":
-                // TODO: call rs for getting List of Reimbursements but filter by Pending Last 10 days
-                resp.sendRedirect("/ers_project/static/StatusReimbursements.html");
-                break;
+//            case "/static/reimbursements/StatusNew":
+//                // TODO: call rs for getting List of Reimbursements but filter by Pending Last 10 days
+//                resp.sendRedirect("/ers_project/static/StatusReimbursements.html");
+//                break;
             case "/static/reimbursements/StatusAll":
-                // TODO: call rs for getting List of Reimbursements but filter by Pending
-                resp.sendRedirect("/ers_project/static/StatusReimbursements.html");
-                break;
+                try {
+                    req.getRequestDispatcher("/static/DisplayReimbursements.html").forward(req, resp);
+                }
+                catch (ServletException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
 
             // /users/{id}
             default:
