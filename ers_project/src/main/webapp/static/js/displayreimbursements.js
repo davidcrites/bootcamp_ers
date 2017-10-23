@@ -2,6 +2,7 @@
 let localRoleId = 0;
 let localUser = null;
 
+
 // FUNCTION for getting roleID and calling function to add Manager options
 function getRoleId(){
 	let xhttp= new XMLHttpRequest();
@@ -100,7 +101,7 @@ function retrieveAllPending(optString){
 	    console.log('readyState = ${xhttp.readyState}');
 	    if (xhttp.readyState===4 && xhttp.status===200){
 	        console.log(xhttp.responseText);
-	        if (optString==="Delete"){
+	        if(optString==="Delete" || optString==="Status"){
 	        		appendResultsWithDelete(xhttp.responseText);
 	        }else{
 	        		appendResults(xhttp.responseText);
@@ -115,7 +116,7 @@ function retrieveAllPending(optString){
 }
 
 //populating user fields
-function populateMyFields(){
+function populateMyFields(MyFieldsChoice){
 	let xhttp= new XMLHttpRequest();
 	
 	xhttp.onreadystatechange = function(){
@@ -123,11 +124,25 @@ function populateMyFields(){
 	    if (xhttp.readyState===4 && xhttp.status===200){
 	        //console.log(xhttp.responseText);
 	        localUser = JSON.parse(xhttp.responseText);
-	        //document.getElementById("new-reimb-id").defaultValue = localUser.ersUsersId;
-            //document.getElementById("new-reimb-name").innerText = (localUser.userFirstName + ' ' + localUser.userLastName);
-            document.getElementById("replace-name").innerText = (': '+ localUser.userFirstName + ' ' + localUser.userLastName);
-            //document.getElementById("pend-title").innerText = (localUser.userFirstName + ' ' + localUser.userLastName);
-            // ADD attribute readonly="readonly" to new-reimb-id after writing it above
+	        switch (MyFieldsChoice){
+	        case 1:
+	        	document.getElementById("replace-name").innerText = (': '+ localUser.userFirstName + ' ' + localUser.userLastName);
+	        	break;
+	        case 2:
+	        	document.getElementById("replace-name").innerText = (': Search Results');
+	        	break;
+	        case 3:
+	        	document.getElementById("replace-name").innerText = (': All Pending');
+	        	break;
+	        case 4:
+	        	document.getElementById("replace-name").innerText = (': All Past');
+	        	break;
+	        case 5:
+	        	document.getElementById("replace-name").innerText = (': Pending Requests');
+	        	break;
+	        }
+            
+
         }
 	}
     xhttp.open('GET','getCurrentUser');
@@ -158,6 +173,7 @@ function appendResults(results){
     let reimbursements = JSON.parse(results);
     console.log(results);
     console.log(reimbursements);
+    document.getElementById("table-body").innerHTML ="";
 
     reimbursements.forEach((Reimbursement)=>{
     	    if(!(Reimbursement.reimbResolved===null)){
@@ -220,25 +236,49 @@ function appendResultsWithDelete(results){
     let reimbursements = JSON.parse(results);
     console.log(results);
     console.log(reimbursements);
+    document.getElementById("table-body").innerHTML ="";
 
-    reimbursements.forEach((Reimbursement)=>{
-	    		document.getElementById("table-body").innerHTML += `
-	            <tr>
-	                <td value="${Reimbursement.reimbusementId}">${Reimbursement.reimbusementId}</td>
-	                <td>${Reimbursement.reimbursementAmount}</td>
-	                <td>${Reimbursement.reimbSubmitted.year}-${Reimbursement.reimbSubmitted.monthValue}-${Reimbursement.reimbSubmitted.dayOfMonth} 
-	                ${Reimbursement.reimbSubmitted.hour}:${Reimbursement.reimbSubmitted.minute}:${Reimbursement.reimbSubmitted.second}</td>
-	    				<td>${Reimbursement.reimbResolved}</td>
-	                <td>${Reimbursement.reimbDescription}</td>
-	                <td>RECEIPT</td>
-	    			    <td>${Reimbursement.author.ersUsername}</td>
-	                <td>${Reimbursement.resolver.ersUsername}</td>
-	                <td>${Reimbursement.status.reimbStatus}</td>
-	                <td>${Reimbursement.type.reimbType}</td>
-	                <td><button class="btn btn-danger" onclick="deleteRow(this)">Delete</button></td>
-	            </tr>
-	        		`;
-    			}); 
+    if (document.URL.includes("StatusAll")){
+    	document.getElementById("opt_column").innerHTML = "Approve or Deny";
+	    reimbursements.forEach((Reimbursement)=>{
+		    		document.getElementById("table-body").innerHTML += `
+		            <tr>
+		                <td value="${Reimbursement.reimbusementId}">${Reimbursement.reimbusementId}</td>
+		                <td>${Reimbursement.reimbursementAmount}</td>
+		                <td>${Reimbursement.reimbSubmitted.year}-${Reimbursement.reimbSubmitted.monthValue}-${Reimbursement.reimbSubmitted.dayOfMonth} 
+		                ${Reimbursement.reimbSubmitted.hour}:${Reimbursement.reimbSubmitted.minute}:${Reimbursement.reimbSubmitted.second}</td>
+		    				<td>${Reimbursement.reimbResolved}</td>
+		                <td>${Reimbursement.reimbDescription}</td>
+		                <td>RECEIPT</td>
+		    			    <td>${Reimbursement.author.ersUsername}</td>
+		                <td>${Reimbursement.resolver.ersUsername}</td>
+		                <td>${Reimbursement.status.reimbStatus}</td>
+		                <td>${Reimbursement.type.reimbType}</td>
+		                <td><button style="width:76px;" class="btn btn-success" onclick="approve(this)">Approve</button><br><br>
+		                    <button style="width:76px;" class="btn btn-danger" onclick="deny(this)">Deny</button></td>
+		            </tr>
+		        		`;
+	    			}); 
+    }else{
+	    reimbursements.forEach((Reimbursement)=>{
+    		document.getElementById("table-body").innerHTML += `
+            <tr>
+                <td value="${Reimbursement.reimbusementId}">${Reimbursement.reimbusementId}</td>
+                <td>${Reimbursement.reimbursementAmount}</td>
+                <td>${Reimbursement.reimbSubmitted.year}-${Reimbursement.reimbSubmitted.monthValue}-${Reimbursement.reimbSubmitted.dayOfMonth} 
+                ${Reimbursement.reimbSubmitted.hour}:${Reimbursement.reimbSubmitted.minute}:${Reimbursement.reimbSubmitted.second}</td>
+    				<td>${Reimbursement.reimbResolved}</td>
+                <td>${Reimbursement.reimbDescription}</td>
+                <td>RECEIPT</td>
+    			    <td>${Reimbursement.author.ersUsername}</td>
+                <td>${Reimbursement.resolver.ersUsername}</td>
+                <td>${Reimbursement.status.reimbStatus}</td>
+                <td>${Reimbursement.type.reimbType}</td>
+                <td><button class="btn btn-danger" onclick="deleteRow(this)">Delete</button></td>
+            </tr>
+        		`;
+			}); 
+    }
 } 
 //function to prompt for confirmation of delete and add a listener....make sure to call module to confirm
 function deleteRow(button)
@@ -254,6 +294,58 @@ function deleteRow(button)
 	//document.getElementById("confirm-del").addEventListener("click",function(){retrieveOther();});
 	document.getElementById("confirm-del").addEventListener("click",function(){confirmDelete(reimbId);});
 }
+function approve(button)
+{
+    // var i=row.parentNode.parentNode.rowIndex;
+	// document.getElementById("test-row").cells[0].attributes.value.value
+	let reimbId = button.parentNode.parentNode.cells[0].attributes.value.value;
+	console.log(reimbId);
+	let xhttp= new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function(){
+	    console.log('readyState = ${xhttp.readyState}');
+	    if (xhttp.readyState===4 && xhttp.status===200){
+	        //call delete success modal
+			$("#approved-modal").modal()
+			setTimeout(function() {$('#approved-modal').modal('hide');}, 2000);
+			
+	    	//call retrieveAllPending("Status")again
+    		retrieveAllPending("Status");
+        }else if (xhttp.status===500){
+			//call delete failed modal
+        	$("#del-failure-modal").modal()
+		}
+	}
+    xhttp.open('GET','approveRecord/'+reimbId);
+    xhttp.send(); 
+
+}
+function deny(button)
+{
+    // var i=row.parentNode.parentNode.rowIndex;
+	// document.getElementById("test-row").cells[0].attributes.value.value
+	let reimbId = button.parentNode.parentNode.cells[0].attributes.value.value;
+	console.log(reimbId);
+	let xhttp= new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function(){
+	    console.log('readyState = ${xhttp.readyState}');
+	    if (xhttp.readyState===4 && xhttp.status===200){
+	        //call delete success modal
+			$("#denied-modal").modal()
+			setTimeout(function() {$('#denied-modal').modal('hide');}, 2000);
+			
+		    	//call retrieveAllPending("Status")again
+	    		retrieveAllPending("Status");
+        }else if (xhttp.status===500){
+			//call delete failed modal
+        	$("#del-failure-modal").modal()
+		}
+	}
+    xhttp.open('GET','denyRecord/'+reimbId);
+    xhttp.send(); 
+
+}
 //function to delete a pending reimbursement.
 function confirmDelete(id){
 	
@@ -268,7 +360,7 @@ function confirmDelete(id){
 			
 		    	//Get author of deleted record from response...use his ers_users_id to call retreiveOther(id)
 	    		let userId = localUser.ersUsersId;
-	    		retrieveOther(userId);
+	    		refreshResults(userId); //passing in userId but don't think I need it
         }else if (xhttp.status===500){
 			//call delete failed modal
         	$("#del-failure-modal").modal()
@@ -279,7 +371,7 @@ function confirmDelete(id){
 }
 //Populate the Local Role Id
 getRoleId();
-
+refreshResults();
 
 //OnClick event on my List Item for "Home" in the navbar calls this function
 function goHome(){
@@ -294,32 +386,48 @@ function goHome(){
 
 //DETERMINE WHICH QUERY TO CALL
 
-if (document.URL.includes("managersearch")){
-	document.getElementById("replace-name").innerText = (': Search Results');
-	retrieveSearchResults();
-}
-
-if (document.URL.includes("MyPending")){
-	populateMyFields();
-	retrievePending("Delete");
-}
-if (document.URL.includes("MyDelete")){
-	populateMyFields();
-	retrievePending("Delete");
-}
-if (document.URL.includes("MyPast")){
-	retrievePast();
-	populateMyFields();
-}
-if (document.URL.includes("AllPending")){
-	retrieveAllPending("Delete");
-	document.getElementById("replace-name").innerText = ': All Pending';
-}
-if (document.URL.includes("OtherDelete")){
-	retrieveAllPending("Delete");
-	document.getElementById("replace-name").innerText = ': All Pending';
-}
-if (document.URL.includes("AllPast")){
-	retrieveAllPast();
-	document.getElementById("replace-name").innerText = ': All Past';
+//passing in parameter optionally when deleted but don't think I need it
+function refreshResults(UserIdOfDeleted){
+	if (document.URL.includes("MyPending")){
+		populateMyFields(1);
+		retrievePending("Delete");
+	}
+	if (document.URL.includes("MyDelete")){
+		populateMyFields(1);
+		retrievePending("Delete");
+	}
+	if (document.URL.includes("MyPast")){
+		populateMyFields(1);
+		retrievePast();
+	}
+	if (document.URL.includes("managersearch")){
+		populateMyFields(2);
+		//doing below in populateFields() now
+		//document.getElementById("replace-name").innerText = (': Search Results');
+		retrieveSearchResults();
+	}
+	if (document.URL.includes("AllPending")){
+		populateMyFields(3);
+		retrieveAllPending("Delete");
+		//doing below in populateFields() now
+		//document.getElementById("replace-name").innerText = ': All Pending';
+	}
+	if (document.URL.includes("OtherDelete")){
+		populateMyFields(3);
+		retrieveAllPending("Delete");
+		//doing below in populateFields() now
+		//document.getElementById("replace-name").innerText = ': All Pending';
+	}
+	if (document.URL.includes("AllPast")){
+		populateMyFields(4);
+		retrieveAllPast();
+		//doing below in populateFields() now
+		//document.getElementById("replace-name").innerText = ': All Past';
+	}
+	if (document.URL.includes("StatusAll")){
+		populateMyFields(5);
+		retrieveAllPending("Status");
+		//doing below in populateFields() now
+		//document.getElementById("replace-name").innerText = ': Pending Requests';
+	}
 }

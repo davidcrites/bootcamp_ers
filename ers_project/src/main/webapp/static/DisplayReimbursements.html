@@ -26,6 +26,9 @@
             .text-yellow{
                 color:yellow;
             }
+            .display{
+                table-layout:fixed;
+            }
             #table-dynamic{
                 background-color:white;
                 border-color:rgb(7, 7, 51);
@@ -122,7 +125,7 @@
             <div class="container col-md-2" ></div>
             
                 <div class="col-md-8" >
-                    <table id="table-dynamic" class="table table-bordered table-striped table-hover">
+                    <table id="table-dynamic" class="display table table-bordered table-striped table-hover">
                         <!-- table-striped table-bordered table-hover table-condensed-->
                        <thead>
 	                        <tr id="table-headers">
@@ -136,7 +139,7 @@
 	                            <th class="col-md-5 col-md-offset-2">Resolver</th>
 	                            <th class="col-md-5 col-md-offset-2">Status</th>
 	                            <th class="col-md-5 col-md-offset-2">Type</th>
-	                            <th class="disabled col-md-5 col-md-offset-2">Delete</th><!--adding a column for the delete button-->
+	                            <th class="disabled col-md-5 col-md-offset-2" id="opt_column">Delete</th><!--adding a column for the delete button-->
 	                        </tr>
                         </thead>
                         <!--DYNAMIC CONTENT should be applied here-->
@@ -173,7 +176,7 @@
 				    </div>
 				  </div>
 				  
-				  				  <!-- Delete Fail Modal -->
+				  				  <!-- Update/Delete Fail Modal -->
 				  <div class="modal unfound-modal fade" id="del-failure-modal" role="dialog">
 				    <div class="modal-dialog">
 				    
@@ -184,7 +187,7 @@
 				          <h3 class="modal-title">Failure!</h3>
 				        </div>
 				        <div class="modal-body unfound-modal-body">
-				          <h4>We were unable to delete that record!</h4>
+				          <h4>We were unable to update that record!</h4>
 				        </div>
 				        <div class="modal-footer">
 				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -207,6 +210,50 @@
 				        </div>
 				        <div class="modal-body success-modal-body">
 				          <h4>Record deleted!</h4>
+				        </div>
+				        <div class="modal-footer">
+				          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
+				  
+				  				  				<!-- Approve Success Modal -->
+				  <div class="modal success-modal fade" id="approved-modal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content success-modal-body">
+				        <div class="modal-header">
+				          <!--  COMMENTING OUT BUTTONS BECAUSE I AM CLOSING WITH A TIMEOUT FUNCTION AFTER A COUPLE OF SECONDS -->
+				          <!--  <button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+				          <h3 class="modal-title">Approved</h3>
+				        </div>
+				        <div class="modal-body success-modal-body">
+				          <h4>Request approved.</h4>
+				        </div>
+				        <div class="modal-footer">
+				          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
+				  
+				  				  				<!-- Deny Success Modal -->
+				  <div class="modal unfound-modal fade" id="denied-modal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content unfound-modal-body">
+				        <div class="modal-header">
+				          <!--  COMMENTING OUT BUTTONS BECAUSE I AM CLOSING WITH A TIMEOUT FUNCTION AFTER A COUPLE OF SECONDS -->
+				          <!--  <button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+				          <h3 class="modal-title">Success</h3>
+				        </div>
+				        <div class="modal-body unfound-modal-body">
+				          <h4>Request denied!</h4>
 				        </div>
 				        <div class="modal-footer">
 				          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->

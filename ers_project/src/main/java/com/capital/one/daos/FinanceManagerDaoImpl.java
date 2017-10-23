@@ -291,9 +291,9 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
             stmt = conn.createStatement();
 
             stmt.executeUpdate(
-                    "UPDATE ers_reimbursement SET reimb_status_id=2, resolved_time=CURRENT_TIMESTAMP, reimb_resolver="
-                            + resolverId +
-                            "WHERE reimb_status_id=1 And reimb_id=" + id);
+                    "UPDATE ers_reimbursement SET reimb_status_id=2, reimb_resolved=CURRENT_TIMESTAMP, reimb_resolver=\n" +
+                            resolverId +
+                            " WHERE reimb_status_id=1 AND reimb_id=" + id + ";");
             return true;
         }
         catch (SQLException e) {
@@ -331,9 +331,9 @@ public class FinanceManagerDaoImpl implements FinanceManagerDao {
             stmt = conn.createStatement();
 
             stmt.executeUpdate(
-                    "UPDATE ers_reimbursement SET reimb_status_id=3, reimb_resolved=CURRENT_TIMESTAMP, reimb_resolver="
-                            + resolverId +
-                            "WHERE reimb_status_id=1 And reimb_id=" + id);
+                    "UPDATE ers_reimbursement SET reimb_status_id=3, reimb_resolved=CURRENT_TIMESTAMP, reimb_resolver=\n" +
+                            resolverId +
+                            " WHERE reimb_status_id=1 AND reimb_id= " + id + ";");
             return true;
         }
         catch (SQLException e) {
