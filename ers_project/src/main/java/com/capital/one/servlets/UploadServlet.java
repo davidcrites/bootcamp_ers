@@ -65,7 +65,9 @@ public class UploadServlet extends HttpServlet {
 	  		
 	  		request.getSession().setAttribute("new-image", image);
 	  		log.info("Just storing the image as attribute here - will pull later when writing reimbursement");
-        }
+        }else {
+  			log.info("IMAGE file is null,");
+  		}
          
 
 
