@@ -149,25 +149,27 @@ public class ReimbursementController {
                 rs.getReimbReceipt(req, picReimbursementId);
                 
                 //now need to write the Object to the response
-                byte[] byteArray = ((byte[])  req.getSession().getAttribute("currentImage"));
-                	if (byteArray.length > 0) {
-                		resp.setContentType("image/png");
-                		resp.setHeader("Content-Disposition", "filename=\"travelimage.png\"");
-                		resp.setContentLength(byteArray.length);
-                		OutputStream os = resp.getOutputStream();
-
-                		try {
-                		   os.write(byteArray , 0, byteArray.length);
-                		} catch (Exception excp) {
-                		   //handle error
-                		} finally {
-                		    os.close();
-                		}
-                	}
-                	else {
-                		log.debug("There is no image to write to the response");
-                	}
-
+                if (req.getSession().getAttribute("currentImage")!=null) {
+	                byte[] byteArray = ((byte[])  req.getSession().getAttribute("currentImage"));
+	                	if (byteArray.length > 0) {
+	                		resp.setContentType("image/png");
+	                		resp.setHeader("Content-Disposition", "filename=\"travelimage.png\"");
+	                		resp.setContentLength(byteArray.length);
+	                		OutputStream os = resp.getOutputStream();
+	
+	                		try {
+	                		   os.write(byteArray , 0, byteArray.length);
+	                		} catch (Exception excp) {
+	                		   //handle error
+	                		} finally {
+	                		    os.close();
+	                		}
+	                	}
+	                	else {
+	                		log.debug("There is no image to write to the response");
+	                		resp.setStatus(500);
+	                	}
+                }
                 break;
                 
             case "/static/reimbursements/approveRecord":
