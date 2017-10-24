@@ -159,6 +159,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				preparedStmt.setBytes(6, (byte[])req.getSession().getAttribute("new-image"));
 			}else {
 				log.error("The Attribute for \"new-image\" is null, so something went wrong or they didn't enter an image");
+				preparedStmt.setBytes(6, null);
 			}
 			
 			conn.setAutoCommit(false);
