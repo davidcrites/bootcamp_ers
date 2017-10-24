@@ -1,16 +1,22 @@
 package com.capital.one.servlets;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.log4j.Logger;
 
 import com.capital.one.controllers.ReimbursementController;
 import com.capital.one.controllers.UserController;
+import com.capital.one.daos.DAOUtilities;
 
 public class FrontControllerServlet extends DefaultServlet {
 
@@ -141,6 +147,13 @@ public class FrontControllerServlet extends DefaultServlet {
                 rc.processPostRequests(req, resp);
             }
         }
+        else if (requestURL.contains("uploadImage")) {
+        		boolean success = false;
+        		//success = uploadImage(req,resp);
+        		if (!success) {
+        			resp.setStatus(501);
+        		}
+        }
         log.debug("requestURL");
         super.doPost(req, resp);
     }
@@ -177,5 +190,61 @@ public class FrontControllerServlet extends DefaultServlet {
             }
         }
     }
+    
+//    private boolean uploadImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        InputStream inputStream = null; // input stream of the upload file
+//        int newId = Integer.valueOf((String) request.getSession().getAttribute("newId"));
+//        Logger log = Logger.getLogger("UploadServlet");
+//        
+//        log.debug("Arrived in the UploadServlet");
+//        String requestURL = request.getRequestURI().substring(request.getContextPath().length());
+//        log.debug("request made with URI: " + request.getRequestURI());
+//        log.debug("request made with url: " + requestURL);
+//         
+//        // obtains the upload file part in this multipart request
+//        Part filePart = request.getPart("new-receipt");
+//        if (filePart != null) {
+//            // prints out some information for debugging
+//            System.out.println(filePart.getName());
+//            System.out.println(filePart.getSize());
+//            System.out.println(filePart.getContentType());
+//             
+//            // obtains input stream of the upload file
+//            inputStream = filePart.getInputStream();
+//        }
+//         
+//        Connection conn = null; // connection to the database
+//        String message = null;  // message will be sent back to client
+//         
+//        try {
+//            // connects to the database
+//            conn = DAOUtilities.getConnection();
+// 
+//            // constructs SQL statement
+//            String sql = "UPDATE ers_reimbursement SET reimb_receipt = ? WHERE reimb_id= ?";
+//            PreparedStatement statement = conn.prepareStatement(sql);
+//            
+//            if (inputStream != null) {
+//                // fetches input stream of the upload file for the blob column
+//                statement.setBlob(1, inputStream);
+//            }
+//            
+//            statement.setInt(2, newId);
+//             
+//
+// 
+//            // sends the statement to the database server
+//            int row = statement.executeUpdate();
+//            if (row > 0) {
+//                message = "File uploaded and saved into database";
+//            }
+//        } catch (SQLException ex) {
+//            message = "ERROR: " + ex.getMessage();
+//            log.debug(message);
+//            ex.printStackTrace();
+//            return false;
+//        } 
+//    	return true;
+//    }
 
 }

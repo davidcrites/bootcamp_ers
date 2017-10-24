@@ -61,20 +61,20 @@ public class SubmitReimbursementScreen {
 			newReimbursement.setReimbStatusId(1);
 			
 			//Call dao method to submit the request
-			try {
-				dao.submitReimbursement(newReimbursement);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("Would you like to enter another reimbursment? (Y or N):");
-			moreString = scan.nextLine();
-			if ("Y".equals(moreString) || "YES".equals(moreString) || "yes".equals(moreString)) {
-				more=true;
-			}
-			else {
-				more = false;
-			}
+//			try {
+//				dao.submitReimbursement(req,newReimbursement);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			System.out.println("Would you like to enter another reimbursment? (Y or N):");
+//			moreString = scan.nextLine();
+//			if ("Y".equals(moreString) || "YES".equals(moreString) || "yes".equals(moreString)) {
+//				more=true;
+//			}
+//			else {
+//				more = false;
+//			}
 		}
 		System.out.println("Enter any key to return");
 		scan.nextLine();

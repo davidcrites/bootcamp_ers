@@ -14,11 +14,24 @@
 	  	<param-name>param1</param-name>
 	  	<param-value>hello</param-value>
   	</init-param>
-  	<!--  <load-on-startup>1</load-on-startup>-->
+    <load-on-startup>1</load-on-startup>
   </servlet>
-  <servlet-mapping>
+    <servlet>
+  	<servlet-name>UploadServlet</servlet-name>
+  	<servlet-class>com.capital.one.servlets.UploadServlet</servlet-class>
+  	<init-param>
+	  	<param-name>param1</param-name>
+	  	<param-value>hello</param-value>
+  	</init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+    <servlet-mapping>
 		<servlet-name>FrontControllerServlet</servlet-name>
 		<url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/uploadImage</url-pattern>
   </servlet-mapping>
   
 </web-app>

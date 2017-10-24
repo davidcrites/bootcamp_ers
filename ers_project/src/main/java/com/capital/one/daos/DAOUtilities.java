@@ -235,8 +235,8 @@ public class DAOUtilities {
         }
         return 0;
     }
-
-    static synchronized Connection getConnection() throws SQLException {
+//changing to public to shortcut access from UploadServlet
+    public static synchronized Connection getConnection() throws SQLException {
     	
     	    log.debug("Attempting to get connection");
         //Properties dbProps = new Properties();

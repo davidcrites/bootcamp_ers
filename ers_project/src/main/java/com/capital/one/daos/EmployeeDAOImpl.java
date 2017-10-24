@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.postgresql.util.PSQLException;
 
@@ -131,7 +133,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	 * @param reimbRecord - the Reimbursement Screen will have populated a Reimbursement object from user input and passed the object into this method
 	 * @throws Exception - if record is not saved to database
 	 */
-	public void submitReimbursement(Reimbursement reimbRecord) throws Exception {
+	public void submitReimbursement(HttpServletRequest req, Reimbursement reimbRecord) throws Exception {
 		// TODO Auto-generated method stub
 		//Fill prepared statement with values for ers_reimbursement
 		PreparedStatement preparedStmt = null;
@@ -141,8 +143,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		try {
 			conn = DAOUtilities.getConnection();
 			Timestamp timestamp = Timestamp.valueOf(reimbRecord.getReimbSubmitted());
-			String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_submitted, reimb_description, reimb_author, reimb_status_id,reimb_type_id)\n" + 
-					"	VALUES (?,'" + timestamp + "',?,?,?,?)";
+			String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_submitted, reimb_description, reimb_author, reimb_status_id,reimb_type_id, reimb_receipt)\n" + 
+					"	VALUES (?,'" + timestamp + "',?,?,?,?,?)";
 			// Setup PreparedStatement
 			log.debug("My sql to insert my reimbursement is being run now: " + sql);
 			preparedStmt = conn.prepareStatement(sql);
@@ -153,8 +155,15 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			preparedStmt.setInt(3, reimbRecord.getReimbAuthor());
 			preparedStmt.setInt(4, reimbRecord.getReimbStatusId());
 			preparedStmt.setInt(5, reimbRecord.getReimbTypeId());
+			if (!(req.getSession().getAttribute("new-image")==null)) {
+				preparedStmt.setBytes(6, (byte[])req.getSession().getAttribute("new-image"));
+			}else {
+				log.error("The Attribute for \"new-image\" is null, so something went wrong or they didn't enter an image");
+			}
 			
+			conn.setAutoCommit(false);
 			success = preparedStmt.executeUpdate();
+			conn.commit();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -173,11 +182,52 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		if (success == 0) {
 			// then update didn't occur, throw an exception
 			log.error("Insert was unsuccessful");
-			throw new Exception("Insert reimbursement failed: " + reimbRecord);
-			
+			conn.rollback();
+			throw new Exception("Insert reimbursement failed: " + reimbRecord);	
 		}else {
 			log.info("Insert of reimbursement should have been successful");
 		}
+		
+//      Connection conn = null; // connection to the database
+//      String message = null;  // message will be sent back to client
+//       
+//      try {
+//          // connects to the database
+//          conn = DAOUtilities.getConnection();
+////          You should use Connection.setAutoCommit(false) to disable auto-commit and Connection.commit() and Connection.rollback().
+//          conn.setAutoCommit(false);
+//
+//          // constructs SQL statement
+//          String sql = "UPDATE ers_reimbursement SET reimb_receipt = ? WHERE reimb_id= ?";
+//          PreparedStatement statement = conn.prepareStatement(sql);
+//          
+//
+//	  		
+//          
+//          if (image != null) {
+//              // fetches input stream of the upload file for the blob column
+//              statement.setBytes(1, image);
+//          }
+//          
+//          statement.setInt(2, newId);
+//           
+//
+//          // sends the statement to the database server
+//          int row = statement.executeUpdate();
+//          conn.commit();
+//          if (row > 0) {
+//              message = "File uploaded and saved into database";
+//          }
+//      } catch (SQLException ex) {
+//      		try {
+//					conn.rollback();
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//          message = "ERROR: " + ex.getMessage();
+//          ex.printStackTrace();
+//      } 
 		
 		
 		
@@ -411,19 +461,29 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	 * @return a User is returned to be written on the response
 	 */
 	public void deleteRecord(int reimbId) {
-		Statement stmt = null;
+		PreparedStatement prepStmt = null;
 		Connection conn = null;
-		ResultSet rs = null;
+		int success = 0;
 		
 		
 		try {
 			conn = DAOUtilities.getConnection();
-			stmt = conn.createStatement();
+			
 			
 			//Second Delete the reimbursement record
 			log.debug("The reimbId (reimbursementId); we are trying to delete a record with is : "+ reimbId);
 			String sql = ("DELETE FROM ers_reimbursement WHERE reimb_id = " + reimbId +";");
-			rs = stmt.executeQuery(sql);
+			
+			prepStmt = conn.prepareStatement(sql);
+			
+			success = prepStmt.executeUpdate();
+			
+			if (success==0){
+				log.error("Delete was unsuccessful");
+				
+			} else {
+				log.info("Delete was successful");
+			}
 			
 		}
 		catch (SQLException sqle) {
@@ -445,5 +505,39 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		return;
 
 	}
+	public void getReceiptImage(HttpServletRequest req, int reimbId) {
+		Statement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		
+		
+		try {
+			conn = DAOUtilities.getConnection();
+			stmt = conn.createStatement();
+			
+			String sql = ("SELECT reimb_receipt FROM ers_reimbursement\n" +
+					  "WHERE (reimb_id = " + reimbId +");");
+			
+			log.debug("sql below:");
+			log.debug(sql);
+
+			rs = stmt.executeQuery(sql);
+			
+			log.debug("result set below:");
+			log.debug(rs);
+
+			rs.next();
+			log.debug("result set has data - populate Role");
+			req.getSession().setAttribute("currentImage", rs.getBytes("reimb_receipt"));
 	
+		}
+		catch (SQLException sqle) {
+			log.error("SQL Exception thrown");
+			sqle.printStackTrace();
+
+		}
+		log.info("Finished getting a receipt IMAGE...wrote it to the Session Attributes as \"currentImage\"");
+
+	}
+
 }

@@ -3,6 +3,8 @@ package com.capital.one.daos;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.capital.one.datamodelbeans.Reimbursement;
 import com.capital.one.datamodelbeans.UserRoles;
 import com.capital.one.datamodelbeans.Users;
@@ -30,7 +32,7 @@ public interface EmployeeDAO {
 	 * @param reimbRecord - the Reimbursement Screen will have populated a Reimbursement object from user input and passed the object into this method
 	 * @throws SQLException - if the insert into the database fails, an exception will be thrown, which should be caught and handled.
 	 */
-	void submitReimbursement(Reimbursement reimbRecord) throws Exception;
+	void submitReimbursement(HttpServletRequest req, Reimbursement reimbRecord) throws Exception;
 	
 	/***
 	 * This method will allow an Employee to view all the tickets for a particular employee, although a Fi Manager may use this also to view tickets on one empl.
@@ -63,4 +65,11 @@ public interface EmployeeDAO {
 	 * 
 	 */
 	public void deleteRecord(int reimbId);
+	
+	/***
+	 * I want to delete a reimbursement record
+	 * @param reimbId - a reimbursement ID is needed so we know which record to remove from the database.
+	 * 
+	 */
+	public void getReceiptImage(HttpServletRequest req, int reimbId);
 }

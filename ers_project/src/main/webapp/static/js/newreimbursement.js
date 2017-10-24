@@ -4,6 +4,7 @@
 //	let newAmount=0;
 //	let newType='';
 let localUser=null;
+let fileName='Upload Receipt';
 
 
 // FUNCTION for getting roleID and calling function to add Manager options
@@ -117,6 +118,7 @@ function submit(){
 			if(xhttp.readyState == 4 && xhttp.status == 200) {
 				//alert(xhttp.responseText);
 				//call success modal
+				uploadImage();
 				$("#success-modal").modal()
 				setTimeout(function() {$('#success-modal').modal('hide');}, 2000);
 				document.getElementById("submit-form").reset();
@@ -133,6 +135,30 @@ function submit(){
 	
 		xhttp.send(params);
 	}
+}
+
+function uploadImage(){
+	console.log("we got to the submit() function");
+	let xhttp = new XMLHttpRequest();
+	
+	let fileInput = document.getElementById('new-receipt');
+	let file = fileInput.files[0];
+	let formData = new FormData();
+	formData.append('new-receipt', file);
+	
+	xhttp.onreadystatechange = function() {//Call a function when the state changes.
+		if(xhttp.readyState == 4 && xhttp.status == 200) {
+		}
+	}
+	
+	console.log("My file is: " + fileInput.value);
+	
+	xhttp.open('POST', '/ers_project/uploadImage', true);
+
+	//Send the proper header information along with the request - this should tell the server what format the parameters will be in
+	//xhttp.setRequestHeader("Content-type", "multipart/form-data");
+
+	xhttp.send(formData);
 }
 
 // FUNCTIONS for calling queries
@@ -255,6 +281,10 @@ function goHome(){
 		location.href = "http://localhost:8080/ers_project/static/EmployeeMenu.html";
 	}
 }
+function nameFile(){
+	filename = document.getElementById("new-receipt").files[0].name;
+	document.getElementById("receipt-label").innerText=filename;
+}
 // ACTUAL PROGRAM CODE
 //Populate the Local Role Id
 getRoleId();
@@ -272,5 +302,8 @@ if (document.URL.includes("MyNew")){
 //EVENT LISTENERS
 // On valid ID entry and lose focus event or User ID, call retrieveOther()
 document.getElementById("new-reimb-id").addEventListener("change",function(){retrieveOther();});
+
+
+
 
 
