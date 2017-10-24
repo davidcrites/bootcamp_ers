@@ -186,7 +186,6 @@ function appendResults(results){
 	    				<td>${Reimbursement.reimbResolved.year}-${Reimbursement.reimbResolved.monthValue}-${Reimbursement.reimbResolved.dayOfMonth} 
 	                ${Reimbursement.reimbResolved.hour}:${Reimbursement.reimbResolved.minute}:${Reimbursement.reimbResolved.second}</td>
 	                <td>${Reimbursement.reimbDescription}</td>
-	                <td><a href="http://localhost:8080/ers_project/static/reimbursements/MyPending"> RECEIPT</td>
 	                <td><button class="btn btn-primary btn-sm" onclick="showPic(this)">RECEIPT</button></td>
 	    			    <td>${Reimbursement.author.ersUsername}</td>
 	                <td>${Reimbursement.resolver.ersUsername}</td>
@@ -295,11 +294,13 @@ function showPic(button)
 	xhttp.onreadystatechange = function(){
 	    console.log('readyState = ${xhttp.readyState}');
 	    if (xhttp.readyState===4 && xhttp.status===200){
-	        console.log(xhttp.responseText);
+	        console.log(xhttp.response);
 	        appendPicToModal(xhttp.response);
 	        $("#show-pic").modal();
-	    } else {
-	    	
+	    } else if (xhttp.readyState===4 && xhttp.status===500){
+	    		console.log(xhttp.response);
+	    		document.getElementById("receipt-image").innerHTML=`<h4>No Receipt Image for this Ticket</h4>`;
+	        $("#show-pic").modal();
 	    }
 	}
     xhttp.open('GET','getReceipt/'+reimbId);
@@ -322,7 +323,8 @@ function appendPicToModal(response){
 
 	// append it to the modal
 	
-	document.getElementById("receipt-image").appendChild(outputImg);
+	//document.getElementById("receipt-image").appendChild(outputImg); //ATTEMPT 1/2
+	document.getElementById("receipt-image").innerHTML=outputImg; //ATTEMPT3
 	
 //	var imgsrc = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(markup)));
 //	 var img = new Image(1, 1); // width, height values are optional params 
