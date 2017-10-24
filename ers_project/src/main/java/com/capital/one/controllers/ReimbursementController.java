@@ -1,6 +1,7 @@
 package com.capital.one.controllers;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +49,11 @@ public class ReimbursementController {
         }
         else if (requestUrl.contains("/static/reimbursements/denyRecord")) {
             shortUrl = requestUrl.substring(0, 33);
-        }else {
+        }
+        else if (requestUrl.contains("/static/reimbursements/getReceipt")) {
+            shortUrl = requestUrl.substring(0, 33);
+        }
+        else {
         		//no change
         }
         log.debug("shortUrl = " + shortUrl);
@@ -135,6 +140,33 @@ public class ReimbursementController {
                 int delReimbursementId = Integer.valueOf(requestUrl.substring(36));
 
                 rs.deleteReimbursement(req, delReimbursementId);
+
+                break;
+                
+            case "/static/reimbursements/getReceipt":
+                // need to call service for deleting record
+                int picReimbursementId = Integer.valueOf(requestUrl.substring(34));
+                rs.getReimbReceipt(req, picReimbursementId);
+                
+                //now need to write the Object to the response
+                byte[] byteArray = ((byte[])  req.getSession().getAttribute("currentImage"));
+                	if (byteArray.length > 0) {
+                		resp.setContentType("image/png");
+                		resp.setHeader("Content-Disposition", "filename=\"travelimage.png\"");
+                		resp.setContentLength(byteArray.length);
+                		OutputStream os = resp.getOutputStream();
+
+                		try {
+                		   os.write(byteArray , 0, byteArray.length);
+                		} catch (Exception excp) {
+                		   //handle error
+                		} finally {
+                		    os.close();
+                		}
+                	}
+                	else {
+                		log.debug("There is no image to write to the response");
+                	}
 
                 break;
                 

@@ -185,7 +185,10 @@
                                         Other
                                     </option>
                                 </select></td>
-                                <td class="reimb-box col-md-5 col-md-offset-2">Receipt</td>
+                                <td class="reimb-box col-md-5 col-md-offset-2"><label id="receipt-label">Upload Receipt</label>
+                                <label  class="btn btn-default btn-file">
+                                <input id="new-receipt" onchange="nameFile()" type="file" name="new-receipt" style="display: none;"/>Browse</label>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

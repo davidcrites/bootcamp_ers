@@ -186,7 +186,8 @@ function appendResults(results){
 	    				<td>${Reimbursement.reimbResolved.year}-${Reimbursement.reimbResolved.monthValue}-${Reimbursement.reimbResolved.dayOfMonth} 
 	                ${Reimbursement.reimbResolved.hour}:${Reimbursement.reimbResolved.minute}:${Reimbursement.reimbResolved.second}</td>
 	                <td>${Reimbursement.reimbDescription}</td>
-	                <td>RECEIPT</td>
+	                <td><a href="http://localhost:8080/ers_project/static/reimbursements/MyPending"> RECEIPT</td>
+	                <td><button class="btn btn-primary btn-sm" onclick="showPic(this)">RECEIPT</button></td>
 	    			    <td>${Reimbursement.author.ersUsername}</td>
 	                <td>${Reimbursement.resolver.ersUsername}</td>
 	                <td>${Reimbursement.status.reimbStatus}</td>
@@ -203,7 +204,7 @@ function appendResults(results){
 	                ${Reimbursement.reimbSubmitted.hour}:${Reimbursement.reimbSubmitted.minute}:${Reimbursement.reimbSubmitted.second}</td>
 	    				<td>${Reimbursement.reimbResolved}</td>
 	    				<td>${Reimbursement.reimbDescription}</td>
-	                <td>RECEIPT</td>
+	                <td><button class="btn btn-primary btn-sm" onclick="showPic(this)">RECEIPT</button></td>
 	    			    <td>${Reimbursement.author.ersUsername}</td>
 	                <td>${Reimbursement.resolver.ersUsername}</td>
 	                <td>${Reimbursement.status.reimbStatus}</td>
@@ -220,7 +221,7 @@ function appendResults(results){
 		                ${Reimbursement.reimbSubmitted.hour}:${Reimbursement.reimbSubmitted.minute}:${Reimbursement.reimbSubmitted.second}</td>
 		    				<td>${Reimbursement.reimbResolved}</td>
 		    				<td>${Reimbursement.reimbDescription}</td>
-		                <td>RECEIPT</td>
+		                <td><button class="btn btn-primary btn-sm" onclick="showPic(this)">RECEIPT</button></td>
 		    			    <td>${Reimbursement.author.ersUsername}</td>
 		                <td>${Reimbursement.resolver.ersUsername}</td>
 		                <td>${Reimbursement.status.reimbStatus}</td>
@@ -249,7 +250,7 @@ function appendResultsWithDelete(results){
 		                ${Reimbursement.reimbSubmitted.hour}:${Reimbursement.reimbSubmitted.minute}:${Reimbursement.reimbSubmitted.second}</td>
 		    				<td>${Reimbursement.reimbResolved}</td>
 		                <td>${Reimbursement.reimbDescription}</td>
-		                <td>RECEIPT</td>
+		                <td><button class="btn btn-primary btn-sm" onclick="showPic(this)">RECEIPT</button></td>
 		    			    <td>${Reimbursement.author.ersUsername}</td>
 		                <td>${Reimbursement.resolver.ersUsername}</td>
 		                <td>${Reimbursement.status.reimbStatus}</td>
@@ -269,7 +270,7 @@ function appendResultsWithDelete(results){
                 ${Reimbursement.reimbSubmitted.hour}:${Reimbursement.reimbSubmitted.minute}:${Reimbursement.reimbSubmitted.second}</td>
     				<td>${Reimbursement.reimbResolved}</td>
                 <td>${Reimbursement.reimbDescription}</td>
-                <td>RECEIPT</td>
+                <td><button class="btn btn-primary btn-sm" onclick="showPic(this)">RECEIPT</button></td>
     			    <td>${Reimbursement.author.ersUsername}</td>
                 <td>${Reimbursement.resolver.ersUsername}</td>
                 <td>${Reimbursement.status.reimbStatus}</td>
@@ -280,6 +281,54 @@ function appendResultsWithDelete(results){
 			}); 
     }
 } 
+//function to prompt for confirmation of delete and add a listener....make sure to call module to confirm
+function showPic(button)
+{
+    // var i=row.parentNode.parentNode.rowIndex;
+	// document.getElementById("test-row").cells[0].attributes.value.value
+	let reimbId = button.parentNode.parentNode.cells[0].attributes.value.value;
+	console.log(reimbId);
+	
+	//DECLARATIONS
+	let xhttp= new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function(){
+	    console.log('readyState = ${xhttp.readyState}');
+	    if (xhttp.readyState===4 && xhttp.status===200){
+	        console.log(xhttp.responseText);
+	        appendPicToModal(xhttp.response);
+	        $("#show-pic").modal();
+	    } else {
+	    	
+	    }
+	}
+    xhttp.open('GET','getReceipt/'+reimbId);
+    xhttp.send(); 
+	
+}
+
+//Function to append the pic to the modal
+function appendPicToModal(response){
+	
+	var rawResponse = response; // truncated for example
+
+	// convert to Base64
+	//var b64Response = btoa(rawResponse);  //ATTEMPT 1
+
+	// create an image
+	var outputImg = document.createElement('img');
+	//outputImg.src = 'data:image/png;base64,'+b64Response;  //ATTEMPT 1
+	outputImg.src = 'data:image/png;base64,'+ btoa(unescape(encodeURIComponent(rawResponse)));  //ATTEMPT 2
+
+	// append it to the modal
+	
+	document.getElementById("receipt-image").appendChild(outputImg);
+	
+//	var imgsrc = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(markup)));
+//	 var img = new Image(1, 1); // width, height values are optional params 
+//	 img.src = imgsrc;
+	
+}
 //function to prompt for confirmation of delete and add a listener....make sure to call module to confirm
 function deleteRow(button)
 {

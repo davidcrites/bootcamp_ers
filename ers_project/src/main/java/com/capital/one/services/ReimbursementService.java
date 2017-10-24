@@ -40,6 +40,11 @@ public class ReimbursementService {
         log.debug("The ROLE that we just populated with populateRole is" + currentRole);
         req.getSession().setAttribute("currentRole", currentRole);
     }
+    
+    public void getReimbReceipt(HttpServletRequest req, int reimbId) {
+    	    	
+    		empDao.getReceiptImage(req, reimbId);
+    }
 
     public void myPendingReimbursements(HttpServletRequest req, HttpServletResponse resp) {
         List<Reimbursement> displayList = new ArrayList<Reimbursement>();
@@ -127,7 +132,7 @@ public class ReimbursementService {
         }
         try {
             log.debug("My newRembursement I should be submitting now is : " + newReimbursement);
-            empDao.submitReimbursement(newReimbursement);
+            empDao.submitReimbursement(req, newReimbursement);
         }
         catch (Exception e) {
             // TODO Auto-generated catch block
