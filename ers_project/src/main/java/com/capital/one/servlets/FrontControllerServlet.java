@@ -57,6 +57,7 @@ public class FrontControllerServlet extends DefaultServlet {
                 requestURL.startsWith("/static/images")) {
             log.trace("/static/[folder]: " + requestURL);
             super.doGet(req, resp);
+            return;
         }
         else if (requestURL.startsWith("/static")) { // checking if static first, otherwise non-site urls will fail
                                                      // validate check
@@ -66,6 +67,7 @@ public class FrontControllerServlet extends DefaultServlet {
                                                                                                                          // static/users/login
                 if (!this.validateUser(req, requestURL)) { // if NOT a validated User
                     req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
+                    return;
                 }
             }
             // action="/ers_project/static/reimbursements/managersearch"
@@ -73,11 +75,13 @@ public class FrontControllerServlet extends DefaultServlet {
             if (requestURL.startsWith("/static/Employee")) { // process Employee Gets normally, we already validated
                 log.trace("/static/Employee: " + requestURL);
                 super.doGet(req, resp);
+                return;
             }
             else if (requestURL.startsWith("/static/FinanceManager")) { // process Finance Man Gets normally, we already
                                                                         // validated
                 log.trace("/static/FinanceManager: " + requestURL);
                 super.doGet(req, resp);
+                return;
             }
             else if (requestURL.startsWith("/static/ERS_signin.html")) { // send reimbursement functions to
                                                                          // reimbursement controller
@@ -86,11 +90,13 @@ public class FrontControllerServlet extends DefaultServlet {
                 // send to Reimbursement Controller
                 log.trace("/static/ERS_signin.html: " + requestURL);
                 super.doGet(req, resp);
+                return;
             }
             else if (requestURL.startsWith("/static/users")) { // send user functions to user controller
                 // send to User Controller
                 log.trace("/static/users: " + requestURL);
                 uc.processGetRequests(req, resp);
+                return;
             }
             else //
             if (requestURL.startsWith("/static/reimbursements")) { // send reimbursement functions to reimbursement
@@ -98,6 +104,7 @@ public class FrontControllerServlet extends DefaultServlet {
                 // send to Reimbursement Controller
                 log.trace("/static/reimbursements: " + requestURL);
                 rc.processGetRequests(req, resp);
+                return;
             }
             else //
             if (requestURL.startsWith("/static/reimbursement")) { // send reimbursement functions to reimbursement
@@ -109,6 +116,7 @@ public class FrontControllerServlet extends DefaultServlet {
             else {
                 log.trace("non-site URL: " + requestURL);
                 super.doGet(req, resp); // non-site Get requests processed normally
+                return;
             }
         }
         // log.trace("non-site URL: " + requestURL);
@@ -130,12 +138,14 @@ public class FrontControllerServlet extends DefaultServlet {
                 requestURL.startsWith("/static/fonts") ||
                 requestURL.startsWith("/static/images/")) {
             super.doPost(req, resp);
+            return;
         }
         else if (requestURL.startsWith("/static")) {
 
             if (!(requestURL.startsWith("/static/users/login"))) { // if NOT /users/login
                 if (!this.validateUser(req, requestURL)) { // if NOT a validated User
                     req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
+                    return;
                 }
             }
 
@@ -156,6 +166,7 @@ public class FrontControllerServlet extends DefaultServlet {
         }
         log.debug("requestURL");
         super.doPost(req, resp);
+        return;
     }
 
     private boolean validateUser(HttpServletRequest req, String requestURL) {

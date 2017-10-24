@@ -138,7 +138,7 @@ function submit(){
 }
 
 function uploadImage(){
-	console.log("we got to the submit() function");
+	console.log("we got to the uploadImage() function");
 	let xhttp = new XMLHttpRequest();
 	
 	let fileInput = document.getElementById('new-receipt');
