@@ -62,14 +62,18 @@ public class FrontControllerServlet extends DefaultServlet {
         else if (requestURL.startsWith("/static")) { // checking if static first, otherwise non-site urls will fail
                                                      // validate check
             // route to user controller
-            if (!(requestURL.startsWith("/static/ERS_signin") || requestURL.startsWith("/static/NotAuthorized.html"))) { // if
-                                                                                                                         // NOT
-                                                                                                                         // static/users/login
+            if (!(requestURL.startsWith("/static/ERS_signin") || requestURL.startsWith("/static/NotAuthorized.html"))) {
+                log.debug("We need to validateUser");
                 if (!this.validateUser(req, requestURL)) { // if NOT a validated User
-                    req.getRequestDispatcher("/static/NotAuthorized.html").forward(req, resp);
+                    resp.sendRedirect("/ers_project/static/NotAuthorized.html");
+                    resp.setContentLength(0);
                     return;
                 }
             }
+//            if (requestURL.startsWith("/static/NotAuthorized.html")) {
+//               resp.sendRedirect("/ers_project/static/NotAuthorized.html");
+//               //return;
+//            }
             // action="/ers_project/static/reimbursements/managersearch"
             // process Employee or Finance Manager static requests only if authorized check above passed
             if (requestURL.startsWith("/static/Employee")) { // process Employee Gets normally, we already validated
@@ -83,13 +87,13 @@ public class FrontControllerServlet extends DefaultServlet {
                 super.doGet(req, resp);
                 return;
             }
-            else if (requestURL.startsWith("/static/ERS_signin.html")) { // send reimbursement functions to
-                                                                         // reimbursement controller
+            else if (requestURL.startsWith("/static/ERS_logout")) {
             	    // signing in, so remove the current user if there is one
             	    req.getSession().removeAttribute("currentUser");
+            	    req.getSession().removeAttribute("currentRoleId");
                 // send to Reimbursement Controller
                 log.trace("/static/ERS_signin.html: " + requestURL);
-                super.doGet(req, resp);
+                resp.sendRedirect("/ers_project/static/ERS_signin.html");
                 return;
             }
             else if (requestURL.startsWith("/static/users")) { // send user functions to user controller
