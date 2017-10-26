@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import com.capital.one.daos.DAOUtilities;
 import com.capital.one.daos.EmployeeDAO;
 import com.capital.one.datamodelbeans.Reimbursement;
+import com.capital.one.datamodelbeans.UserRoles;
 import com.capital.one.datamodelbeans.Users;
 import com.capital.one.services.ReimbursementService;
 
@@ -62,7 +63,12 @@ public class ReimbursementController {
 
             case "/static/reimbursements/getRole":
                 rs.populateRole(req);
-                DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("currentRole"), resp);
+                UserRoles role = (UserRoles)req.getSession().getAttribute("currentRole");
+                if (role.getErsUserRoleid() >0 && role.getErsUserRoleid()<3) {
+                		DAOUtilities.writeJSONtoResponse(req.getSession().getAttribute("currentRole"), resp);
+                }else {
+                		resp.setStatus(500);
+                }
                 log.debug(req.getSession().getAttribute("currentRole"));
                 break;
 

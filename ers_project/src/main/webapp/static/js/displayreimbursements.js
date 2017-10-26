@@ -8,17 +8,27 @@ function getRoleId(){
 	let xhttp= new XMLHttpRequest();
 	
 	xhttp.onreadystatechange = function(){
-	    console.log('readyState = ${xhttp.readyState}');
+	    console.log('readyState = ' + xhttp.readyState);
 	    if (xhttp.readyState===4 && xhttp.status===200){
 	        console.log(xhttp.responseText);
-	        let id = JSON.parse(xhttp.responseText);
-	        localRoleId=id.ersUserRoleid;
-	        //Add options to navbar if they are a manager
-	        if(localRoleId===2){
-	        		addOptions();
-	        }
-	    } else {
-	    	
+	        if(!(xhttp.responseText.charAt(0)==='<')){
+		        let id = JSON.parse(xhttp.responseText);
+		        localRoleId=id.ersUserRoleid;
+		        //Add options to navbar if they are a manager
+		        if(localRoleId===2){
+		        		addOptions();
+		        }else if(localRoleId===1){
+		        	    //nothing to do
+		        }else{
+		        		location.href = "http://localhost:8080/ers_project/static/NotAuthorized.html";
+		        }
+		        refreshResults();
+	    		}else{
+	    			location.reload(true);
+	    		}
+	    } else if (xhttp.getResponseHeader("Location")==="/ers_project/static/NotAuthorized.html"){
+	    		//Couldn't validate role ID so send to not authorized.
+	    		location.href = "http://localhost:8080/ers_project/static/NotAuthorized.html";
 	    }
 	}
     xhttp.open('GET','getRole');
@@ -292,24 +302,30 @@ function showPic(button)
 	let xhttp= new XMLHttpRequest();
 	
 	xhttp.onreadystatechange = function(){
-	    console.log('readyState = ${xhttp.readyState}');
+	    console.log('readyState = ' + xhttp.readyState);
 	    if (xhttp.readyState===4 && xhttp.status===200){
 	        console.log(xhttp.response);
-	        appendPicToModal(xhttp.response);
-	        $("#show-pic").modal();
+	        let blob = new Blob([xhttp.response], {
+	        		type: xhttp.getResponseHeader("Content-Type")
+	        });
+	        let imgUrl = window.URL.createObjectURL(blob);
+	        document.getElementById("ItemPreview").src = imgUrl;
+	        //appendPicToModal(imgUrl); //trying not calling this...appending above line
+	        //$("#show-pic").modal();  //putting this in the appendPicToModal
 	    } else if (xhttp.readyState===4 && xhttp.status===500){
 	    		console.log(xhttp.response);
 	    		document.getElementById("receipt-image").innerHTML=`<h4>No Receipt Image for this Ticket</h4>`;
 	        $("#show-pic").modal();
 	    }
 	}
+	xhttp.responseType="arraybuffer";
     xhttp.open('GET','getReceipt/'+reimbId);
     xhttp.send(); 
 	
 }
 
 //Function to append the pic to the modal
-function appendPicToModal(response){
+function appendPicToModal(imgUrl){
 	
 	var rawResponse = response; // truncated for example
 
@@ -319,7 +335,9 @@ function appendPicToModal(response){
 	// create an image
 	var outputImg = document.createElement('img');
 	//outputImg.src = 'data:image/png;base64,'+b64Response;  //ATTEMPT 1
-	outputImg.src = 'data:image/png;base64,'+ btoa(unescape(encodeURIComponent(rawResponse)));  //ATTEMPT 2
+	//outputImg.src = 'data:image/png;base64,'+ btoa(unescape(encodeURIComponent(rawResponse)));  //ATTEMPT 2
+	//document.getElementById("ItemPreview").src = "data:image/png;base64," + rawResponse;
+	document.getElementById("ItemPreview").src = imgUrl;
 
 	// append it to the modal
 	
@@ -422,7 +440,7 @@ function confirmDelete(id){
 }
 //Populate the Local Role Id
 getRoleId();
-refreshResults();
+//refreshResults(); Do this in getRoleID results good area
 
 //OnClick event on my List Item for "Home" in the navbar calls this function
 function goHome(){

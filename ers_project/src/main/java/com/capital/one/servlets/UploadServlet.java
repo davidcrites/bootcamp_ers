@@ -35,7 +35,8 @@ public class UploadServlet extends HttpServlet {
 //        String lastName = request.getParameter("lastName");
          
         InputStream inputStream = null; // input stream of the upload file
-        int newId = Integer.valueOf((String) request.getSession().getAttribute("newId"));
+        //int newId = Integer.valueOf((String) request.getSession().getAttribute("newId"));
+        //int newId = Integer.valueOf(request.getParameter("new-id"));
         Logger log = Logger.getLogger("UploadServlet");
         
         log.debug("Arrived in the UploadServlet");
@@ -62,8 +63,9 @@ public class UploadServlet extends HttpServlet {
 	  		}
 	
 	  		buffer.flush();
-	  		
+	  		//request.getSession().setAttribute("new-id", newId);
 	  		request.getSession().setAttribute("new-image", image);
+	  		log.debug("The byte array we just set as an attribute on the session is " + image);
 	  		log.info("Just storing the image as attribute here - will pull later when writing reimbursement");
         }else {
   			log.info("IMAGE file is null,");

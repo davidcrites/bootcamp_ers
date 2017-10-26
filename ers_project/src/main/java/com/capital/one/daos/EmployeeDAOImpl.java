@@ -156,6 +156,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			preparedStmt.setInt(4, reimbRecord.getReimbStatusId());
 			preparedStmt.setInt(5, reimbRecord.getReimbTypeId());
 			if (!(req.getSession().getAttribute("new-image")==null)) {
+				log.debug("The image in bytes pulled off the attribute to put in the sequal statement is \n" +
+			               ((byte[])req.getSession().getAttribute("new-image")));
 				preparedStmt.setBytes(6, (byte[])req.getSession().getAttribute("new-image"));
 			}else {
 				log.error("The Attribute for \"new-image\" is null, so something went wrong or they didn't enter an image");
@@ -525,11 +527,12 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			rs = stmt.executeQuery(sql);
 			
 			log.debug("result set below:");
-			log.debug(rs);
+			
 
 			rs.next();
 			log.debug("result set has data - populate Role");
 			req.getSession().setAttribute("currentImage", rs.getBytes("reimb_receipt"));
+			log.debug("The receipt as bytes from database is " + rs.getBytes("reimb_receipt"));
 	
 		}
 		catch (SQLException sqle) {

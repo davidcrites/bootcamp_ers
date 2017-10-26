@@ -12,22 +12,31 @@ function getRoleId(){
 	let xhttp= new XMLHttpRequest();
 	
 	xhttp.onreadystatechange = function(){
-	    console.log('readyState = '+ xhttp.readyState);
+	    console.log('readyState = ' +xhttp.readyState);
 	    if (xhttp.readyState===4 && xhttp.status===200){
 	        console.log(xhttp.responseText);
-	        let id = JSON.parse(xhttp.responseText);
-	        localRoleId=id.ersUserRoleid;
-	        //Add options to navbar if they are a manager
-	        if(localRoleId===2){
-	        		addOptions();
-	        }
-	    } else {
-	    	
+	        if(!(xhttp.responseText.charAt(0)==='<')){
+		        let id = JSON.parse(xhttp.responseText);
+		        localRoleId=id.ersUserRoleid;
+		        //Add options to navbar if they are a manager
+		        if(localRoleId===2){
+		        		addOptions();
+		        }else if(localRoleId===1){
+		        	    //nothing to do
+		        }else{
+		        		location.href = "http://localhost:8080/ers_project/static/NotAuthorized.html";
+		        }
+		        // nothing to do here for new reimbursements
+	    		}else{
+	    			location.reload(true);
+	    		}
+	    } else if (xhttp.getResponseHeader("Location")==="/ers_project/static/NotAuthorized.html"){
+	    		//Couldn't validate role ID so send to not authorized.
+	    		location.href = "http://localhost:8080/ers_project/static/NotAuthorized.html";
 	    }
 	}
     xhttp.open('GET','getRole');
     xhttp.send(); 
-    
 }
 
 // UTILITY FUNCTIONS
@@ -98,8 +107,15 @@ function enableUserIdEntry(){
 //onClick of submit button in html button, call MY submit function, and call to post, sending parameters
 //to write new reimb to the database...when returns here, run retrieveOther() since that
 //works for any id...doing this near the top of the .js page...not here
+/*function submit(){
+	let newId=document.getElementById("new-reimb-id").value;
+	uploadImage(submit2(), newId);
+}*/
 function submit(){
 	console.log("we got to the submit() function");
+	
+	uploadImage(); //not sure I want this here
+	
 	let xhttp = new XMLHttpRequest();
 	
 	let newId=document.getElementById("new-reimb-id").value;
@@ -118,7 +134,7 @@ function submit(){
 			if(xhttp.readyState == 4 && xhttp.status == 200) {
 				//alert(xhttp.responseText);
 				//call success modal
-				uploadImage();
+				//uploadImage(); //not sure I want this here
 				$("#success-modal").modal()
 				setTimeout(function() {$('#success-modal').modal('hide');}, 2000);
 				document.getElementById("submit-form").reset();
@@ -145,9 +161,11 @@ function uploadImage(){
 	let file = fileInput.files[0];
 	let formData = new FormData();
 	formData.append('new-receipt', file);
+	//formData.append('new-id',newId);
 	
 	xhttp.onreadystatechange = function() {//Call a function when the state changes.
 		if(xhttp.readyState == 4 && xhttp.status == 200) {
+			//myNextFunction;
 		}
 	}
 	
